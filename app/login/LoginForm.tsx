@@ -5,6 +5,18 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { signIn, signInWithGoogle } from "@/lib/auth";
 
+function mensajeErrorLogin(errorMessage: string) {
+  if (errorMessage === "Invalid login credentials") {
+    return "Email o contrasena incorrectos";
+  }
+
+  if (errorMessage.includes("Unsupported provider")) {
+    return "Google todavia no esta habilitado en Supabase Auth.";
+  }
+
+  return errorMessage;
+}
+
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirect");
@@ -28,11 +40,7 @@ export default function LoginForm() {
       const { error } = await signIn(email, password);
 
       if (error) {
-        setError(
-          error.message === "Invalid login credentials"
-            ? "Email o contraseña incorrectos"
-            : error.message
-        );
+        setError(mensajeErrorLogin(error.message));
         return;
       }
 
@@ -53,7 +61,7 @@ export default function LoginForm() {
       const { error } = await signInWithGoogle(redirectUrl);
 
       if (error) {
-        setError(error.message);
+        setError(mensajeErrorLogin(error.message));
         setGoogleLoading(false);
       }
     } catch {
