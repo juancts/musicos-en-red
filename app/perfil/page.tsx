@@ -51,6 +51,8 @@ const GENEROS = [
   "R&B",
 ];
 
+const AVATAR_BUCKET = "avatars";
+
 type PerfilMusico = {
   id: string;
   tipo?: string | null;
@@ -176,7 +178,13 @@ export default function PerfilPage() {
       }
 
       if (!perfilData) {
-        const nombreFallback = user.email?.split("@")[0] ?? "Mi perfil";
+        const nombreFallback =
+          user.user_metadata?.full_name ??
+          user.user_metadata?.name ??
+          user.email?.split("@")[0] ??
+          "Mi perfil";
+        const avatarFallback =
+          user.user_metadata?.avatar_url ?? user.user_metadata?.picture ?? null;
         const { data: nuevoPerfil, error: insertError } = await supabase
           .from("usuarios")
           .insert({
@@ -184,6 +192,7 @@ export default function PerfilPage() {
             tipo: TIPO_MUSICO,
             nombre: nombreFallback,
             email: user.email,
+            avatar_url: avatarFallback,
             disponible: true,
           })
           .select(perfilSelect)
@@ -410,6 +419,7 @@ export default function PerfilPage() {
         <EditarPerfil
           form={form}
           setForm={setForm}
+          userId={user.id}
           userEmail={user.email ?? "Sin email"}
           guardando={guardando}
           error={errorEdicion}
@@ -516,6 +526,7 @@ function VistaPerfil({
 function EditarPerfil({
   form,
   setForm,
+  userId,
   userEmail,
   guardando,
   error,
@@ -525,6 +536,7 @@ function EditarPerfil({
 }: {
   form: FormPerfil;
   setForm: React.Dispatch<React.SetStateAction<FormPerfil>>;
+  userId: string;
   userEmail: string;
   guardando: boolean;
   error: string | null;
@@ -532,6 +544,52 @@ function EditarPerfil({
   onCancel: () => void;
   onToggleArrayValue: (field: "busca" | "generos", value: string) => void;
 }) {
+  const [subiendoAvatar, setSubiendoAvatar] = useState(false);
+  const [errorAvatar, setErrorAvatar] = useState<string | null>(null);
+
+  const subirAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setErrorAvatar(null);
+
+    if (!file.type.startsWith("image/")) {
+      setErrorAvatar("Selecciona una imagen valida.");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      setErrorAvatar("La imagen no puede superar 2 MB.");
+      event.target.value = "";
+      return;
+    }
+
+    setSubiendoAvatar(true);
+
+    const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
+    const filePath = `${userId}/avatar-${Date.now()}.${extension}`;
+    const { error: uploadError } = await supabase.storage
+      .from(AVATAR_BUCKET)
+      .upload(filePath, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+
+    setSubiendoAvatar(false);
+    event.target.value = "";
+
+    if (uploadError) {
+      setErrorAvatar(
+        "No pudimos subir el avatar. Revisa que este aplicada la migracion 010_avatar_storage.sql."
+      );
+      return;
+    }
+
+    const { data } = supabase.storage.from(AVATAR_BUCKET).getPublicUrl(filePath);
+    setForm((current) => ({ ...current, avatar_url: data.publicUrl }));
+  };
+
   return (
     <form onSubmit={onSubmit} className="grid gap-6 lg:grid-cols-[320px_1fr]">
       <aside className="border border-gray-100 rounded-2xl p-6 space-y-4">
@@ -728,21 +786,56 @@ function EditarPerfil({
         </div>
 
         <div className="border border-gray-100 rounded-2xl p-6">
-          <label className="block text-sm font-medium text-gray-900 mb-3">
-            Avatar URL
-          </label>
-          <input
-            type="url"
-            value={form.avatar_url}
-            onChange={(event) =>
-              setForm((current) => ({
-                ...current,
-                avatar_url: event.target.value,
-              }))
-            }
-            className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-            placeholder="https://..."
-          />
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-sm font-medium text-gray-900">Avatar</h2>
+              <p className="mt-1 text-xs text-gray-400">
+                Sube una imagen cuadrada o pega una URL publica.
+              </p>
+            </div>
+            <label className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:border-gray-300">
+              {subiendoAvatar ? "Subiendo..." : "Subir imagen"}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={subirAvatar}
+                disabled={subiendoAvatar}
+                className="sr-only"
+              />
+            </label>
+          </div>
+
+          <div className="mt-4 flex items-center gap-4">
+            {form.avatar_url ? (
+              <div
+                aria-label="Vista previa del avatar"
+                className="h-16 w-16 flex-shrink-0 rounded-2xl bg-gray-100 bg-cover bg-center"
+                style={{ backgroundImage: `url(${form.avatar_url})` }}
+              />
+            ) : (
+              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-xl font-bold text-emerald-700">
+                {(form.nombre || userEmail).charAt(0).toUpperCase()}
+              </div>
+            )}
+            <input
+              type="url"
+              value={form.avatar_url}
+              onChange={(event) =>
+                setForm((current) => ({
+                  ...current,
+                  avatar_url: event.target.value,
+                }))
+              }
+              className="min-w-0 flex-1 border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+              placeholder="https://..."
+            />
+          </div>
+
+          {errorAvatar && (
+            <p className="mt-3 text-sm text-red-600" role="alert">
+              {errorAvatar}
+            </p>
+          )}
         </div>
 
         {error && (

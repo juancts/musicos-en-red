@@ -65,9 +65,17 @@ export default async function PerfilPublico({ params }: Props) {
       </Link>
 
       <div className="flex items-start gap-5 mb-10">
-        <div className="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-xl flex-shrink-0">
-          {usuario.nombre?.charAt(0).toUpperCase() ?? "?"}
-        </div>
+        {usuario.avatar_url ? (
+          <div
+            aria-label="Avatar del perfil"
+            className="w-16 h-16 rounded-2xl bg-gray-100 bg-cover bg-center flex-shrink-0"
+            style={{ backgroundImage: `url(${usuario.avatar_url})` }}
+          />
+        ) : (
+          <div className="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-xl flex-shrink-0">
+            {usuario.nombre?.charAt(0).toUpperCase() ?? "?"}
+          </div>
+        )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-xl font-semibold text-gray-900">{usuario.nombre}</h1>

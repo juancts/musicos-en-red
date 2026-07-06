@@ -12,6 +12,20 @@ export const signIn = async (email: string, password: string) => {
   return { data, error };
 };
 
+// Login con Google
+export const signInWithGoogle = async (redirectTo: string) => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo,
+      queryParams: {
+        prompt: "select_account",
+      },
+    },
+  });
+  return { data, error };
+};
+
 // Logout
 export const signOut = async () => {
   const { error } = await supabase.auth.signOut();
