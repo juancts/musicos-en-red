@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import type { PostgrestError } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
 import { mensajeErrorEsquemaSalas } from "@/lib/erroresSupabase";
 import { TIPO_SALA } from "@/lib/usuario";
@@ -47,8 +48,8 @@ export default function SalasPage() {
       const selectBasico =
         "id, nombre, ciudad, codigo_postal, provincia, bio, precio_hora, capacidad_max, equipamiento, disponible, servicios";
 
-      let data: any = null;
-      let queryError: any = null;
+      let data: SalaListItem[] | null = null;
+      let queryError: PostgrestError | null = null;
 
       const res = await supabase
         .from("usuarios")
@@ -56,7 +57,7 @@ export default function SalasPage() {
         .eq("tipo", TIPO_SALA)
         .order("created_at", { ascending: false });
 
-      data = res.data;
+      data = (res.data as SalaListItem[] | null) ?? null;
       queryError = res.error;
 
       if (
@@ -69,7 +70,7 @@ export default function SalasPage() {
           .select(selectBasico)
           .eq("tipo", TIPO_SALA)
           .order("created_at", { ascending: false });
-        data = fallback.data;
+        data = (fallback.data as SalaListItem[] | null) ?? null;
         queryError = fallback.error;
       }
 
@@ -85,7 +86,7 @@ export default function SalasPage() {
         return;
       }
 
-      setSalas((data as SalaListItem[] | null) ?? []);
+      setSalas(data ?? []);
       setLoading(false);
     }
 

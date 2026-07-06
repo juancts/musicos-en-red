@@ -189,6 +189,7 @@ export default function MensajesInbox() {
 
   useEffect(() => {
     if (!userId || !conversacionActiva) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMensajes([]);
       return;
     }

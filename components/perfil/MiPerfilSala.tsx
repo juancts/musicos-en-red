@@ -19,7 +19,7 @@ import {
   toggleEnLista,
   type PacksUnlocked,
 } from "@/lib/centro";
-import { EQUIPAMIENTO_SALA, formatearPrecioHora, perfilSelect } from "@/lib/usuario";
+import { formatearPrecioHora, perfilSelect } from "@/lib/usuario";
 
 export type PerfilSala = {
   id: string;

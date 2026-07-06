@@ -59,6 +59,7 @@ export default function GestionEspaciosCentro({ centroId }: Props) {
   }, [centroId]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     cargar();
   }, [cargar]);
 

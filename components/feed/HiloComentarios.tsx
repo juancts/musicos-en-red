@@ -70,6 +70,7 @@ export default function HiloComentarios({
   }, [publicacionId]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     cargar();
   }, [cargar]);
 
