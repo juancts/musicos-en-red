@@ -2,6 +2,7 @@ import { supabase } from "@/lib/supabase";
 import type { Partitura } from "@/types";
 import { esSala, TIPO_SALA } from "@/lib/usuario";
 import PerfilPublicoSala from "@/components/perfil/PerfilPublicoSala";
+import ContactarUsuarioButton from "@/components/mensajes/ContactarUsuarioButton";
 import Link from "next/link";
 
 type Props = {
@@ -46,6 +47,13 @@ export default async function PerfilPublico({ params }: Props) {
     .select("*")
     .eq("usuario_id", id)
     .order("created_at", { ascending: false });
+
+  const puedeMensaje = usuario.disponible && (usuario.contacto_mensajes ?? true);
+  const emailVisible =
+    usuario.disponible && usuario.contacto_email_publico && usuario.email;
+  const telefonoVisible =
+    usuario.disponible && usuario.contacto_telefono_publico && usuario.telefono;
+  const tieneContacto = puedeMensaje || emailVisible || telefonoVisible;
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
@@ -98,6 +106,35 @@ export default async function PerfilPublico({ params }: Props) {
                 {g}
               </span>
             ))}
+          </div>
+        </div>
+      )}
+
+      {tieneContacto && (
+        <div className="mb-10 rounded-2xl border border-emerald-100 bg-emerald-50/40 p-5">
+          <h2 className="text-xs font-medium text-emerald-700 uppercase tracking-wider mb-3">
+            Contacto
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {puedeMensaje && (
+              <ContactarUsuarioButton usuarioId={usuario.id} nombre={usuario.nombre} />
+            )}
+            {emailVisible && (
+              <a
+                href={`mailto:${usuario.email}`}
+                className="inline-flex items-center justify-center rounded-xl border border-emerald-200 bg-white px-4 py-2.5 text-sm font-medium text-emerald-700 transition-colors hover:border-emerald-300"
+              >
+                Enviar email
+              </a>
+            )}
+            {telefonoVisible && (
+              <a
+                href={`tel:${String(usuario.telefono).replace(/\s/g, "")}`}
+                className="inline-flex items-center justify-center rounded-xl border border-emerald-200 bg-white px-4 py-2.5 text-sm font-medium text-emerald-700 transition-colors hover:border-emerald-300"
+              >
+                Llamar
+              </a>
+            )}
           </div>
         </div>
       )}

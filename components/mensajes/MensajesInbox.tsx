@@ -14,7 +14,7 @@ import {
   type ConversacionConParticipantes,
   type MensajeRow,
 } from "@/lib/mensajes";
-import { esMusico, TIPO_MUSICO } from "@/lib/usuario";
+import { TIPO_MUSICO } from "@/lib/usuario";
 
 type Estado = "cargando" | "sin-sesion" | "listo";
 
@@ -40,7 +40,7 @@ export default function MensajesInbox() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const conversacionActiva = searchParams.get("c");
-  const salaNueva = searchParams.get("sala");
+  const contactoNuevo = searchParams.get("usuario") ?? searchParams.get("sala");
 
   const [estado, setEstado] = useState<Estado>("cargando");
   const [userId, setUserId] = useState<string | null>(null);
@@ -132,7 +132,7 @@ export default function MensajesInbox() {
 
       setUserId(user.id);
 
-      if (salaNueva) {
+      if (contactoNuevo) {
         const { data: perfil } = await supabase
           .from("usuarios")
           .select("tipo")
@@ -147,15 +147,11 @@ export default function MensajesInbox() {
             email: user.email,
             disponible: true,
           });
-        } else if (!esMusico(perfil)) {
-          setError("Solo los músicos pueden iniciar conversaciones con salas.");
-          setEstado("listo");
-          return;
         }
 
         const { data: convId, error: convError } = await obtenerOCrearConversacion(
           user.id,
-          salaNueva
+          contactoNuevo
         );
 
         if (!activo) return;
@@ -185,7 +181,7 @@ export default function MensajesInbox() {
       activo = false;
       subscription.unsubscribe();
     };
-  }, [salaNueva, router, cargarConversaciones]);
+  }, [contactoNuevo, router, cargarConversaciones]);
 
   useEffect(() => {
     if (!userId || !conversacionActiva) {
@@ -272,7 +268,7 @@ export default function MensajesInbox() {
       <div className="max-w-2xl mx-auto px-4 py-24 text-center">
         <h1 className="text-xl font-semibold text-gray-900">Mensajes</h1>
         <p className="mt-2 text-sm text-gray-400">
-          Inicia sesión para hablar con salas de ensayo.
+          Inicia sesion para hablar con otros contactos.
         </p>
         <Link
           href={`/login?redirect=${encodeURIComponent("/mensajes")}`}
@@ -291,7 +287,7 @@ export default function MensajesInbox() {
       <div className="mb-6">
         <h1 className="text-2xl font-semibold text-gray-900">Mensajes</h1>
         <p className="text-sm text-gray-400 mt-1">
-          Conversaciones entre músicos y salas de ensayo
+          Conversaciones con musicos y salas
         </p>
       </div>
 
@@ -318,8 +314,8 @@ export default function MensajesInbox() {
               <p className="px-4 py-8 text-sm text-gray-400 text-center">
                 Aún no tienes mensajes.
                 <br />
-                <Link href="/salas" className="text-emerald-600 hover:underline mt-2 inline-block">
-                  Explorar salas →
+                <Link href="/explorar" className="text-emerald-600 hover:underline mt-2 inline-block">
+                  Explorar musicos
                 </Link>
               </p>
             ) : (
@@ -375,7 +371,7 @@ export default function MensajesInbox() {
           {!conversacionActiva ? (
             <div className="flex-1 flex items-center justify-center p-8 text-center">
               <p className="text-sm text-gray-400">
-                Elige una conversación o contacta una sala desde su perfil.
+                Elige una conversacion o contacta a alguien desde su perfil.
               </p>
             </div>
           ) : (
@@ -398,7 +394,7 @@ export default function MensajesInbox() {
                       href={`/musicos/${conversacionSeleccionada.musico_id}`}
                       className="text-xs text-emerald-600 hover:underline"
                     >
-                      Ver perfil del músico
+                      Ver perfil
                     </Link>
                   )}
                   {conversacionSeleccionada && userId === conversacionSeleccionada.musico_id && (
@@ -406,7 +402,7 @@ export default function MensajesInbox() {
                       href={`/musicos/${conversacionSeleccionada.sala_id}`}
                       className="text-xs text-emerald-600 hover:underline"
                     >
-                      Ver perfil de la sala
+                      Ver perfil
                     </Link>
                   )}
                 </div>
@@ -417,7 +413,7 @@ export default function MensajesInbox() {
                   <p className="text-sm text-gray-400 text-center py-8">Cargando...</p>
                 ) : mensajes.length === 0 ? (
                   <p className="text-sm text-gray-400 text-center py-8">
-                    Escribe el primer mensaje para coordinar el ensayo.
+                    Escribe el primer mensaje.
                   </p>
                 ) : (
                   mensajes.map((msg) => {

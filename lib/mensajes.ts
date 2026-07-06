@@ -37,13 +37,15 @@ const conversacionSelect = `
   sala:usuarios!conversaciones_sala_id_fkey ( id, nombre )
 `;
 
-/** Iniciador en musico_id; el otro usuario en sala_id (también válido entre músicos). */
+/** Iniciador en musico_id; el otro usuario en sala_id; sirve tambien entre musicos. */
 export async function obtenerOCrearConversacion(musicoId: string, salaId: string) {
   const { data: existente, error: selectError } = await supabase
     .from("conversaciones")
     .select("id")
-    .eq("musico_id", musicoId)
-    .eq("sala_id", salaId)
+    .or(
+      `and(musico_id.eq.${musicoId},sala_id.eq.${salaId}),and(musico_id.eq.${salaId},sala_id.eq.${musicoId})`
+    )
+    .limit(1)
     .maybeSingle();
 
   if (selectError) {
@@ -143,7 +145,7 @@ export function nombreContraparte(
   userId: string
 ) {
   if (userId === conversacion.musico_id) {
-    return conversacion.sala?.nombre ?? "Sala";
+    return conversacion.sala?.nombre ?? "Contacto";
   }
-  return conversacion.musico?.nombre ?? "Músico";
+  return conversacion.musico?.nombre ?? "Contacto";
 }

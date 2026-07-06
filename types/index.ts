@@ -16,6 +16,11 @@ export type Musico = {
   codigo_postal?: string;
   provincia?: string;
   bio: string;
+  email?: string;
+  telefono?: string;
+  contacto_mensajes?: boolean;
+  contacto_email_publico?: boolean;
+  contacto_telefono_publico?: boolean;
   instrumento?: string;
   generos?: string[];
   avatar_url?: string;

@@ -15,7 +15,7 @@ export const EQUIPAMIENTO_SALA = [
 ] as const;
 
 export const perfilSelect =
-  "id, nombre, email, tipo, ciudad, codigo_postal, provincia, bio, avatar_url, instrumento, busca, generos, disponible, direccion, telefono, precio_hora, capacidad_max, equipamiento, horario, servicios, comodidades, modelos_alquiler, packs_unlocked, precio_locked_mensual, created_at";
+  "id, nombre, email, tipo, ciudad, codigo_postal, provincia, bio, avatar_url, instrumento, busca, generos, disponible, direccion, telefono, contacto_mensajes, contacto_email_publico, contacto_telefono_publico, precio_hora, capacidad_max, equipamiento, horario, servicios, comodidades, modelos_alquiler, packs_unlocked, precio_locked_mensual, created_at";
 
 export function esSala(perfil: { tipo?: string | null }) {
   return perfil.tipo === TIPO_SALA;

@@ -65,6 +65,10 @@ type PerfilMusico = {
   busca: string[] | null;
   generos: string[] | null;
   disponible: boolean | null;
+  telefono: string | null;
+  contacto_mensajes: boolean | null;
+  contacto_email_publico: boolean | null;
+  contacto_telefono_publico: boolean | null;
   created_at?: string | null;
 };
 
@@ -79,6 +83,10 @@ type FormPerfil = {
   busca: string[];
   generos: string[];
   disponible: boolean;
+  telefono: string;
+  contacto_mensajes: boolean;
+  contacto_email_publico: boolean;
+  contacto_telefono_publico: boolean;
 };
 
 type Estado = "cargando" | "sin-sesion" | "sin-perfil" | "error" | "listo";
@@ -95,6 +103,10 @@ function perfilToForm(perfil: PerfilMusico): FormPerfil {
     busca: perfil.busca ?? [],
     generos: perfil.generos ?? [],
     disponible: perfil.disponible ?? true,
+    telefono: perfil.telefono ?? "",
+    contacto_mensajes: perfil.contacto_mensajes ?? true,
+    contacto_email_publico: perfil.contacto_email_publico ?? false,
+    contacto_telefono_publico: perfil.contacto_telefono_publico ?? false,
   };
 }
 
@@ -117,6 +129,10 @@ export default function PerfilPage() {
     busca: [],
     generos: [],
     disponible: true,
+    telefono: "",
+    contacto_mensajes: true,
+    contacto_email_publico: false,
+    contacto_telefono_publico: false,
   });
 
   useEffect(() => {
@@ -271,6 +287,10 @@ export default function PerfilPage() {
         busca: form.busca,
         generos: form.generos,
         disponible: form.disponible,
+        telefono: form.telefono.trim() || null,
+        contacto_mensajes: form.contacto_mensajes,
+        contacto_email_publico: form.contacto_email_publico,
+        contacto_telefono_publico: form.contacto_telefono_publico,
         email: user.email,
       })
       .eq("id", perfil.id)
@@ -444,6 +464,18 @@ function VistaPerfil({
             label="Código postal"
             value={perfil.codigo_postal ?? "Sin código postal"}
           />
+          <Info
+            label="Contacto"
+            value={
+              [
+                perfil.contacto_mensajes ? "Mensajes" : null,
+                perfil.contacto_email_publico ? "Email" : null,
+                perfil.contacto_telefono_publico ? "Telefono" : null,
+              ]
+                .filter(Boolean)
+                .join(", ") || "Sin vias publicas"
+            }
+          />
           <Info label="ID de usuario" value={user.id} />
           {perfil.created_at && (
             <Info
@@ -585,6 +617,76 @@ function EditarPerfil({
               className="h-4 w-4 accent-emerald-600"
             />
           </label>
+        </div>
+
+        <div className="space-y-3 rounded-2xl border border-gray-100 p-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Telefono de contacto
+            </label>
+            <input
+              type="tel"
+              value={form.telefono}
+              onChange={(event) =>
+                setForm((current) => ({
+                  ...current,
+                  telefono: event.target.value,
+                }))
+              }
+              className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+              placeholder="+34 600 000 000"
+            />
+          </div>
+
+          <div>
+            <p className="block text-sm font-medium text-gray-700 mb-2">
+              Vias visibles
+            </p>
+            <div className="space-y-2">
+              <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm text-gray-600">
+                Mensaje en la app
+                <input
+                  type="checkbox"
+                  checked={form.contacto_mensajes}
+                  onChange={(event) =>
+                    setForm((current) => ({
+                      ...current,
+                      contacto_mensajes: event.target.checked,
+                    }))
+                  }
+                  className="h-4 w-4 accent-emerald-600"
+                />
+              </label>
+              <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm text-gray-600">
+                Mostrar email
+                <input
+                  type="checkbox"
+                  checked={form.contacto_email_publico}
+                  onChange={(event) =>
+                    setForm((current) => ({
+                      ...current,
+                      contacto_email_publico: event.target.checked,
+                    }))
+                  }
+                  className="h-4 w-4 accent-emerald-600"
+                />
+              </label>
+              <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm text-gray-600">
+                Mostrar telefono
+                <input
+                  type="checkbox"
+                  checked={form.contacto_telefono_publico}
+                  onChange={(event) =>
+                    setForm((current) => ({
+                      ...current,
+                      contacto_telefono_publico: event.target.checked,
+                    }))
+                  }
+                  className="h-4 w-4 accent-emerald-600"
+                />
+              </label>
+            </div>
+          </div>
         </div>
 
         <Info label="Email de sesión" value={userEmail} />
