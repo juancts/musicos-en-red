@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed:salas": "node scripts/seed-salas-ejemplo.mjs",
+    "seed:instrumentos": "node scripts/seed-instrumentos-ejemplo.mjs",
+    "seed:feed": "node scripts/seed-feed-ejemplo.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.89.0",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"

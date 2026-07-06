@@ -1,0 +1,13 @@
+-- En Supabase → SQL Editor, ejecuta EN ESTE ORDEN:
+--   1) migrations/001_salas_ensayo.sql
+--   2) migrations/003_centro_multiespacio.sql
+--   3) migrations/002_mensajes.sql  (mensajes)
+--   4) migrations/004_instrumentos_marketplace.sql
+--   5) migrations/005_feed_publicaciones.sql
+--   5b) migrations/006_feed_likes_comentarios.sql
+--   6) npm run seed:salas             (opcional, datos demo)
+--   7) npm run seed:instrumentos      (opcional, anuncios demo)
+--   8) npm run seed:feed              (opcional, publicaciones demo)
+--
+-- El editor no admite varios archivos a la vez: abre cada .sql,
+-- copia todo el contenido y pulsa Run.
