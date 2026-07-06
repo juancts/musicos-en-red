@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ContactarSalaButton from "@/components/mensajes/ContactarSalaButton";
 import CentroDetalleView from "@/components/salas/CentroDetalleView";
+import SolicitarReservaSalaForm from "@/components/salas/SolicitarReservaSalaForm";
 import type { CentroMusical, EspacioEnsayo } from "@/lib/centro";
 import { precioDesdeEspacios } from "@/lib/centro";
 import { formatearPrecioHora } from "@/lib/usuario";
@@ -82,6 +83,12 @@ export default function PerfilPublicoSala({ sala, espacios }: Props) {
       )}
 
       <CentroDetalleView centro={sala} espacios={espacios} />
+
+      <SolicitarReservaSalaForm
+        salaId={sala.id}
+        salaNombre={sala.nombre}
+        espacios={espacios}
+      />
 
       {sala.horario && (
         <div className="mb-8">

@@ -19,6 +19,7 @@ import {
   toggleEnLista,
   type PacksUnlocked,
 } from "@/lib/centro";
+import SolicitudesReservaSalaPanel from "@/components/salas/SolicitudesReservaSalaPanel";
 import { formatearPrecioHora, perfilSelect } from "@/lib/usuario";
 
 export type PerfilSala = {
@@ -442,6 +443,7 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
               </div>
             )}
             <GestionEspaciosCentro centroId={perfil.id} />
+            <SolicitudesReservaSalaPanel salaId={perfil.id} />
           </section>
         </div>
       )}
