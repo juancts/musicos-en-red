@@ -117,9 +117,9 @@ export default function LoginForm() {
               <label className="block text-sm font-medium text-gray-700">
                 Contraseña
               </label>
-              <a href="#" className="text-xs text-emerald-600 hover:underline">
+              <Link href="/recuperar-password" className="text-xs text-emerald-600 hover:underline">
                 ¿Olvidaste tu contraseña?
-              </a>
+              </Link>
             </div>
             <input
               type="password"
