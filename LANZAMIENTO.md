@@ -4,10 +4,9 @@ Auditoría realizada el 2026-07-17. Estado del código base antes de abrir la ap
 
 ## 1. Bloqueantes (resolver antes de abrir al público)
 
-- [ ] **Páginas legales**: Términos, Privacidad y Contacto están enlazadas a `#` en `components/layout/Footer.tsx:19-21`. No existe ninguna página real en `app/`.
-  - Crear `app/terminos/page.tsx`, `app/privacidad/page.tsx`, `app/contacto/page.tsx` (o una página de contacto con formulario/email).
-  - Necesario sobre todo por: cuentas de usuario, mensajería privada, marketplace de instrumentos, datos de ubicación.
-  - Actualizar los `href="#"` del footer a las rutas reales.
+- [x] **Páginas legales**: creadas `app/terminos/page.tsx`, `app/privacidad/page.tsx` y `app/contacto/page.tsx`, enlazadas desde el footer. Los datos del responsable (nombre, email, NIF, domicilio, dominio) están centralizados en `lib/legal.ts`.
+  - ⚠️ **Pendiente**: `lib/legal.ts` tiene datos provisionales (`contacto@musicosenred.com`, dominio `musicosenred.com`, sin NIF ni domicilio). Actualizar ese archivo en cuanto tengas el dominio real, la razón social definitiva y (si aplica) el NIF/CIF y domicilio fiscal — se propaga automáticamente a las 3 páginas.
+  - Recomendable que un abogado revise el texto antes de escalar más allá de un beta cerrado, especialmente la política de privacidad (RGPD).
 
 - [x] **Recuperar contraseña**: implementado. `lib/auth.ts` ahora tiene `resetPasswordForEmail` y `updatePassword`, con páginas `app/recuperar-password/page.tsx` y `app/actualizar-password/page.tsx`. El link del login ya apunta a `/recuperar-password`.
   - ⚠️ **Pendiente de configuración manual**: en Supabase → Authentication → URL Configuration → Redirect URLs, añadir `https://TU-DOMINIO/actualizar-password` (y `http://localhost:3000/actualizar-password` para desarrollo). Sin esto el link del email de recuperación no funcionará en producción.

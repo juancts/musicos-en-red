@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="border-t border-gray-100 mt-20">
@@ -16,9 +18,9 @@ export default function Footer() {
           © {new Date().getFullYear()} Músicos en Red · Todos los derechos reservados
         </p>
         <div className="flex gap-5 text-xs text-gray-400">
-          <a href="#" className="hover:text-gray-600 transition-colors">Términos</a>
-          <a href="#" className="hover:text-gray-600 transition-colors">Privacidad</a>
-          <a href="#" className="hover:text-gray-600 transition-colors">Contacto</a>
+          <Link href="/terminos" className="hover:text-gray-600 transition-colors">Términos</Link>
+          <Link href="/privacidad" className="hover:text-gray-600 transition-colors">Privacidad</Link>
+          <Link href="/contacto" className="hover:text-gray-600 transition-colors">Contacto</Link>
         </div>
       </div>
     </footer>
