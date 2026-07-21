@@ -1,6 +1,8 @@
 import type Stripe from "stripe";
 import { getStripeAdmin } from "@/lib/stripeAdmin";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
+import { getRemitente, getResendAdmin } from "@/lib/resendAdmin";
+import { emailBienvenidaSuscripcion } from "@/lib/emails/bienvenidaSuscripcion";
 
 export const runtime = "nodejs";
 
@@ -14,6 +16,32 @@ async function resolverUsuarioId(sub: Stripe.Subscription): Promise<string | nul
     .maybeSingle();
 
   return data?.usuario_id ?? null;
+}
+
+async function enviarEmailBienvenida(usuarioId: string, emailReserva: string | null) {
+  const { data: usuario } = await getSupabaseAdmin()
+    .from("usuarios")
+    .select("nombre, email")
+    .eq("id", usuarioId)
+    .maybeSingle();
+
+  const destinatario = usuario?.email || emailReserva;
+  if (!destinatario) return;
+
+  const { subject, html } = emailBienvenidaSuscripcion(usuario?.nombre);
+
+  try {
+    await getResendAdmin().emails.send({
+      from: getRemitente(),
+      to: destinatario,
+      subject,
+      html,
+    });
+  } catch (err) {
+    // El email es un plus, no debe tumbar el webhook si falla — la
+    // suscripción ya quedó guardada en ese punto.
+    console.error("No se pudo enviar el email de bienvenida:", err);
+  }
 }
 
 async function upsertSuscripcion(
@@ -66,6 +94,7 @@ export async function POST(req: Request) {
           String(session.subscription)
         );
         await upsertSuscripcion(usuarioId, String(session.customer), sub);
+        await enviarEmailBienvenida(usuarioId, session.customer_details?.email ?? null);
       }
       break;
     }
