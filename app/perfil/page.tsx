@@ -14,6 +14,7 @@ import {
 import { esSala, perfilSelect, TIPO_MUSICO } from "@/lib/usuario";
 import MiPerfilSala, { type PerfilSala } from "@/components/perfil/MiPerfilSala";
 import MisAnunciosPanel from "@/components/instrumentos/MisAnunciosPanel";
+import SuscripcionPanel from "@/components/suscripcion/SuscripcionPanel";
 
 const INSTRUMENTOS = [
   "Guitarrista",
@@ -516,6 +517,8 @@ function VistaPerfil({
         </div>
 
         <PartiturasPanel partituras={partituras} />
+
+        <SuscripcionPanel userId={user.id} />
 
         <MisAnunciosPanel userId={user.id} />
       </section>

@@ -2,6 +2,8 @@ import Link from "next/link";
 import ContactarSalaButton from "@/components/mensajes/ContactarSalaButton";
 import CentroDetalleView from "@/components/salas/CentroDetalleView";
 import SolicitarReservaSalaForm from "@/components/salas/SolicitarReservaSalaForm";
+import AccionesPerfil from "@/components/moderacion/AccionesPerfil";
+import BadgeSuscriptor from "@/components/suscripcion/BadgeSuscriptor";
 import type { CentroMusical, EspacioEnsayo } from "@/lib/centro";
 import { precioDesdeEspacios } from "@/lib/centro";
 import { formatearPrecioHora } from "@/lib/usuario";
@@ -11,9 +13,10 @@ export type UsuarioSala = CentroMusical & { id: string };
 type Props = {
   sala: UsuarioSala;
   espacios: EspacioEnsayo[];
+  esSuscriptor?: boolean;
 };
 
-export default function PerfilPublicoSala({ sala, espacios }: Props) {
+export default function PerfilPublicoSala({ sala, espacios, esSuscriptor }: Props) {
   const precioMin =
     precioDesdeEspacios(espacios) ?? sala.precio_hora;
   const precio = formatearPrecioHora(precioMin);
@@ -38,6 +41,7 @@ export default function PerfilPublicoSala({ sala, espacios }: Props) {
           </span>
           <div className="flex items-center gap-2 flex-wrap mt-1">
             <h1 className="text-xl font-semibold text-gray-900">{sala.nombre}</h1>
+            {esSuscriptor && <BadgeSuscriptor />}
             {sala.disponible && (
               <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
                 Disponible
@@ -59,6 +63,9 @@ export default function PerfilPublicoSala({ sala, espacios }: Props) {
               <span className="text-sm font-normal text-gray-400"> / hora</span>
             </p>
           )}
+          <div className="mt-3">
+            <AccionesPerfil usuarioId={sala.id} redirectLogin={`/musicos/${sala.id}`} />
+          </div>
         </div>
       </div>
 

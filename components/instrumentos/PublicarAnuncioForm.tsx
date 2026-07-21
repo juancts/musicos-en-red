@@ -15,6 +15,7 @@ import {
   normalizarCodigoPostal,
   provinciaDesdeCodigoPostal,
 } from "@/lib/ubicacion";
+import { esSuscriptorActivo, LIMITE_ANUNCIOS_GRATIS, obtenerSuscripcion } from "@/lib/suscripcion";
 
 type UbicacionInicial = {
   ciudad?: string | null;
@@ -69,6 +70,22 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
       return;
     }
 
+    const { estado: estadoSuscripcion } = await obtenerSuscripcion(supabase, userId);
+    if (!esSuscriptorActivo(estadoSuscripcion)) {
+      const { count } = await supabase
+        .from("anuncios_instrumentos")
+        .select("id", { count: "exact", head: true })
+        .eq("vendedor_id", userId)
+        .eq("estado", "activo");
+
+      if ((count ?? 0) >= LIMITE_ANUNCIOS_GRATIS) {
+        setError(
+          `El plan gratuito permite hasta ${LIMITE_ANUNCIOS_GRATIS} anuncios activos. Suscríbete desde tu perfil para publicar sin límite.`
+        );
+        return;
+      }
+    }
+
     setGuardando(true);
 
     let fotoUrls: string[] = [];
@@ -109,9 +126,11 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
 
     if (insertError || !data) {
       setError(
-        insertError?.message.includes("anuncios_instrumentos")
-          ? "Ejecuta la migración 004_instrumentos_marketplace.sql en Supabase."
-          : "No pudimos publicar el anuncio. Inténtalo de nuevo."
+        insertError?.message.includes("limite_anuncios_activos")
+          ? `El plan gratuito permite hasta ${LIMITE_ANUNCIOS_GRATIS} anuncios activos. Suscríbete desde tu perfil para publicar sin límite.`
+          : insertError?.message.includes("anuncios_instrumentos")
+            ? "Ejecuta la migración 004_instrumentos_marketplace.sql en Supabase."
+            : "No pudimos publicar el anuncio. Inténtalo de nuevo."
       );
       return;
     }

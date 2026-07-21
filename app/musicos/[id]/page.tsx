@@ -3,7 +3,10 @@ import type { Partitura } from "@/types";
 import { esSala, TIPO_SALA } from "@/lib/usuario";
 import PerfilPublicoSala from "@/components/perfil/PerfilPublicoSala";
 import ContactarUsuarioButton from "@/components/mensajes/ContactarUsuarioButton";
+import AccionesPerfil from "@/components/moderacion/AccionesPerfil";
 import Link from "next/link";
+import BadgeSuscriptor from "@/components/suscripcion/BadgeSuscriptor";
+import { esSuscriptorActivo, obtenerSuscripcion } from "@/lib/suscripcion";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -32,6 +35,9 @@ export default async function PerfilPublico({ params }: Props) {
     );
   }
 
+  const { estado: estadoSuscripcion } = await obtenerSuscripcion(supabase, id);
+  const esSuscriptor = esSuscriptorActivo(estadoSuscripcion);
+
   if (usuario.tipo === TIPO_SALA || esSala(usuario)) {
     const { data: espacios } = await supabase
       .from("espacios_ensayo")
@@ -39,7 +45,9 @@ export default async function PerfilPublico({ params }: Props) {
       .eq("centro_id", id)
       .order("orden", { ascending: true });
 
-    return <PerfilPublicoSala sala={usuario} espacios={espacios ?? []} />;
+    return (
+      <PerfilPublicoSala sala={usuario} espacios={espacios ?? []} esSuscriptor={esSuscriptor} />
+    );
   }
 
   const { data: partituras } = await supabase
@@ -79,6 +87,7 @@ export default async function PerfilPublico({ params }: Props) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-xl font-semibold text-gray-900">{usuario.nombre}</h1>
+            {esSuscriptor && <BadgeSuscriptor />}
             {usuario.disponible && (
               <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
                 Disponible
@@ -91,6 +100,9 @@ export default async function PerfilPublico({ params }: Props) {
               {usuario.instrumento}
             </span>
           )}
+          <div className="mt-3">
+            <AccionesPerfil usuarioId={usuario.id} redirectLogin={`/musicos/${id}`} />
+          </div>
         </div>
       </div>
 

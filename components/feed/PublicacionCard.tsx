@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import HiloComentarios from "@/components/feed/HiloComentarios";
+import ReportarButton from "@/components/moderacion/ReportarButton";
 import {
   eliminarPublicacion,
   formatearFechaRelativa,
@@ -199,8 +200,8 @@ export default function PublicacionCard({
             />
           )}
 
-          {esPropio && (
-            <div className="mt-2 flex justify-end">
+          <div className="mt-2 flex justify-end">
+            {esPropio ? (
               <button
                 type="button"
                 onClick={borrar}
@@ -209,8 +210,14 @@ export default function PublicacionCard({
               >
                 {borrando ? "Eliminando..." : "Eliminar publicación"}
               </button>
-            </div>
-          )}
+            ) : (
+              <ReportarButton
+                tipoObjetivo="publicacion"
+                objetivoId={publicacion.id}
+                redirectLogin="/feed"
+              />
+            )}
+          </div>
         </div>
       </div>
     </article>

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { esMusico } from "@/lib/usuario";
+import { obtenerSuscriptoresActivos } from "@/lib/suscripcion";
+import BadgeSuscriptor from "@/components/suscripcion/BadgeSuscriptor";
 
 type MusicoExplorar = {
   id: string;
@@ -95,6 +97,7 @@ function coincideBusqueda(musico: MusicoExplorar, busqueda: string) {
 
 export default function ExplorarPage() {
   const [musicos, setMusicos] = useState<MusicoExplorar[]>([]);
+  const [suscriptores, setSuscriptores] = useState<Set<string>>(new Set());
   const [miUbicacion, setMiUbicacion] = useState<MiUbicacion | null>(null);
   const [alcance, setAlcance] = useState<Alcance>("cerca");
   const [provincia, setProvincia] = useState("");
@@ -154,6 +157,11 @@ export default function ExplorarPage() {
 
       setMusicos(lista);
       setLoading(false);
+
+      obtenerSuscriptoresActivos(
+        supabase,
+        lista.map((musico) => musico.id)
+      ).then(setSuscriptores);
     }
 
     cargarMusicos();
@@ -205,6 +213,10 @@ export default function ExplorarPage() {
           puntajeCercania(b, miUbicacion) - puntajeCercania(a, miUbicacion);
         if (diferenciaCercania !== 0) return diferenciaCercania;
 
+        const diferenciaSuscriptor =
+          Number(suscriptores.has(b.id)) - Number(suscriptores.has(a.id));
+        if (diferenciaSuscriptor !== 0) return diferenciaSuscriptor;
+
         const diferenciaDisponible =
           Number(Boolean(b.disponible)) - Number(Boolean(a.disponible));
         if (diferenciaDisponible !== 0) return diferenciaDisponible;
@@ -220,6 +232,7 @@ export default function ExplorarPage() {
     musicos,
     provincia,
     soloDisponibles,
+    suscriptores,
   ]);
 
   const tieneUbicacion = Boolean(miUbicacion?.provincia || miUbicacion?.codigo_postal);
@@ -420,6 +433,7 @@ export default function ExplorarPage() {
                       {musico.codigo_postal ? ` · ${musico.codigo_postal}` : ""}
                     </p>
                   </div>
+                  {suscriptores.has(musico.id) && <BadgeSuscriptor />}
                   {cercania && (
                     <span className="flex-shrink-0 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700">
                       {cercania}

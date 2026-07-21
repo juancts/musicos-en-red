@@ -10,9 +10,11 @@ import {
   type AnuncioInstrumento,
   type CategoriaInstrumento,
 } from "@/lib/instrumentos";
+import { obtenerSuscriptoresActivos } from "@/lib/suscripcion";
 
 export default function InstrumentosPage() {
   const [anuncios, setAnuncios] = useState<AnuncioInstrumento[]>([]);
+  const [suscriptores, setSuscriptores] = useState<Set<string>>(new Set());
   const [categoria, setCategoria] = useState<CategoriaInstrumento | "">("");
   const [precioMax, setPrecioMax] = useState("");
   const [soloCerca, setSoloCerca] = useState(false);
@@ -65,8 +67,14 @@ export default function InstrumentosPage() {
         return;
       }
 
-      setAnuncios((data as AnuncioInstrumento[] | null) ?? []);
+      const lista = (data as AnuncioInstrumento[] | null) ?? [];
+      setAnuncios(lista);
       setLoading(false);
+
+      obtenerSuscriptoresActivos(
+        supabase,
+        lista.map((anuncio) => anuncio.vendedor_id)
+      ).then(setSuscriptores);
     }
 
     cargar();
@@ -89,9 +97,13 @@ export default function InstrumentosPage() {
     return [...lista].sort((a, b) => {
       const aCerca = miProvincia && a.provincia === miProvincia ? 1 : 0;
       const bCerca = miProvincia && b.provincia === miProvincia ? 1 : 0;
-      return bCerca - aCerca;
+      if (bCerca !== aCerca) return bCerca - aCerca;
+
+      const aSuscriptor = suscriptores.has(a.vendedor_id) ? 1 : 0;
+      const bSuscriptor = suscriptores.has(b.vendedor_id) ? 1 : 0;
+      return bSuscriptor - aSuscriptor;
     });
-  }, [anuncios, categoria, miId, miProvincia, precioMax, soloCerca]);
+  }, [anuncios, categoria, miId, miProvincia, precioMax, soloCerca, suscriptores]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
@@ -194,6 +206,7 @@ export default function InstrumentosPage() {
               key={anuncio.id}
               anuncio={anuncio}
               cerca={Boolean(miProvincia && anuncio.provincia === miProvincia)}
+              esSuscriptor={suscriptores.has(anuncio.vendedor_id)}
             />
           ))}
         </div>

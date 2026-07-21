@@ -8,6 +8,7 @@ import {
   formatearPrecioAnuncio,
   type AnuncioInstrumento,
 } from "@/lib/instrumentos";
+import { esSuscriptorActivo, LIMITE_ANUNCIOS_GRATIS, obtenerSuscripcion } from "@/lib/suscripcion";
 
 type Props = {
   userId: string;
@@ -16,6 +17,7 @@ type Props = {
 export default function MisAnunciosPanel({ userId }: Props) {
   const [anuncios, setAnuncios] = useState<AnuncioInstrumento[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const cargar = useCallback(async () => {
     setLoading(true);
@@ -37,7 +39,40 @@ export default function MisAnunciosPanel({ userId }: Props) {
   }, [cargar]);
 
   const cambiarEstado = async (id: string, estado: "activo" | "vendido" | "pausado") => {
-    await supabase.from("anuncios_instrumentos").update({ estado }).eq("id", id);
+    setError(null);
+
+    if (estado === "activo") {
+      const { estado: estadoSuscripcion } = await obtenerSuscripcion(supabase, userId);
+      if (!esSuscriptorActivo(estadoSuscripcion)) {
+        const { count } = await supabase
+          .from("anuncios_instrumentos")
+          .select("id", { count: "exact", head: true })
+          .eq("vendedor_id", userId)
+          .eq("estado", "activo");
+
+        if ((count ?? 0) >= LIMITE_ANUNCIOS_GRATIS) {
+          setError(
+            `El plan gratuito permite hasta ${LIMITE_ANUNCIOS_GRATIS} anuncios activos. Suscríbete desde tu perfil para publicar sin límite.`
+          );
+          return;
+        }
+      }
+    }
+
+    const { error: updateError } = await supabase
+      .from("anuncios_instrumentos")
+      .update({ estado })
+      .eq("id", id);
+
+    if (updateError) {
+      setError(
+        updateError.message.includes("limite_anuncios_activos")
+          ? `El plan gratuito permite hasta ${LIMITE_ANUNCIOS_GRATIS} anuncios activos. Suscríbete desde tu perfil para publicar sin límite.`
+          : "No pudimos actualizar el anuncio. Inténtalo de nuevo."
+      );
+      return;
+    }
+
     cargar();
   };
 
@@ -58,6 +93,12 @@ export default function MisAnunciosPanel({ userId }: Props) {
           + Publicar
         </Link>
       </div>
+
+      {error && (
+        <div className="mb-4 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+          {error}
+        </div>
+      )}
 
       {anuncios.length === 0 ? (
         <p className="text-sm text-gray-400">

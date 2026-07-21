@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AnuncioFoto from "@/components/instrumentos/AnuncioFoto";
+import BadgeSuscriptor from "@/components/suscripcion/BadgeSuscriptor";
 import {
   emojiCategoria,
   etiquetaCategoria,
@@ -11,9 +12,10 @@ import {
 type Props = {
   anuncio: AnuncioInstrumento;
   cerca?: boolean;
+  esSuscriptor?: boolean;
 };
 
-export default function AnuncioCard({ anuncio, cerca }: Props) {
+export default function AnuncioCard({ anuncio, cerca, esSuscriptor }: Props) {
   const foto = anuncio.foto_urls?.[0];
 
   return (
@@ -23,6 +25,11 @@ export default function AnuncioCard({ anuncio, cerca }: Props) {
     >
       <div className="aspect-[4/3] bg-gray-50 relative">
         <AnuncioFoto src={foto} emoji={emojiCategoria(anuncio.categoria)} />
+        {esSuscriptor && (
+          <span className="absolute top-2 left-2">
+            <BadgeSuscriptor />
+          </span>
+        )}
         {cerca && (
           <span className="absolute top-2 right-2 text-xs bg-emerald-600 text-white px-2 py-0.5 rounded-full font-medium">
             Cerca

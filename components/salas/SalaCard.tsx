@@ -2,6 +2,7 @@ import Link from "next/link";
 import { precioDesdeEspacios } from "@/lib/centro";
 import type { EspacioEnsayo } from "@/lib/centro";
 import { formatearPrecioHora } from "@/lib/usuario";
+import BadgeSuscriptor from "@/components/suscripcion/BadgeSuscriptor";
 
 export type SalaListItem = {
   id: string;
@@ -21,9 +22,10 @@ export type SalaListItem = {
 type Props = {
   sala: SalaListItem;
   cerca?: boolean;
+  esSuscriptor?: boolean;
 };
 
-export default function SalaCard({ sala, cerca }: Props) {
+export default function SalaCard({ sala, cerca, esSuscriptor }: Props) {
   const espacios = sala.espacios_ensayo ?? [];
   const precioMin = precioDesdeEspacios(espacios) ?? sala.precio_hora;
   const precio = formatearPrecioHora(precioMin);
@@ -47,6 +49,7 @@ export default function SalaCard({ sala, cerca }: Props) {
             {sala.codigo_postal ? ` · ${sala.codigo_postal}` : ""}
           </p>
         </div>
+        {esSuscriptor && <BadgeSuscriptor />}
         {cerca && (
           <span className="flex-shrink-0 text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
             Cerca

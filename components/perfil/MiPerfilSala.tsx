@@ -21,6 +21,7 @@ import {
 } from "@/lib/centro";
 import SolicitudesReservaSalaPanel from "@/components/salas/SolicitudesReservaSalaPanel";
 import { formatearPrecioHora, perfilSelect } from "@/lib/usuario";
+import SuscripcionPanel from "@/components/suscripcion/SuscripcionPanel";
 
 export type PerfilSala = {
   id: string;
@@ -444,6 +445,7 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
             )}
             <GestionEspaciosCentro centroId={perfil.id} />
             <SolicitudesReservaSalaPanel salaId={perfil.id} />
+            <SuscripcionPanel userId={perfil.id} />
           </section>
         </div>
       )}

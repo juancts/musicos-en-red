@@ -14,6 +14,7 @@ import {
   type ConversacionConParticipantes,
   type MensajeRow,
 } from "@/lib/mensajes";
+import { listarIdsBloqueados } from "@/lib/moderacion";
 import { TIPO_MUSICO } from "@/lib/usuario";
 
 type Estado = "cargando" | "sin-sesion" | "listo";
@@ -66,7 +67,16 @@ export default function MensajesInbox() {
       return [];
     }
 
-    const lista = (data as unknown as ConversacionConParticipantes[] | null) ?? [];
+    const { ids: bloqueados } = await listarIdsBloqueados(uid);
+    const bloqueadosSet = new Set(bloqueados);
+
+    const todas = (data as unknown as ConversacionConParticipantes[] | null) ?? [];
+    const lista = bloqueadosSet.size
+      ? todas.filter((c) => {
+          const contraparteId = c.musico_id === uid ? c.sala_id : c.musico_id;
+          return !bloqueadosSet.has(contraparteId);
+        })
+      : todas;
     setConversaciones(lista);
 
     if (lista.length > 0) {

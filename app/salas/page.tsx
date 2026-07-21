@@ -7,9 +7,11 @@ import { supabase } from "@/lib/supabase";
 import { mensajeErrorEsquemaSalas } from "@/lib/erroresSupabase";
 import { TIPO_SALA } from "@/lib/usuario";
 import SalaCard, { type SalaListItem } from "@/components/salas/SalaCard";
+import { obtenerSuscriptoresActivos } from "@/lib/suscripcion";
 
 export default function SalasPage() {
   const [salas, setSalas] = useState<SalaListItem[]>([]);
+  const [suscriptores, setSuscriptores] = useState<Set<string>>(new Set());
   const [miProvincia, setMiProvincia] = useState<string | null>(null);
   const [miId, setMiId] = useState<string | null>(null);
   const [soloCerca, setSoloCerca] = useState(false);
@@ -88,6 +90,11 @@ export default function SalasPage() {
 
       setSalas(data ?? []);
       setLoading(false);
+
+      obtenerSuscriptoresActivos(
+        supabase,
+        (data ?? []).map((sala) => sala.id)
+      ).then(setSuscriptores);
     }
 
     cargar();
@@ -103,9 +110,11 @@ export default function SalasPage() {
     return [...filtradas].sort((a, b) => {
       const aCerca = miProvincia && a.provincia === miProvincia ? 1 : 0;
       const bCerca = miProvincia && b.provincia === miProvincia ? 1 : 0;
-      return bCerca - aCerca;
+      if (bCerca !== aCerca) return bCerca - aCerca;
+
+      return Number(suscriptores.has(b.id)) - Number(suscriptores.has(a.id));
     });
-  }, [miId, miProvincia, salas, soloCerca]);
+  }, [miId, miProvincia, salas, soloCerca, suscriptores]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
@@ -191,6 +200,7 @@ export default function SalasPage() {
               key={sala.id}
               sala={sala}
               cerca={Boolean(miProvincia && sala.provincia === miProvincia)}
+              esSuscriptor={suscriptores.has(sala.id)}
             />
           ))}
         </div>

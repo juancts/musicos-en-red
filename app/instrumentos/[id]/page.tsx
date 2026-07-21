@@ -4,6 +4,7 @@ import Link from "next/link";
 import { use, useEffect, useState } from "react";
 import AnuncioFoto from "@/components/instrumentos/AnuncioFoto";
 import ContactarVendedorButton from "@/components/instrumentos/ContactarVendedorButton";
+import ReportarButton from "@/components/moderacion/ReportarButton";
 import {
   anuncioSelect,
   emojiCategoria,
@@ -181,6 +182,12 @@ export default function AnuncioDetallePage({ params }: Props) {
               year: "numeric",
             })}
           </p>
+
+          <ReportarButton
+            tipoObjetivo="anuncio"
+            objetivoId={anuncio.id}
+            redirectLogin={`/instrumentos/${anuncio.id}`}
+          />
         </aside>
       </div>
     </div>
