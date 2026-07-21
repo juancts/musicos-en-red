@@ -39,7 +39,13 @@ export function ProgressBar({ step, total }: { step: number; total: number }) {
   );
 }
 
-export function PantallaExito({ email }: { email: string }) {
+export function PantallaExito({
+  email,
+  extra,
+}: {
+  email: string;
+  extra?: React.ReactNode;
+}) {
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="w-full max-w-sm text-center">
@@ -63,6 +69,7 @@ export function PantallaExito({ email }: { email: string }) {
           <span className="text-gray-700 font-medium">{email}</span>. Confírmalo
           para activar tu cuenta.
         </p>
+        {extra && <div className="mt-6">{extra}</div>}
         <Link
           href="/login"
           className="inline-block mt-8 text-sm text-emerald-600 hover:underline"

@@ -163,7 +163,20 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
     }
   };
 
-  if (success) return <PantallaExito email={email} />;
+  if (success)
+    return (
+      <PantallaExito
+        email={email}
+        extra={
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 px-4 py-3 text-left text-xs text-emerald-700 leading-relaxed">
+            Tu sala será visible gratis en el directorio durante 60 días desde
+            hoy. Pasado ese plazo, para seguir apareciendo en las búsquedas
+            necesitarás una suscripción activa — puedes gestionarla en
+            cualquier momento desde tu panel.
+          </div>
+        }
+      />
+    );
 
   return (
     <RegistroShell>

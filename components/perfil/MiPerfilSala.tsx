@@ -445,7 +445,7 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
             )}
             <GestionEspaciosCentro centroId={perfil.id} />
             <SolicitudesReservaSalaPanel salaId={perfil.id} />
-            <SuscripcionPanel userId={perfil.id} />
+            <SuscripcionPanel userId={perfil.id} createdAt={perfil.created_at} />
           </section>
         </div>
       )}

@@ -7,7 +7,7 @@ import { supabase } from "@/lib/supabase";
 import { mensajeErrorEsquemaSalas } from "@/lib/erroresSupabase";
 import { TIPO_SALA } from "@/lib/usuario";
 import SalaCard, { type SalaListItem } from "@/components/salas/SalaCard";
-import { obtenerSuscriptoresActivos } from "@/lib/suscripcion";
+import { enPeriodoGraciaSala, obtenerSuscriptoresActivos } from "@/lib/suscripcion";
 
 export default function SalasPage() {
   const [salas, setSalas] = useState<SalaListItem[]>([]);
@@ -44,11 +44,11 @@ export default function SalasPage() {
 
       const selectConEspacios = `
           id, nombre, ciudad, codigo_postal, provincia, bio,
-          precio_hora, capacidad_max, equipamiento, disponible, servicios,
+          precio_hora, capacidad_max, equipamiento, disponible, servicios, created_at,
           espacios_ensayo ( id, nombre, precio_hora, disponible )
         `;
       const selectBasico =
-        "id, nombre, ciudad, codigo_postal, provincia, bio, precio_hora, capacidad_max, equipamiento, disponible, servicios";
+        "id, nombre, ciudad, codigo_postal, provincia, bio, precio_hora, capacidad_max, equipamiento, disponible, servicios, created_at";
 
       let data: SalaListItem[] | null = null;
       let queryError: PostgrestError | null = null;
@@ -88,20 +88,23 @@ export default function SalasPage() {
         return;
       }
 
-      setSalas(data ?? []);
-      setLoading(false);
-
-      obtenerSuscriptoresActivos(
+      const activos = await obtenerSuscriptoresActivos(
         supabase,
         (data ?? []).map((sala) => sala.id)
-      ).then(setSuscriptores);
+      );
+
+      setSalas(data ?? []);
+      setSuscriptores(activos);
+      setLoading(false);
     }
 
     cargar();
   }, []);
 
   const salasOrdenadas = useMemo(() => {
-    const visibles = salas.filter((s) => s.id !== miId);
+    const visibles = salas
+      .filter((s) => s.id !== miId)
+      .filter((s) => suscriptores.has(s.id) || enPeriodoGraciaSala(s.created_at));
     const filtradas =
       soloCerca && miProvincia
         ? visibles.filter((s) => s.provincia === miProvincia)
@@ -185,7 +188,11 @@ export default function SalasPage() {
       ) : salasOrdenadas.length === 0 ? (
         <div className="text-center py-24">
           <p className="text-4xl mb-4">🏠</p>
-          <p className="text-gray-400 text-sm">Aún no hay salas publicadas.</p>
+          <p className="text-gray-400 text-sm">
+            {salas.length > 0
+              ? "No hay salas activas publicadas ahora mismo."
+              : "Aún no hay salas publicadas."}
+          </p>
           <Link
             href="/registro"
             className="inline-block mt-4 text-sm text-emerald-600 hover:underline"

@@ -17,6 +17,7 @@ export type SalaListItem = {
   disponible: boolean | null;
   servicios: string[] | null;
   espacios_ensayo?: Pick<EspacioEnsayo, "id" | "precio_hora" | "disponible" | "nombre">[] | null;
+  created_at: string | null;
 };
 
 type Props = {

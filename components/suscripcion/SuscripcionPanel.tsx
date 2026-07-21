@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
-import { esSuscriptorActivo, obtenerSuscripcion } from "@/lib/suscripcion";
+import { diasGraciaRestantes, esSuscriptorActivo, obtenerSuscripcion } from "@/lib/suscripcion";
 
 type Props = {
   userId: string;
+  /** Solo para cuentas de tipo sala: fecha de alta, para mostrar el
+   *  contador/aviso del periodo de gracia de 60 días. Omitir para músicos. */
+  createdAt?: string | null;
 };
 
-export default function SuscripcionPanel({ userId }: Props) {
+export default function SuscripcionPanel({ userId, createdAt }: Props) {
   const [estado, setEstado] = useState<string | null>(null);
   const [cargando, setCargando] = useState(true);
   const [procesando, setProcesando] = useState(false);
@@ -86,6 +89,8 @@ export default function SuscripcionPanel({ userId }: Props) {
   }
 
   const activo = esSuscriptorActivo(estado);
+  const diasRestantes = createdAt !== undefined ? diasGraciaRestantes(createdAt) : null;
+  const mostrarAvisoGracia = createdAt !== undefined && !activo;
 
   return (
     <div className="border border-gray-100 rounded-2xl p-6">
@@ -107,6 +112,22 @@ export default function SuscripcionPanel({ userId }: Props) {
           {procesando ? "Cargando..." : activo ? "Gestionar suscripción" : "Suscribirme"}
         </button>
       </div>
+
+      {mostrarAvisoGracia && (
+        <div
+          className={`mt-4 rounded-xl border px-4 py-3 text-sm ${
+            diasRestantes && diasRestantes > 0
+              ? "border-amber-100 bg-amber-50 text-amber-700"
+              : "border-red-100 bg-red-50 text-red-600"
+          }`}
+        >
+          {diasRestantes && diasRestantes > 0
+            ? `Tu sala es visible gratis durante el periodo de prueba: quedan ${diasRestantes} ${
+                diasRestantes === 1 ? "día" : "días"
+              }. Después, tu perfil se ocultará de las búsquedas hasta que te suscribas.`
+            : "El periodo de prueba de 60 días ha terminado y tu perfil está oculto en /salas y tu página pública. Suscríbete para reactivarlo."}
+        </div>
+      )}
 
       {error && (
         <div className="mt-4 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">

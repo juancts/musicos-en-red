@@ -6,7 +6,11 @@ import ContactarUsuarioButton from "@/components/mensajes/ContactarUsuarioButton
 import AccionesPerfil from "@/components/moderacion/AccionesPerfil";
 import Link from "next/link";
 import BadgeSuscriptor from "@/components/suscripcion/BadgeSuscriptor";
-import { esSuscriptorActivo, obtenerSuscripcion } from "@/lib/suscripcion";
+import {
+  esSuscriptorActivo,
+  obtenerSuscripcion,
+  salaVisiblePublicamente,
+} from "@/lib/suscripcion";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -37,8 +41,40 @@ export default async function PerfilPublico({ params }: Props) {
 
   const { estado: estadoSuscripcion } = await obtenerSuscripcion(supabase, id);
   const esSuscriptor = esSuscriptorActivo(estadoSuscripcion);
+  const esCuentaSala = usuario.tipo === TIPO_SALA || esSala(usuario);
 
-  if (usuario.tipo === TIPO_SALA || esSala(usuario)) {
+  if (esCuentaSala && !salaVisiblePublicamente(estadoSuscripcion, usuario.created_at)) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-12">
+        <Link
+          href="/salas"
+          className="text-sm text-gray-400 hover:text-gray-700 inline-flex items-center gap-1 mb-10"
+        >
+          ← Centros de ensayo
+        </Link>
+        <div className="text-center py-16">
+          <p className="text-4xl mb-4">🔒</p>
+          <h1 className="text-lg font-semibold text-gray-900 mb-2">
+            Este perfil no está disponible ahora mismo
+          </h1>
+          <p className="text-sm text-gray-500 max-w-sm mx-auto leading-relaxed">
+            El periodo de prueba gratuito de 60 días de este centro ha terminado y
+            todavía no tiene una suscripción activa. Si eres el propietario, puedes
+            reactivar tu perfil público en cualquier momento suscribiéndote desde
+            tu panel.
+          </p>
+          <Link
+            href="/perfil"
+            className="inline-block mt-6 text-sm text-emerald-600 hover:underline"
+          >
+            Ir a mi panel →
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (esCuentaSala) {
     const { data: espacios } = await supabase
       .from("espacios_ensayo")
       .select("*")
