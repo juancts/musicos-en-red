@@ -12,6 +12,7 @@ export type EstadoSuscripcion =
   | "paused";
 
 export const LIMITE_ANUNCIOS_GRATIS = 3;
+export const LIMITE_CENTROS_GRATIS = 1;
 
 const ESTADOS_CON_BENEFICIOS: EstadoSuscripcion[] = ["active", "trialing"];
 

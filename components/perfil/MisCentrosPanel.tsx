@@ -6,6 +6,11 @@ import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
 import { centroSelect, type CentroMusical } from "@/lib/centro";
 import { normalizarCodigoPostal, provinciaDesdeCodigoPostal } from "@/lib/ubicacion";
+import {
+  esSuscriptorActivo,
+  LIMITE_CENTROS_GRATIS,
+  obtenerSuscripcion,
+} from "@/lib/suscripcion";
 import PanelCentro from "@/components/perfil/PanelCentro";
 
 type Props = {
@@ -22,6 +27,7 @@ const formVacio = (): FormNuevoCentro => ({ nombre: "", codigo_postal: "", bio: 
 
 export default function MisCentrosPanel({ user }: Props) {
   const [centros, setCentros] = useState<CentroMusical[]>([]);
+  const [esSuscriptor, setEsSuscriptor] = useState(false);
   const [cargando, setCargando] = useState(true);
   const [centroActivoId, setCentroActivoId] = useState<string | null>(null);
   const [creando, setCreando] = useState(false);
@@ -31,13 +37,17 @@ export default function MisCentrosPanel({ user }: Props) {
 
   const cargar = useCallback(async () => {
     setCargando(true);
-    const { data } = await supabase
-      .from("centros")
-      .select(centroSelect)
-      .eq("owner_id", user.id)
-      .order("created_at", { ascending: false });
+    const [{ data }, { estado }] = await Promise.all([
+      supabase
+        .from("centros")
+        .select(centroSelect)
+        .eq("owner_id", user.id)
+        .order("created_at", { ascending: false }),
+      obtenerSuscripcion(supabase, user.id),
+    ]);
 
     setCentros((data as CentroMusical[] | null) ?? []);
+    setEsSuscriptor(esSuscriptorActivo(estado));
     setCargando(false);
   }, [user.id]);
 
@@ -51,6 +61,13 @@ export default function MisCentrosPanel({ user }: Props) {
 
     if (!form.nombre.trim()) {
       setErrorNuevo("Indica el nombre de tu sala.");
+      return;
+    }
+
+    if (!esSuscriptor && centros.length >= LIMITE_CENTROS_GRATIS) {
+      setErrorNuevo(
+        `El plan gratuito permite ${LIMITE_CENTROS_GRATIS} sala. Suscríbete para añadir más.`
+      );
       return;
     }
 
@@ -76,7 +93,11 @@ export default function MisCentrosPanel({ user }: Props) {
     setGuardandoNuevo(false);
 
     if (error || !data) {
-      setErrorNuevo("No pudimos crear tu sala. Inténtalo de nuevo.");
+      setErrorNuevo(
+        error?.message.includes("limite_centros_gratis")
+          ? `El plan gratuito permite ${LIMITE_CENTROS_GRATIS} sala. Suscríbete para añadir más.`
+          : "No pudimos crear tu sala. Inténtalo de nuevo."
+      );
       return;
     }
 
@@ -116,15 +137,20 @@ export default function MisCentrosPanel({ user }: Props) {
     <div className="border border-gray-100 rounded-2xl p-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-sm font-medium text-gray-900">Mis salas</h2>
-        {!creando && (
-          <button
-            type="button"
-            onClick={() => setCreando(true)}
-            className="text-xs font-medium text-emerald-600 hover:underline"
-          >
-            + Añadir sala
-          </button>
-        )}
+        {!creando &&
+          (esSuscriptor || centros.length < LIMITE_CENTROS_GRATIS ? (
+            <button
+              type="button"
+              onClick={() => setCreando(true)}
+              className="text-xs font-medium text-emerald-600 hover:underline"
+            >
+              + Añadir sala
+            </button>
+          ) : (
+            <span className="text-xs text-gray-400">
+              Límite del plan gratis — suscríbete para añadir más
+            </span>
+          ))}
       </div>
 
       {cargando ? (
