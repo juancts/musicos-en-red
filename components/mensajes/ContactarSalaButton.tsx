@@ -9,9 +9,10 @@ import { esMusico, esSala, TIPO_MUSICO } from "@/lib/usuario";
 type Props = {
   salaId: string;
   salaNombre: string | null;
+  ownerId?: string;
 };
 
-export default function ContactarSalaButton({ salaId, salaNombre }: Props) {
+export default function ContactarSalaButton({ salaId, salaNombre, ownerId }: Props) {
   const router = useRouter();
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +31,7 @@ export default function ContactarSalaButton({ salaId, salaNombre }: Props) {
       return;
     }
 
-    if (user.id === salaId) {
+    if (user.id === salaId || user.id === ownerId) {
       setError("No puedes enviarte mensajes a tu propia sala.");
       setCargando(false);
       return;

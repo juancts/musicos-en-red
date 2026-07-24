@@ -42,6 +42,7 @@ export type EspacioEnsayo = {
 
 export type CentroMusical = {
   id: string;
+  owner_id: string;
   nombre: string | null;
   bio: string | null;
   direccion: string | null;
@@ -59,10 +60,12 @@ export type CentroMusical = {
   precio_hora: number | null;
   capacidad_max: number | null;
   equipamiento: string[] | null;
+  notificar_mensajes_email: boolean | null;
+  created_at?: string | null;
 };
 
 export const centroSelect =
-  "id, nombre, bio, direccion, telefono, ciudad, codigo_postal, provincia, horario, disponible, servicios, comodidades, modelos_alquiler, packs_unlocked, precio_locked_mensual, precio_hora, capacidad_max, equipamiento, tipo";
+  "id, owner_id, nombre, bio, direccion, telefono, ciudad, codigo_postal, provincia, horario, disponible, servicios, comodidades, modelos_alquiler, packs_unlocked, precio_locked_mensual, precio_hora, capacidad_max, equipamiento, notificar_mensajes_email, created_at";
 
 export function precioDesdeEspacios(espacios: { precio_hora: number | null; disponible?: boolean }[]) {
   const precios = espacios

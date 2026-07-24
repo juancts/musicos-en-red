@@ -10,6 +10,7 @@ type Props = {
   salaId: string;
   salaNombre: string | null;
   espacios: EspacioEnsayo[];
+  ownerId?: string;
 };
 
 type Estado = "idle" | "enviando" | "ok" | "error";
@@ -20,6 +21,7 @@ export default function SolicitarReservaSalaForm({
   salaId,
   salaNombre,
   espacios,
+  ownerId,
 }: Props) {
   const espaciosDisponibles = useMemo(
     () => espacios.filter((espacio) => espacio.disponible),
@@ -48,7 +50,7 @@ export default function SolicitarReservaSalaForm({
       return;
     }
 
-    if (user.id === salaId) {
+    if (user.id === salaId || user.id === ownerId) {
       setEstado("error");
       setError("No puedes reservar tu propio centro desde la ficha publica.");
       return;

@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import type { Partitura } from "@/types";
 import { esSala, TIPO_SALA } from "@/lib/usuario";
+import { centroSelect } from "@/lib/centro";
 import PerfilPublicoSala from "@/components/perfil/PerfilPublicoSala";
 import ContactarUsuarioButton from "@/components/mensajes/ContactarUsuarioButton";
 import AccionesPerfil from "@/components/moderacion/AccionesPerfil";
@@ -19,62 +20,69 @@ type Props = {
 export default async function PerfilPublico({ params }: Props) {
   const { id } = await params;
 
-  const { data: usuario, error } = await supabase
+  const { data: usuario } = await supabase
     .from("usuarios")
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
-  if (error || !usuario) {
-    return (
-      <div className="max-w-2xl mx-auto px-4 py-12">
-        <Link
-          href="/explorar"
-          className="text-sm text-emerald-600 hover:underline mb-6 inline-flex items-center gap-1"
-        >
-          ← Volver
-        </Link>
-        <p className="text-gray-400 text-sm mt-4">Usuario no encontrado.</p>
-      </div>
-    );
-  }
+  const esCuentaSala = usuario ? usuario.tipo === TIPO_SALA || esSala(usuario) : false;
 
-  const { estado: estadoSuscripcion } = await obtenerSuscripcion(supabase, id);
-  const esSuscriptor = esSuscriptorActivo(estadoSuscripcion);
-  const esCuentaSala = usuario.tipo === TIPO_SALA || esSala(usuario);
+  if (!usuario || esCuentaSala) {
+    const { data: centro } = await supabase
+      .from("centros")
+      .select(centroSelect)
+      .eq("id", id)
+      .maybeSingle();
 
-  if (esCuentaSala && !salaVisiblePublicamente(estadoSuscripcion, usuario.created_at)) {
-    return (
-      <div className="max-w-2xl mx-auto px-4 py-12">
-        <Link
-          href="/salas"
-          className="text-sm text-gray-400 hover:text-gray-700 inline-flex items-center gap-1 mb-10"
-        >
-          ← Centros de ensayo
-        </Link>
-        <div className="text-center py-16">
-          <p className="text-4xl mb-4">🔒</p>
-          <h1 className="text-lg font-semibold text-gray-900 mb-2">
-            Este perfil no está disponible ahora mismo
-          </h1>
-          <p className="text-sm text-gray-500 max-w-sm mx-auto leading-relaxed">
-            El periodo de prueba gratuito de 60 días de este centro ha terminado y
-            todavía no tiene una suscripción activa. Si eres el propietario, puedes
-            reactivar tu perfil público en cualquier momento suscribiéndote desde
-            tu panel.
-          </p>
+    if (!centro) {
+      return (
+        <div className="max-w-2xl mx-auto px-4 py-12">
           <Link
-            href="/perfil"
-            className="inline-block mt-6 text-sm text-emerald-600 hover:underline"
+            href="/explorar"
+            className="text-sm text-emerald-600 hover:underline mb-6 inline-flex items-center gap-1"
           >
-            Ir a mi panel →
+            ← Volver
           </Link>
+          <p className="text-gray-400 text-sm mt-4">Usuario no encontrado.</p>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
-  if (esCuentaSala) {
+    const { estado: estadoSuscripcion } = await obtenerSuscripcion(supabase, centro.owner_id);
+    const esSuscriptor = esSuscriptorActivo(estadoSuscripcion);
+
+    if (!salaVisiblePublicamente(estadoSuscripcion, centro.created_at)) {
+      return (
+        <div className="max-w-2xl mx-auto px-4 py-12">
+          <Link
+            href="/salas"
+            className="text-sm text-gray-400 hover:text-gray-700 inline-flex items-center gap-1 mb-10"
+          >
+            ← Centros de ensayo
+          </Link>
+          <div className="text-center py-16">
+            <p className="text-4xl mb-4">🔒</p>
+            <h1 className="text-lg font-semibold text-gray-900 mb-2">
+              Este perfil no está disponible ahora mismo
+            </h1>
+            <p className="text-sm text-gray-500 max-w-sm mx-auto leading-relaxed">
+              El periodo de prueba gratuito de 60 días de este centro ha terminado y
+              todavía no tiene una suscripción activa. Si eres el propietario, puedes
+              reactivar tu perfil público en cualquier momento suscribiéndote desde
+              tu panel.
+            </p>
+            <Link
+              href="/perfil"
+              className="inline-block mt-6 text-sm text-emerald-600 hover:underline"
+            >
+              Ir a mi panel →
+            </Link>
+          </div>
+        </div>
+      );
+    }
+
     const { data: espacios } = await supabase
       .from("espacios_ensayo")
       .select("*")
@@ -82,9 +90,12 @@ export default async function PerfilPublico({ params }: Props) {
       .order("orden", { ascending: true });
 
     return (
-      <PerfilPublicoSala sala={usuario} espacios={espacios ?? []} esSuscriptor={esSuscriptor} />
+      <PerfilPublicoSala sala={centro} espacios={espacios ?? []} esSuscriptor={esSuscriptor} />
     );
   }
+
+  const { estado: estadoSuscripcion } = await obtenerSuscripcion(supabase, id);
+  const esSuscriptor = esSuscriptorActivo(estadoSuscripcion);
 
   const { data: partituras } = await supabase
     .from("partituras")

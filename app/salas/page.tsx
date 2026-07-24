@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from "react";
 import type { PostgrestError } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
 import { mensajeErrorEsquemaSalas } from "@/lib/erroresSupabase";
-import { TIPO_SALA } from "@/lib/usuario";
 import SalaCard, { type SalaListItem } from "@/components/salas/SalaCard";
 import { enPeriodoGraciaSala, obtenerSuscriptoresActivos } from "@/lib/suscripcion";
 
@@ -43,20 +42,19 @@ export default function SalasPage() {
       }
 
       const selectConEspacios = `
-          id, nombre, ciudad, codigo_postal, provincia, bio,
+          id, owner_id, nombre, ciudad, codigo_postal, provincia, bio,
           precio_hora, capacidad_max, equipamiento, disponible, servicios, created_at,
           espacios_ensayo ( id, nombre, precio_hora, disponible )
         `;
       const selectBasico =
-        "id, nombre, ciudad, codigo_postal, provincia, bio, precio_hora, capacidad_max, equipamiento, disponible, servicios, created_at";
+        "id, owner_id, nombre, ciudad, codigo_postal, provincia, bio, precio_hora, capacidad_max, equipamiento, disponible, servicios, created_at";
 
       let data: SalaListItem[] | null = null;
       let queryError: PostgrestError | null = null;
 
       const res = await supabase
-        .from("usuarios")
+        .from("centros")
         .select(selectConEspacios)
-        .eq("tipo", TIPO_SALA)
         .order("created_at", { ascending: false });
 
       data = (res.data as SalaListItem[] | null) ?? null;
@@ -68,9 +66,8 @@ export default function SalasPage() {
           queryError.message.includes("servicios"))
       ) {
         const fallback = await supabase
-          .from("usuarios")
+          .from("centros")
           .select(selectBasico)
-          .eq("tipo", TIPO_SALA)
           .order("created_at", { ascending: false });
         data = (fallback.data as SalaListItem[] | null) ?? null;
         queryError = fallback.error;
@@ -88,12 +85,16 @@ export default function SalasPage() {
         return;
       }
 
-      const activos = await obtenerSuscriptoresActivos(
+      const centros = data ?? [];
+      const ownersActivos = await obtenerSuscriptoresActivos(
         supabase,
-        (data ?? []).map((sala) => sala.id)
+        centros.map((c) => c.owner_id)
+      );
+      const activos = new Set(
+        centros.filter((c) => ownersActivos.has(c.owner_id)).map((c) => c.id)
       );
 
-      setSalas(data ?? []);
+      setSalas(centros);
       setSuscriptores(activos);
       setLoading(false);
     }
@@ -175,8 +176,7 @@ export default function SalasPage() {
               <li>Proyecto → SQL Editor → New query</li>
               <li>
                 Pega el contenido de{" "}
-                <code className="text-gray-700">001_salas_ensayo.sql</code> y{" "}
-                <code className="text-gray-700">003_centro_multiespacio.sql</code>
+                <code className="text-gray-700">014_centros.sql</code>
               </li>
               <li>Pulsa Run y recarga esta página</li>
             </ol>

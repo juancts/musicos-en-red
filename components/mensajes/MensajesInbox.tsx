@@ -73,7 +73,8 @@ export default function MensajesInbox() {
     const todas = (data as unknown as ConversacionConParticipantes[] | null) ?? [];
     const lista = bloqueadosSet.size
       ? todas.filter((c) => {
-          const contraparteId = c.musico_id === uid ? c.sala_id : c.musico_id;
+          const contraparteId =
+            c.musico_id === uid ? c.sala?.owner_id ?? c.sala_id : c.musico_id;
           return !bloqueadosSet.has(contraparteId);
         })
       : todas;

@@ -4,6 +4,50 @@ import { emailNuevoMensaje } from "@/lib/emails/nuevoMensaje";
 
 export const runtime = "nodejs";
 
+// El destinatario puede ser un usuario directo (músico, o una sala legacy
+// que sigue siendo su propia fila en usuarios) o, para un centro nuevo,
+// solo existir en centros — en ese caso el email/preferencia son los del
+// owner_id, pero el nombre a mostrar es el del centro.
+async function resolverDestinatario(destinatarioId: string) {
+  const supabaseAdmin = getSupabaseAdmin();
+
+  const { data: usuario } = await supabaseAdmin
+    .from("usuarios")
+    .select("nombre, email, notificar_mensajes_email")
+    .eq("id", destinatarioId)
+    .maybeSingle();
+
+  if (usuario) {
+    return {
+      nombre: usuario.nombre as string | null,
+      email: usuario.email as string | null,
+      notificarPorEmail: usuario.notificar_mensajes_email !== false,
+    };
+  }
+
+  const { data: centro } = await supabaseAdmin
+    .from("centros")
+    .select("nombre, owner_id")
+    .eq("id", destinatarioId)
+    .maybeSingle();
+
+  if (!centro) return null;
+
+  const { data: propietario } = await supabaseAdmin
+    .from("usuarios")
+    .select("email, notificar_mensajes_email")
+    .eq("id", centro.owner_id)
+    .maybeSingle();
+
+  if (!propietario) return null;
+
+  return {
+    nombre: centro.nombre as string | null,
+    email: propietario.email as string | null,
+    notificarPorEmail: propietario.notificar_mensajes_email !== false,
+  };
+}
+
 export async function POST(req: Request) {
   const token = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
   if (!token) {
@@ -52,24 +96,21 @@ export async function POST(req: Request) {
       ? conversacion.sala_id
       : conversacion.musico_id;
 
-  const { data: participantes } = await supabaseAdmin
+  const { data: remitenteUsuario } = await supabaseAdmin
     .from("usuarios")
-    .select("id, nombre, email, notificar_mensajes_email")
-    .in("id", [mensaje.remitente_id, destinatarioId]);
+    .select("nombre")
+    .eq("id", mensaje.remitente_id)
+    .maybeSingle();
 
-  const remitenteUsuario = participantes?.find((u) => u.id === mensaje.remitente_id);
-  const destinatarioUsuario = participantes?.find((u) => u.id === destinatarioId);
+  const destinatario = await resolverDestinatario(destinatarioId);
 
-  if (
-    !destinatarioUsuario?.email ||
-    destinatarioUsuario.notificar_mensajes_email === false
-  ) {
+  if (!destinatario?.email || !destinatario.notificarPorEmail) {
     return Response.json({ enviado: false });
   }
 
   const { subject, html } = emailNuevoMensaje({
     remitenteNombre: remitenteUsuario?.nombre ?? null,
-    destinatarioNombre: destinatarioUsuario.nombre,
+    destinatarioNombre: destinatario.nombre,
     cuerpo: mensaje.cuerpo,
     conversacionId: mensaje.conversacion_id,
   });
@@ -77,7 +118,7 @@ export async function POST(req: Request) {
   try {
     await getResendAdmin().emails.send({
       from: getRemitente(),
-      to: destinatarioUsuario.email,
+      to: destinatario.email,
       subject,
       html,
     });

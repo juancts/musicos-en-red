@@ -54,7 +54,7 @@ export default function GestionEspaciosCentro({ centroId }: Props) {
 
     const min = precioDesdeEspacios(lista);
     if (min != null) {
-      await supabase.from("usuarios").update({ precio_hora: min }).eq("id", centroId);
+      await supabase.from("centros").update({ precio_hora: min }).eq("id", centroId);
     }
   }, [centroId]);
 

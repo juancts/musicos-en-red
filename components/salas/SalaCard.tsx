@@ -6,6 +6,7 @@ import BadgeSuscriptor from "@/components/suscripcion/BadgeSuscriptor";
 
 export type SalaListItem = {
   id: string;
+  owner_id: string;
   nombre: string | null;
   provincia: string | null;
   ciudad: string | null;

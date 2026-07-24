@@ -64,7 +64,7 @@ export default function PerfilPublicoSala({ sala, espacios, esSuscriptor }: Prop
             </p>
           )}
           <div className="mt-3">
-            <AccionesPerfil usuarioId={sala.id} redirectLogin={`/musicos/${sala.id}`} />
+            <AccionesPerfil usuarioId={sala.owner_id} redirectLogin={`/musicos/${sala.id}`} />
           </div>
         </div>
       </div>
@@ -95,6 +95,7 @@ export default function PerfilPublicoSala({ sala, espacios, esSuscriptor }: Prop
         salaId={sala.id}
         salaNombre={sala.nombre}
         espacios={espacios}
+        ownerId={sala.owner_id}
       />
 
       {sala.horario && (
@@ -106,7 +107,7 @@ export default function PerfilPublicoSala({ sala, espacios, esSuscriptor }: Prop
         </div>
       )}
 
-      <ContactarSalaButton salaId={sala.id} salaNombre={sala.nombre} />
+      <ContactarSalaButton salaId={sala.id} salaNombre={sala.nombre} ownerId={sala.owner_id} />
 
       {sala.telefono && (
         <div className="border border-gray-100 rounded-2xl p-5 mt-6">
