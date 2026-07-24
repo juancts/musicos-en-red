@@ -8,7 +8,7 @@ export default function TerminosPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-16">
       <h1 className="text-3xl font-semibold text-gray-900 mb-2">Términos y condiciones de uso</h1>
-      <p className="text-sm text-gray-400 mb-10">Última actualización: 17 de julio de 2026</p>
+      <p className="text-sm text-gray-400 mb-10">Última actualización: 24 de julio de 2026</p>
 
       <div className="space-y-8 text-sm text-gray-600 leading-relaxed">
         <section>
@@ -67,7 +67,33 @@ export default function TerminosPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">5. Contenido de los usuarios</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">5. Suscripción de pago</h2>
+          <p className="mb-2">
+            Músicos en Red ofrece una suscripción opcional de pago (actualmente 2,99 €/mes,
+            impuestos incluidos) que otorga beneficios adicionales: destacado en los resultados
+            de búsqueda, insignia de suscriptor, publicación de anuncios de instrumentos sin
+            límite, y la posibilidad de dar de alta salas de ensayo propias más allá del límite
+            gratuito.
+          </p>
+          <p className="mb-2">
+            La suscripción se cobra de forma recurrente y se renueva automáticamente cada mes
+            hasta que la canceles. El pago se procesa a través de Stripe, Inc.; Músicos en Red no
+            almacena los datos de tu tarjeta. Puedes cancelar en cualquier momento desde tu
+            perfil; la cancelación se hace efectiva al final del periodo ya pagado, sin cargos
+            adicionales.
+          </p>
+          <p>
+            Al tratarse de un servicio digital cuyos beneficios (destacado, insignia, límites
+            ampliados) se activan de forma inmediata al confirmarse el pago, y siempre que hayas
+            dado tu consentimiento expreso a ello antes de suscribirte, aceptas que pierdes el
+            derecho de desistimiento de 14 días previsto en la normativa de consumidores en
+            cuanto el servicio comienza a prestarse, conforme al artículo 103.m) del Real Decreto
+            Legislativo 1/2007.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">6. Contenido de los usuarios</h2>
           <p>
             Eres el único responsable del contenido que publiques (perfil, publicaciones del
             feed, anuncios, mensajes, imágenes). Al publicar, garantizas que tienes los derechos
@@ -77,7 +103,7 @@ export default function TerminosPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">6. Conducta prohibida</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">7. Conducta prohibida</h2>
           <p className="mb-2">No está permitido:</p>
           <ul className="list-disc pl-5 space-y-1">
             <li>Publicar contenido ilegal, difamatorio, discriminatorio o que suplante a terceros.</li>
@@ -91,7 +117,7 @@ export default function TerminosPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">7. Propiedad intelectual</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">8. Propiedad intelectual</h2>
           <p>
             El nombre, la marca, el diseño y el código de la plataforma pertenecen a{" "}
             {DATOS_LEGALES.nombreResponsable}, salvo el contenido publicado por los usuarios, que
@@ -100,7 +126,7 @@ export default function TerminosPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">8. Limitación de responsabilidad</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">9. Limitación de responsabilidad</h2>
           <p>
             El servicio se presta &quot;tal cual&quot; y en fase beta. No garantizamos
             disponibilidad continua ni ausencia de errores. En la medida permitida por la ley, no
@@ -110,7 +136,7 @@ export default function TerminosPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">9. Modificaciones</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">10. Modificaciones</h2>
           <p>
             Podemos actualizar estos términos para reflejar cambios en el servicio o en la
             normativa aplicable. Publicaremos la fecha de la última actualización al inicio de
@@ -119,7 +145,7 @@ export default function TerminosPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">10. Legislación aplicable</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">11. Legislación aplicable</h2>
           <p>
             Estos términos se rigen por la legislación de {DATOS_LEGALES.pais}. Cualquier
             controversia se someterá a los juzgados y tribunales competentes conforme a dicha
@@ -128,7 +154,7 @@ export default function TerminosPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">11. Contacto</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">12. Contacto</h2>
           <p>
             Para cualquier duda sobre estos términos, escríbenos a{" "}
             <a href={`mailto:${DATOS_LEGALES.email}`} className="text-emerald-600 hover:underline">
