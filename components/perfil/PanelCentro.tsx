@@ -12,43 +12,20 @@ import {
 import GestionEspaciosCentro from "@/components/salas/GestionEspaciosCentro";
 import SelectorOpciones from "@/components/salas/SelectorOpciones";
 import {
+  centroSelect,
   COMODIDADES_CENTRO,
   MODELOS_ALQUILER,
   PACKS_HORAS_MES,
   SERVICIOS_CENTRO,
   toggleEnLista,
+  type CentroMusical,
   type PacksUnlocked,
 } from "@/lib/centro";
 import SolicitudesReservaSalaPanel from "@/components/salas/SolicitudesReservaSalaPanel";
-import { formatearPrecioHora, perfilSelect } from "@/lib/usuario";
+import { formatearPrecioHora } from "@/lib/usuario";
 import SuscripcionPanel from "@/components/suscripcion/SuscripcionPanel";
 
-export type PerfilSala = {
-  id: string;
-  nombre: string | null;
-  email: string | null;
-  ciudad: string | null;
-  codigo_postal: string | null;
-  provincia: string | null;
-  bio: string | null;
-  direccion: string | null;
-  telefono: string | null;
-  precio_hora: number | null;
-  capacidad_max: number | null;
-  equipamiento: string[] | null;
-  horario: string | null;
-  disponible: boolean | null;
-  tipo: string | null;
-  servicios: string[] | null;
-  comodidades: string[] | null;
-  modelos_alquiler: string[] | null;
-  packs_unlocked: PacksUnlocked | null;
-  precio_locked_mensual: number | null;
-  notificar_mensajes_email: boolean | null;
-  created_at?: string | null;
-};
-
-type FormSala = {
+type FormCentro = {
   nombre: string;
   direccion: string;
   codigo_postal: string;
@@ -65,39 +42,39 @@ type FormSala = {
   notificar_mensajes_email: boolean;
 };
 
-function perfilToForm(perfil: PerfilSala): FormSala {
+function centroToForm(centro: CentroMusical): FormCentro {
   return {
-    nombre: perfil.nombre ?? "",
-    direccion: perfil.direccion ?? "",
-    codigo_postal: perfil.codigo_postal ?? "",
-    provincia: perfil.provincia ?? "",
-    bio: perfil.bio ?? "",
-    telefono: perfil.telefono ?? "",
-    horario: perfil.horario ?? "",
-    disponible: perfil.disponible ?? true,
-    servicios: perfil.servicios ?? [],
-    comodidades: perfil.comodidades ?? [],
-    modelos_alquiler: perfil.modelos_alquiler ?? [],
+    nombre: centro.nombre ?? "",
+    direccion: centro.direccion ?? "",
+    codigo_postal: centro.codigo_postal ?? "",
+    provincia: centro.provincia ?? "",
+    bio: centro.bio ?? "",
+    telefono: centro.telefono ?? "",
+    horario: centro.horario ?? "",
+    disponible: centro.disponible ?? true,
+    servicios: centro.servicios ?? [],
+    comodidades: centro.comodidades ?? [],
+    modelos_alquiler: centro.modelos_alquiler ?? [],
     precio_locked_mensual:
-      perfil.precio_locked_mensual != null
-        ? String(perfil.precio_locked_mensual)
+      centro.precio_locked_mensual != null
+        ? String(centro.precio_locked_mensual)
         : "",
-    packs: perfil.packs_unlocked ?? {},
-    notificar_mensajes_email: perfil.notificar_mensajes_email ?? true,
+    packs: centro.packs_unlocked ?? {},
+    notificar_mensajes_email: centro.notificar_mensajes_email ?? true,
   };
 }
 
 type Props = {
   user: User;
-  perfil: PerfilSala;
-  onPerfilActualizado: (perfil: PerfilSala) => void;
+  centro: CentroMusical;
+  onCentroActualizado: (centro: CentroMusical) => void;
 };
 
-export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Props) {
+export default function PanelCentro({ user, centro, onCentroActualizado }: Props) {
   const [editando, setEditando] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [form, setForm] = useState<FormSala>(() => perfilToForm(perfil));
+  const [form, setForm] = useState<FormCentro>(() => centroToForm(centro));
 
   const guardar = async (e: FormEvent) => {
     e.preventDefault();
@@ -119,7 +96,7 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
     ) as PacksUnlocked;
 
     const { data, error: updateError } = await supabase
-      .from("usuarios")
+      .from("centros")
       .update({
         nombre: form.nombre.trim() || null,
         direccion: form.direccion.trim() || null,
@@ -137,10 +114,9 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
           Object.keys(packsLimpios).length > 0 ? packsLimpios : null,
         precio_locked_mensual: precioLocked,
         notificar_mensajes_email: form.notificar_mensajes_email,
-        email: user.email,
       })
-      .eq("id", perfil.id)
-      .select(perfilSelect)
+      .eq("id", centro.id)
+      .select(centroSelect)
       .single();
 
     setGuardando(false);
@@ -150,29 +126,31 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
       return;
     }
 
-    const actualizado = data as PerfilSala;
-    onPerfilActualizado(actualizado);
-    setForm(perfilToForm(actualizado));
+    const actualizado = data as CentroMusical;
+    onCentroActualizado(actualizado);
+    setForm(centroToForm(actualizado));
     setEditando(false);
   };
 
-  const precioLabel = formatearPrecioHora(perfil.precio_hora);
+  const precioLabel = formatearPrecioHora(centro.precio_hora);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
+    <div>
       <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <span className="inline-block text-xs font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full mb-4">
             Centro multiespacio
           </span>
-          <h1 className="text-2xl font-semibold text-gray-900">Mi centro</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">
+            {centro.nombre || "Mi centro"}
+          </h1>
           <p className="text-gray-400 text-sm mt-1">
             Varias salas, servicios comunes y modelos Locked / Unlocked
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Link
-            href={`/musicos/${perfil.id}`}
+            href={`/musicos/${centro.id}`}
             className="inline-flex rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-600 hover:border-gray-300"
           >
             Ver ficha pública
@@ -193,7 +171,7 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
             <button
               type="button"
               onClick={() => {
-                setForm(perfilToForm(perfil));
+                setForm(centroToForm(centro));
                 setEditando(true);
               }}
               className="inline-flex rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-emerald-700"
@@ -364,7 +342,7 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
               </div>
             )}
           </div>
-          <GestionEspaciosCentro centroId={perfil.id} />
+          <GestionEspaciosCentro centroId={centro.id} />
           {error && (
             <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl px-4 py-3">
               {error}
@@ -394,10 +372,10 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
               🏠
             </div>
             <h2 className="text-xl font-semibold text-gray-900">
-              {perfil.nombre || "Sin nombre"}
+              {centro.nombre || "Sin nombre"}
             </h2>
             <p className="text-sm text-gray-500 mt-1">
-              {perfil.provincia || perfil.ciudad || "Sin ubicación"}
+              {centro.provincia || centro.ciudad || "Sin ubicación"}
             </p>
             {precioLabel && (
               <p className="mt-3 text-lg font-semibold text-amber-800">
@@ -405,33 +383,33 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
                 <span className="text-sm font-normal text-gray-400"> / hora</span>
               </p>
             )}
-            {perfil.disponible && (
+            {centro.disponible && (
               <span className="inline-block mt-3 text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
                 Disponible
               </span>
             )}
             <div className="mt-6 pt-6 border-t border-gray-100 space-y-3 text-sm">
-              {perfil.direccion && (
+              {centro.direccion && (
                 <div>
                   <p className="text-xs text-gray-400 uppercase">Dirección</p>
-                  <p className="text-gray-700">{perfil.direccion}</p>
+                  <p className="text-gray-700">{centro.direccion}</p>
                 </div>
               )}
-              {perfil.telefono && (
+              {centro.telefono && (
                 <div>
                   <p className="text-xs text-gray-400 uppercase">Teléfono</p>
                   <a
-                    href={`tel:${perfil.telefono}`}
+                    href={`tel:${centro.telefono}`}
                     className="text-emerald-600 hover:underline"
                   >
-                    {perfil.telefono}
+                    {centro.telefono}
                   </a>
                 </div>
               )}
-              {perfil.horario && (
+              {centro.horario && (
                 <div>
                   <p className="text-xs text-gray-400 uppercase">Horario</p>
-                  <p className="text-gray-700 whitespace-pre-line">{perfil.horario}</p>
+                  <p className="text-gray-700 whitespace-pre-line">{centro.horario}</p>
                 </div>
               )}
             </div>
@@ -440,14 +418,14 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
             <div className="border border-gray-100 rounded-2xl p-6">
               <h2 className="text-sm font-medium text-gray-900">Descripción</h2>
               <p className="mt-3 text-sm text-gray-500 leading-relaxed">
-                {perfil.bio || "Añade una descripción de tu sala."}
+                {centro.bio || "Añade una descripción de tu sala."}
               </p>
             </div>
-            {perfil.servicios && perfil.servicios.length > 0 && (
+            {centro.servicios && centro.servicios.length > 0 && (
               <div className="border border-gray-100 rounded-2xl p-6">
                 <h2 className="text-sm font-medium text-gray-900">Servicios</h2>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {perfil.servicios.map((item) => (
+                  {centro.servicios.map((item) => (
                     <span
                       key={item}
                       className="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full"
@@ -458,9 +436,9 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
                 </div>
               </div>
             )}
-            <GestionEspaciosCentro centroId={perfil.id} />
-            <SolicitudesReservaSalaPanel salaId={perfil.id} />
-            <SuscripcionPanel userId={perfil.id} createdAt={perfil.created_at} />
+            <GestionEspaciosCentro centroId={centro.id} />
+            <SolicitudesReservaSalaPanel salaId={centro.id} />
+            <SuscripcionPanel userId={user.id} createdAt={centro.created_at} />
           </section>
         </div>
       )}

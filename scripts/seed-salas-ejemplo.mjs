@@ -328,6 +328,38 @@ async function main() {
       continue;
     }
 
+    // Espejo en centros (mismo id que el usuario) — espacios_ensayo ahora
+    // referencia centros, no usuarios.
+    const { error: centroError } = await admin.from("centros").upsert(
+      {
+        id: user.id,
+        owner_id: user.id,
+        nombre: centro.nombre,
+        ciudad: centro.ciudad,
+        codigo_postal: centro.codigo_postal,
+        provincia: centro.provincia,
+        bio: centro.bio,
+        direccion: centro.direccion,
+        telefono: centro.telefono,
+        precio_hora: precioDesde,
+        capacidad_max: centro.espacios[0]?.capacidad_max ?? null,
+        equipamiento: centro.espacios[0]?.equipamiento ?? [],
+        horario: centro.horario,
+        disponible: centro.disponible ?? true,
+        servicios: centro.servicios,
+        comodidades: centro.comodidades,
+        modelos_alquiler: centro.modelos_alquiler,
+        packs_unlocked: centro.packs_unlocked,
+        precio_locked_mensual: centro.precio_locked_mensual,
+      },
+      { onConflict: "id" }
+    );
+
+    if (centroError) {
+      console.error(`✗ ${centro.nombre} (centros):`, centroError.message);
+      continue;
+    }
+
     let salasCreadas = 0;
     const { error: delError } = await admin
       .from("espacios_ensayo")

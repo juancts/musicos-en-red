@@ -12,7 +12,9 @@ import {
   provinciaDesdeCodigoPostal,
 } from "@/lib/ubicacion";
 import { esSala, perfilSelect, TIPO_MUSICO } from "@/lib/usuario";
-import MiPerfilSala, { type PerfilSala } from "@/components/perfil/MiPerfilSala";
+import { centroSelect, type CentroMusical } from "@/lib/centro";
+import PanelCentro from "@/components/perfil/PanelCentro";
+import MisCentrosPanel from "@/components/perfil/MisCentrosPanel";
 import MisAnunciosPanel from "@/components/instrumentos/MisAnunciosPanel";
 import SuscripcionPanel from "@/components/suscripcion/SuscripcionPanel";
 
@@ -120,6 +122,7 @@ export default function PerfilPage() {
   const [estado, setEstado] = useState<Estado>("cargando");
   const [user, setUser] = useState<User | null>(null);
   const [perfil, setPerfil] = useState<PerfilMusico | null>(null);
+  const [miCentro, setMiCentro] = useState<CentroMusical | null>(null);
   const [partituras, setPartituras] = useState<Partitura[]>([]);
   const [editando, setEditando] = useState(false);
   const [guardando, setGuardando] = useState(false);
@@ -222,6 +225,20 @@ export default function PerfilPage() {
       const perfilActual = perfilData as PerfilMusico;
       setPerfil(perfilActual);
       setForm(perfilToForm(perfilActual));
+
+      if (esSala(perfilActual)) {
+        const { data: centroData } = await supabase
+          .from("centros")
+          .select(centroSelect)
+          .eq("owner_id", user.id)
+          .maybeSingle();
+
+        if (!activo) return;
+
+        setMiCentro((centroData as CentroMusical | null) ?? null);
+        setEstado("listo");
+        return;
+      }
 
       const { data: partiturasData } = await supabase
         .from("partituras")
@@ -378,14 +395,18 @@ export default function PerfilPage() {
   }
 
   if (esSala(perfil)) {
+    if (!miCentro) {
+      return (
+        <div className="max-w-5xl mx-auto px-4 py-12">
+          <div className="h-64 rounded-2xl border border-gray-100 bg-gray-50/50" />
+        </div>
+      );
+    }
+
     return (
-      <MiPerfilSala
-        user={user}
-        perfil={perfil as unknown as PerfilSala}
-        onPerfilActualizado={(actualizado) => {
-          setPerfil(actualizado as unknown as PerfilMusico);
-        }}
-      />
+      <div className="max-w-5xl mx-auto px-4 py-12">
+        <PanelCentro user={user} centro={miCentro} onCentroActualizado={setMiCentro} />
+      </div>
     );
   }
 
@@ -524,6 +545,8 @@ function VistaPerfil({
         <PartiturasPanel partituras={partituras} />
 
         <SuscripcionPanel userId={user.id} />
+
+        <MisCentrosPanel user={user} />
 
         <MisAnunciosPanel userId={user.id} />
       </section>

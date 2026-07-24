@@ -142,6 +142,33 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
           return;
         }
 
+        // El registro directo como sala sigue creando también su fila en
+        // centros (mismo id), reutilizando el id del usuario — así
+        // espacios_ensayo (que ahora referencia centros, no usuarios) puede
+        // insertarse a continuación sin violar el foreign key.
+        await supabase.from("centros").insert({
+          id: data.user.id,
+          owner_id: data.user.id,
+          nombre,
+          ciudad: ciudad || provincia,
+          codigo_postal: codigoPostal,
+          provincia,
+          bio,
+          direccion: direccion.trim() || null,
+          telefono: telefono.trim() || null,
+          precio_hora: precio,
+          capacidad_max: capacidad,
+          equipamiento,
+          horario: horario.trim() || null,
+          disponible: true,
+          servicios,
+          comodidades,
+          modelos_alquiler: modelosAlquiler,
+          packs_unlocked:
+            Object.keys(packsLimpios).length > 0 ? packsLimpios : null,
+          precio_locked_mensual: precioLocked ? Number(precioLocked) : null,
+        });
+
         if (nombrePrimeraSala.trim()) {
           await supabase.from("espacios_ensayo").insert({
             centro_id: data.user.id,
