@@ -107,6 +107,26 @@ export async function listarMensajes(conversacionId: string) {
     .order("created_at", { ascending: true });
 }
 
+async function notificarNuevoMensaje(mensajeId: string) {
+  try {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (!session) return;
+
+    await fetch("/api/mensajes/notificar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify({ mensajeId }),
+    });
+  } catch {
+    // El aviso por email es un plus — si falla, el mensaje ya se envió igual.
+  }
+}
+
 export async function enviarMensaje(
   conversacionId: string,
   remitenteId: string,
@@ -117,7 +137,7 @@ export async function enviarMensaje(
     return { data: null, error: { message: "El mensaje está vacío." } };
   }
 
-  return supabase
+  const resultado = await supabase
     .from("mensajes")
     .insert({
       conversacion_id: conversacionId,
@@ -126,6 +146,12 @@ export async function enviarMensaje(
     })
     .select("id, conversacion_id, remitente_id, cuerpo, leido, created_at")
     .single();
+
+  if (resultado.data) {
+    notificarNuevoMensaje(resultado.data.id);
+  }
+
+  return resultado;
 }
 
 export async function marcarMensajesLeidos(

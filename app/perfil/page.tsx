@@ -72,6 +72,7 @@ type PerfilMusico = {
   contacto_mensajes: boolean | null;
   contacto_email_publico: boolean | null;
   contacto_telefono_publico: boolean | null;
+  notificar_mensajes_email: boolean | null;
   created_at?: string | null;
 };
 
@@ -90,6 +91,7 @@ type FormPerfil = {
   contacto_mensajes: boolean;
   contacto_email_publico: boolean;
   contacto_telefono_publico: boolean;
+  notificar_mensajes_email: boolean;
 };
 
 type Estado = "cargando" | "sin-sesion" | "sin-perfil" | "error" | "listo";
@@ -110,6 +112,7 @@ function perfilToForm(perfil: PerfilMusico): FormPerfil {
     contacto_mensajes: perfil.contacto_mensajes ?? true,
     contacto_email_publico: perfil.contacto_email_publico ?? false,
     contacto_telefono_publico: perfil.contacto_telefono_publico ?? false,
+    notificar_mensajes_email: perfil.notificar_mensajes_email ?? true,
   };
 }
 
@@ -136,6 +139,7 @@ export default function PerfilPage() {
     contacto_mensajes: true,
     contacto_email_publico: false,
     contacto_telefono_publico: false,
+    notificar_mensajes_email: true,
   });
 
   useEffect(() => {
@@ -301,6 +305,7 @@ export default function PerfilPage() {
         contacto_mensajes: form.contacto_mensajes,
         contacto_email_publico: form.contacto_email_publico,
         contacto_telefono_publico: form.contacto_telefono_publico,
+        notificar_mensajes_email: form.notificar_mensajes_email,
         email: user.email,
       })
       .eq("id", perfil.id)
@@ -748,6 +753,21 @@ function EditarPerfil({
               </label>
             </div>
           </div>
+
+          <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm text-gray-600">
+            Avisarme por email si recibo un mensaje
+            <input
+              type="checkbox"
+              checked={form.notificar_mensajes_email}
+              onChange={(event) =>
+                setForm((current) => ({
+                  ...current,
+                  notificar_mensajes_email: event.target.checked,
+                }))
+              }
+              className="h-4 w-4 accent-emerald-600"
+            />
+          </label>
         </div>
 
         <Info label="Email de sesión" value={userEmail} />

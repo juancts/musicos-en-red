@@ -44,6 +44,7 @@ export type PerfilSala = {
   modelos_alquiler: string[] | null;
   packs_unlocked: PacksUnlocked | null;
   precio_locked_mensual: number | null;
+  notificar_mensajes_email: boolean | null;
   created_at?: string | null;
 };
 
@@ -61,6 +62,7 @@ type FormSala = {
   modelos_alquiler: string[];
   precio_locked_mensual: string;
   packs: PacksUnlocked;
+  notificar_mensajes_email: boolean;
 };
 
 function perfilToForm(perfil: PerfilSala): FormSala {
@@ -81,6 +83,7 @@ function perfilToForm(perfil: PerfilSala): FormSala {
         ? String(perfil.precio_locked_mensual)
         : "",
     packs: perfil.packs_unlocked ?? {},
+    notificar_mensajes_email: perfil.notificar_mensajes_email ?? true,
   };
 }
 
@@ -133,6 +136,7 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
         packs_unlocked:
           Object.keys(packsLimpios).length > 0 ? packsLimpios : null,
         precio_locked_mensual: precioLocked,
+        notificar_mensajes_email: form.notificar_mensajes_email,
         email: user.email,
       })
       .eq("id", perfil.id)
@@ -269,6 +273,17 @@ export default function MiPerfilSala({ user, perfil, onPerfilActualizado }: Prop
                 checked={form.disponible}
                 onChange={(e) =>
                   setForm({ ...form, disponible: e.target.checked })
+                }
+                className="h-4 w-4 accent-emerald-600"
+              />
+            </label>
+            <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm">
+              Avisarme por email si recibo un mensaje
+              <input
+                type="checkbox"
+                checked={form.notificar_mensajes_email}
+                onChange={(e) =>
+                  setForm({ ...form, notificar_mensajes_email: e.target.checked })
                 }
                 className="h-4 w-4 accent-emerald-600"
               />
