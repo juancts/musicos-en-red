@@ -70,7 +70,7 @@ export default function BloquearUsuarioButton({ usuarioId, redirectLogin, classN
         type="button"
         onClick={alternar}
         disabled={cargando}
-        className="text-xs text-gray-400 hover:text-red-600 transition-colors disabled:opacity-50"
+        className="text-xs text-gray-400 dark:text-gray-500 hover:text-red-600 transition-colors disabled:opacity-50"
       >
         {cargando ? "..." : bloqueado ? "Desbloquear usuario" : "Bloquear usuario"}
       </button>

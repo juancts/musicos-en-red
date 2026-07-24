@@ -141,7 +141,7 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
   return (
     <form onSubmit={publicar} className="space-y-6 max-w-xl">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
           Título del anuncio
         </label>
         <input
@@ -149,20 +149,20 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
           onChange={(e) => setTitulo(e.target.value)}
           maxLength={120}
           required
-          className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           placeholder="Ej. Fender Stratocaster MIM 2020"
         />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
             Categoría
           </label>
           <select
             value={categoria}
             onChange={(e) => setCategoria(e.target.value as CategoriaInstrumento)}
-            className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             {CATEGORIAS_INSTRUMENTO.map((c) => (
               <option key={c.value} value={c.value}>
@@ -172,13 +172,13 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
             Estado del instrumento
           </label>
           <select
             value={condicion}
             onChange={(e) => setCondicion(e.target.value as CondicionAnuncio)}
-            className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             {CONDICIONES_ANUNCIO.map((c) => (
               <option key={c.value} value={c.value}>
@@ -190,7 +190,7 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
           Precio (€)
         </label>
         <input
@@ -200,13 +200,13 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
           value={precio}
           onChange={(e) => setPrecio(e.target.value)}
           required
-          className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           placeholder="350"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
           Descripción
         </label>
         <textarea
@@ -214,13 +214,13 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
           onChange={(e) => setDescripcion(e.target.value)}
           rows={4}
           maxLength={2000}
-          className="w-full resize-none border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="w-full resize-none border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           placeholder="Marca, modelo, accesorios incluidos, motivo de venta..."
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
           Código postal (ubicación)
         </label>
         <input
@@ -231,16 +231,16 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
             setCodigoPostal(cp);
             setProvincia(provinciaDesdeCodigoPostal(cp));
           }}
-          className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           placeholder="28001"
         />
         {provincia && (
-          <p className="mt-1 text-xs text-gray-400">Zona: {provincia}</p>
+          <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">Zona: {provincia}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
           Fotos (hasta 5)
         </label>
         <input
@@ -248,10 +248,10 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
           accept="image/jpeg,image/png,image/webp"
           multiple
           onChange={onFotos}
-          className="text-sm text-gray-600"
+          className="text-sm text-gray-600 dark:text-gray-300"
         />
         {fotos.length > 0 && (
-          <p className="mt-2 text-xs text-gray-400">
+          <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">
             {fotos.length} foto{fotos.length !== 1 ? "s" : ""} seleccionada
             {fotos.length !== 1 ? "s" : ""}
           </p>

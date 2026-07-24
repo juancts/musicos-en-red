@@ -37,27 +37,27 @@ export default function RecuperarPasswordPage() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <span className="text-4xl">🔑</span>
-          <h1 className="text-2xl font-semibold mt-3 text-gray-900">Recuperar contraseña</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-semibold mt-3 text-gray-900 dark:text-gray-50">Recuperar contraseña</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
             Te enviaremos un enlace para crear una nueva contraseña
           </p>
         </div>
 
         {enviado ? (
-          <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm px-3 py-3 rounded-lg text-center">
+          <div className="bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 text-emerald-800 text-sm px-3 py-3 rounded-lg text-center">
             Si existe una cuenta con ese email, te llegará un enlace para restablecer tu contraseña.
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Correo electrónico
               </label>
               <input
                 type="email"
                 placeholder="tu@email.com"
                 required
-                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -79,7 +79,7 @@ export default function RecuperarPasswordPage() {
           </form>
         )}
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           <Link href="/login" className="text-emerald-600 hover:underline font-medium">
             Volver a iniciar sesión
           </Link>

@@ -19,7 +19,7 @@ export default function AnuncioFoto({
 
   if (!src || fallo) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-50 text-4xl sm:text-5xl">
+      <div className="w-full h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 text-4xl sm:text-5xl">
         {emoji}
       </div>
     );

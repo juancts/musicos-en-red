@@ -77,17 +77,17 @@ export default function PublicacionCard({
   };
 
   return (
-    <article className="border border-gray-100 rounded-2xl p-4 sm:p-5 hover:border-gray-200 transition-colors">
+    <article className="border border-gray-100 dark:border-gray-800 rounded-2xl p-4 sm:p-5 hover:border-gray-200 hover:dark:border-gray-700 transition-colors">
       <div className="flex gap-3">
         <Link href={perfilHref} className="flex-shrink-0">
           {autor?.avatar_url ? (
             <div
-              className="w-10 h-10 rounded-full bg-gray-100 bg-cover bg-center"
+              className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 bg-cover bg-center"
               style={{ backgroundImage: `url(${autor.avatar_url})` }}
               aria-hidden
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-sm font-semibold text-emerald-700">
+            <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-sm font-semibold text-emerald-700">
               {inicial}
             </div>
           )}
@@ -97,21 +97,21 @@ export default function PublicacionCard({
           <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
             <Link
               href={perfilHref}
-              className="font-medium text-gray-900 text-sm hover:text-emerald-700 truncate"
+              className="font-medium text-gray-900 dark:text-gray-50 text-sm hover:text-emerald-700 truncate"
             >
               {autor?.nombre ?? "Usuario"}
             </Link>
             {autor?.instrumento && !esSala(autor) && (
-              <span className="text-xs text-gray-400 truncate">{autor.instrumento}</span>
+              <span className="text-xs text-gray-400 dark:text-gray-500 truncate">{autor.instrumento}</span>
             )}
             {autor?.tipo === "sala" && (
               <span className="text-xs text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-full">
                 Sala
               </span>
             )}
-            <span className="text-xs text-gray-300">·</span>
+            <span className="text-xs text-gray-300 dark:text-gray-600">·</span>
             <time
-              className="text-xs text-gray-400"
+              className="text-xs text-gray-400 dark:text-gray-500"
               dateTime={publicacion.created_at}
               title={new Date(publicacion.created_at).toLocaleString("es-ES")}
             >
@@ -125,17 +125,17 @@ export default function PublicacionCard({
                 🎤 Show
               </span>
               {publicacion.fecha_evento && (
-                <span className="text-xs text-gray-600">
+                <span className="text-xs text-gray-600 dark:text-gray-300">
                   {formatearFechaShow(publicacion.fecha_evento)}
                 </span>
               )}
               {publicacion.lugar && (
-                <span className="text-xs text-gray-500">📍 {publicacion.lugar}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">📍 {publicacion.lugar}</span>
               )}
             </div>
           )}
 
-          <p className="mt-2 text-sm text-gray-800 leading-relaxed whitespace-pre-wrap break-words">
+          <p className="mt-2 text-sm text-gray-800 dark:text-gray-100 leading-relaxed whitespace-pre-wrap break-words">
             {publicacion.contenido}
           </p>
 
@@ -149,7 +149,7 @@ export default function PublicacionCard({
               className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-medium transition-colors disabled:opacity-50 ${
                 metricas.likedByMe
                   ? "text-rose-600 bg-rose-50 hover:bg-rose-100"
-                  : "text-gray-500 hover:bg-gray-50 hover:text-rose-600"
+                  : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 hover:dark:bg-gray-800 hover:text-rose-600"
               }`}
             >
               <svg
@@ -172,8 +172,8 @@ export default function PublicacionCard({
               aria-expanded={mostrarComentarios}
               className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-medium transition-colors ${
                 mostrarComentarios
-                  ? "text-emerald-700 bg-emerald-50"
-                  : "text-gray-500 hover:bg-gray-50 hover:text-emerald-600"
+                  ? "text-emerald-700 bg-emerald-50 dark:bg-emerald-950"
+                  : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 hover:dark:bg-gray-800 hover:text-emerald-600"
               }`}
             >
               <svg
@@ -206,7 +206,7 @@ export default function PublicacionCard({
                 type="button"
                 onClick={borrar}
                 disabled={borrando}
-                className="text-xs text-gray-400 hover:text-red-600 disabled:opacity-50"
+                className="text-xs text-gray-400 dark:text-gray-500 hover:text-red-600 disabled:opacity-50"
               >
                 {borrando ? "Eliminando..." : "Eliminar publicación"}
               </button>

@@ -64,10 +64,10 @@ export default function SubirPartitura({ userId, onUploadComplete }: Props) {
   return (
     <label className={`
       block border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all
-      ${estado === "subiendo" ? "border-emerald-200 bg-emerald-50/50" : ""}
-      ${estado === "ok" ? "border-emerald-300 bg-emerald-50" : ""}
+      ${estado === "subiendo" ? "border-emerald-200 bg-emerald-50/50 dark:bg-emerald-950/50" : ""}
+      ${estado === "ok" ? "border-emerald-300 bg-emerald-50 dark:bg-emerald-950" : ""}
       ${estado === "error" ? "border-red-200 bg-red-50/50" : ""}
-      ${estado === "idle" ? "border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/30" : ""}
+      ${estado === "idle" ? "border-gray-200 dark:border-gray-700 hover:border-emerald-300 hover:bg-emerald-50/30 hover:dark:bg-emerald-950/30" : ""}
     `}>
       <input
         type="file"
@@ -86,7 +86,7 @@ export default function SubirPartitura({ userId, onUploadComplete }: Props) {
 
       {estado === "ok" && (
         <div className="space-y-1">
-          <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center mx-auto">
+          <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center mx-auto">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20 6 9 17l-5-5" />
             </svg>
@@ -105,7 +105,7 @@ export default function SubirPartitura({ userId, onUploadComplete }: Props) {
 
       {estado === "idle" && (
         <div className="space-y-2">
-          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mx-auto">
+          <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="17 8 12 3 7 8" />
@@ -113,10 +113,10 @@ export default function SubirPartitura({ userId, onUploadComplete }: Props) {
             </svg>
           </div>
           <div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               <span className="text-emerald-600 font-medium">Selecciona un archivo</span> o arrástralo aquí
             </p>
-            <p className="text-xs text-gray-400 mt-1">PDF, PNG o JPG</p>
+            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">PDF, PNG o JPG</p>
           </div>
         </div>
       )}

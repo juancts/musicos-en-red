@@ -125,24 +125,24 @@ export default function SolicitarReservaSalaForm({
   return (
     <form
       onSubmit={enviar}
-      className="mb-8 rounded-2xl border border-emerald-100 bg-emerald-50/40 p-5"
+      className="mb-8 rounded-2xl border border-emerald-100 bg-emerald-50/40 dark:bg-emerald-950/40 p-5"
     >
       <div className="mb-4">
-        <h2 className="text-sm font-semibold text-gray-900">
+        <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-50">
           Solicitar ensayo
         </h2>
-        <p className="mt-1 text-xs text-gray-500">
+        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
           Envia una fecha tentativa a {salaNombre || "este centro"}.
         </p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <label className="text-sm font-medium text-gray-700">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
           Sala
           <select
             value={espacioId}
             onChange={(event) => setEspacioId(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+            className="mt-1.5 w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 text-sm text-gray-900 dark:text-gray-50"
           >
             {espaciosDisponibles.length === 0 && (
               <option value="">A coordinar</option>
@@ -155,29 +155,29 @@ export default function SolicitarReservaSalaForm({
           </select>
         </label>
 
-        <label className="text-sm font-medium text-gray-700">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
           Fecha
           <input
             type="date"
             min={hoyISO()}
             value={fecha}
             onChange={(event) => setFecha(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+            className="mt-1.5 w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 text-sm text-gray-900 dark:text-gray-50"
           />
         </label>
 
-        <label className="text-sm font-medium text-gray-700">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
           Hora
           <input
             type="time"
             value={horaInicio}
             onChange={(event) => setHoraInicio(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+            className="mt-1.5 w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 text-sm text-gray-900 dark:text-gray-50"
           />
         </label>
 
         <div className="grid grid-cols-2 gap-2">
-          <label className="text-sm font-medium text-gray-700">
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
             Horas
             <input
               type="number"
@@ -186,10 +186,10 @@ export default function SolicitarReservaSalaForm({
               step={0.5}
               value={duracionHoras}
               onChange={(event) => setDuracionHoras(event.target.value)}
-              className="mt-1.5 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+              className="mt-1.5 w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 text-sm text-gray-900 dark:text-gray-50"
             />
           </label>
-          <label className="text-sm font-medium text-gray-700">
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
             Musicos
             <input
               type="number"
@@ -197,13 +197,13 @@ export default function SolicitarReservaSalaForm({
               max={50}
               value={numMusicos}
               onChange={(event) => setNumMusicos(event.target.value)}
-              className="mt-1.5 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+              className="mt-1.5 w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 text-sm text-gray-900 dark:text-gray-50"
             />
           </label>
         </div>
       </div>
 
-      <label className="mt-3 block text-sm font-medium text-gray-700">
+      <label className="mt-3 block text-sm font-medium text-gray-700 dark:text-gray-200">
         Mensaje
         <textarea
           value={mensaje}
@@ -211,7 +211,7 @@ export default function SolicitarReservaSalaForm({
           rows={3}
           maxLength={400}
           placeholder="Cuenta el tipo de ensayo, backline necesario o alternativas de horario."
-          className="mt-1.5 w-full resize-none rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900"
+          className="mt-1.5 w-full resize-none rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 text-sm text-gray-900 dark:text-gray-50"
         />
       </label>
 
@@ -221,7 +221,7 @@ export default function SolicitarReservaSalaForm({
         </p>
       )}
       {estado === "ok" && (
-        <p className="mt-3 rounded-xl border border-emerald-100 bg-white px-3 py-2 text-sm text-emerald-700">
+        <p className="mt-3 rounded-xl border border-emerald-100 bg-white dark:bg-gray-900 px-3 py-2 text-sm text-emerald-700">
           Solicitud enviada. El centro la vera en su perfil.
         </p>
       )}

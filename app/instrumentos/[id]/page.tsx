@@ -53,8 +53,8 @@ export default function AnuncioDetallePage({ params }: Props) {
   if (loading) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-12">
-        <div className="h-8 w-48 bg-gray-100 rounded-lg mb-8" />
-        <div className="aspect-video bg-gray-50 rounded-2xl" />
+        <div className="h-8 w-48 bg-gray-100 dark:bg-gray-800 rounded-lg mb-8" />
+        <div className="aspect-video bg-gray-50 dark:bg-gray-800 rounded-2xl" />
       </div>
     );
   }
@@ -65,7 +65,7 @@ export default function AnuncioDetallePage({ params }: Props) {
         <Link href="/instrumentos" className="text-sm text-emerald-600 hover:underline">
           ← Volver al mercado
         </Link>
-        <p className="mt-8 text-gray-400 text-sm">
+        <p className="mt-8 text-gray-400 dark:text-gray-500 text-sm">
           {error ?? "Anuncio no encontrado o ya no está disponible."}
         </p>
       </div>
@@ -79,14 +79,14 @@ export default function AnuncioDetallePage({ params }: Props) {
     <div className="max-w-3xl mx-auto px-4 py-12">
       <Link
         href="/instrumentos"
-        className="text-sm text-gray-400 hover:text-gray-700 inline-flex items-center gap-1 mb-8"
+        className="text-sm text-gray-400 dark:text-gray-500 hover:text-gray-700 hover:dark:text-gray-200 inline-flex items-center gap-1 mb-8"
       >
         ← Instrumentos en venta
       </Link>
 
       <div className="grid gap-8 lg:grid-cols-[1fr_280px]">
         <div>
-          <div className="aspect-[4/3] rounded-2xl bg-gray-50 overflow-hidden mb-3">
+          <div className="aspect-[4/3] rounded-2xl bg-gray-50 dark:bg-gray-800 overflow-hidden mb-3">
             <AnuncioFoto
               src={fotos[fotoActiva]}
               emoji={emojiCategoria(anuncio.categoria)}
@@ -114,20 +114,20 @@ export default function AnuncioDetallePage({ params }: Props) {
             </div>
           )}
 
-          <h1 className="text-2xl font-semibold text-gray-900 mt-6">{anuncio.titulo}</h1>
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50 mt-6">{anuncio.titulo}</h1>
           <p className="text-3xl font-semibold text-emerald-700 mt-2">
             {formatearPrecioAnuncio(Number(anuncio.precio))}
           </p>
 
           <div className="flex flex-wrap gap-2 mt-4">
-            <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">
+            <span className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2.5 py-1 rounded-full">
               {etiquetaCategoria(anuncio.categoria)}
             </span>
-            <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">
+            <span className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2.5 py-1 rounded-full">
               {etiquetaCondicion(anuncio.condicion)}
             </span>
             {(anuncio.provincia || anuncio.ciudad) && (
-              <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">
+              <span className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2.5 py-1 rounded-full">
                 {anuncio.provincia || anuncio.ciudad}
                 {anuncio.codigo_postal ? ` · ${anuncio.codigo_postal}` : ""}
               </span>
@@ -135,9 +135,9 @@ export default function AnuncioDetallePage({ params }: Props) {
           </div>
 
           {anuncio.descripcion && (
-            <div className="mt-8 border-t border-gray-100 pt-6">
-              <h2 className="text-sm font-medium text-gray-900">Descripción</h2>
-              <p className="mt-3 text-sm text-gray-600 leading-relaxed whitespace-pre-wrap">
+            <div className="mt-8 border-t border-gray-100 dark:border-gray-800 pt-6">
+              <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Descripción</h2>
+              <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
                 {anuncio.descripcion}
               </p>
             </div>
@@ -145,8 +145,8 @@ export default function AnuncioDetallePage({ params }: Props) {
         </div>
 
         <aside className="space-y-6">
-          <div className="border border-gray-100 rounded-2xl p-5">
-            <h2 className="text-sm font-medium text-gray-900">Vendedor</h2>
+          <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-5">
+            <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Vendedor</h2>
             {vendedor ? (
               <Link
                 href={`/musicos/${vendedor.id}`}
@@ -155,7 +155,7 @@ export default function AnuncioDetallePage({ params }: Props) {
                 {vendedor.nombre ?? "Ver perfil"}
               </Link>
             ) : (
-              <p className="mt-2 text-sm text-gray-400">Perfil no disponible</p>
+              <p className="mt-2 text-sm text-gray-400 dark:text-gray-500">Perfil no disponible</p>
             )}
 
             {anuncio.estado === "activo" ? (
@@ -174,7 +174,7 @@ export default function AnuncioDetallePage({ params }: Props) {
             )}
           </div>
 
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
             Publicado el{" "}
             {new Date(anuncio.created_at).toLocaleDateString("es-ES", {
               day: "numeric",

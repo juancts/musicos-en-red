@@ -120,7 +120,7 @@ export default function ContactarVendedorButton({
           {error}
         </p>
       )}
-      <p className="mt-2 text-xs text-gray-400">
+      <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">
         El pago y la entrega se acuerdan entre vosotros por mensaje.
       </p>
     </div>

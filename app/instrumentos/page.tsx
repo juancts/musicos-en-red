@@ -112,8 +112,8 @@ export default function InstrumentosPage() {
           <span className="inline-block text-xs font-medium text-violet-700 bg-violet-50 px-3 py-1 rounded-full mb-4">
             Compraventa
           </span>
-          <h1 className="text-2xl font-semibold text-gray-900">Instrumentos en venta</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Instrumentos en venta</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
             Compra y vende gear de segunda mano entre músicos
           </p>
         </div>
@@ -128,11 +128,11 @@ export default function InstrumentosPage() {
 
       <div className="mb-8 flex flex-wrap gap-3 items-end">
         <div>
-          <label className="block text-xs text-gray-400 mb-1">Categoría</label>
+          <label className="block text-xs text-gray-400 dark:text-gray-500 mb-1">Categoría</label>
           <select
             value={categoria}
             onChange={(e) => setCategoria(e.target.value as CategoriaInstrumento | "")}
-            className="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white"
+            className="border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-sm bg-white dark:bg-gray-900"
           >
             <option value="">Todas</option>
             {CATEGORIAS_INSTRUMENTO.map((c) => (
@@ -143,14 +143,14 @@ export default function InstrumentosPage() {
           </select>
         </div>
         <div>
-          <label className="block text-xs text-gray-400 mb-1">Precio máx. (€)</label>
+          <label className="block text-xs text-gray-400 dark:text-gray-500 mb-1">Precio máx. (€)</label>
           <input
             type="number"
             min={0}
             value={precioMax}
             onChange={(e) => setPrecioMax(e.target.value)}
             placeholder="Sin límite"
-            className="w-28 border border-gray-200 rounded-xl px-3 py-2 text-sm"
+            className="w-28 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-sm"
           />
         </div>
         <button
@@ -160,7 +160,7 @@ export default function InstrumentosPage() {
           className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 ${
             soloCerca
               ? "bg-emerald-600 text-white"
-              : "border border-gray-200 text-gray-600"
+              : "border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300"
           }`}
         >
           Solo cerca de mí
@@ -170,28 +170,28 @@ export default function InstrumentosPage() {
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="h-56 rounded-2xl bg-gray-50 border border-gray-100" />
+            <div key={n} className="h-56 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-800" />
           ))}
         </div>
       ) : errorInfo ? (
         <div className="max-w-lg mx-auto text-center py-16 px-4">
           <p className="text-sm font-medium text-red-600 mb-2">{errorInfo.titulo}</p>
-          <p className="text-sm text-gray-500 mb-4">{errorInfo.detalle}</p>
-          <div className="rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-left text-xs text-gray-500">
-            <p className="font-medium text-gray-600 mb-1">Supabase → SQL Editor</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{errorInfo.detalle}</p>
+          <div className="rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 px-4 py-3 text-left text-xs text-gray-500 dark:text-gray-400">
+            <p className="font-medium text-gray-600 dark:text-gray-300 mb-1">Supabase → SQL Editor</p>
             <p>
-              Ejecuta <code className="text-gray-700">004_instrumentos_marketplace.sql</code> y
+              Ejecuta <code className="text-gray-700 dark:text-gray-200">004_instrumentos_marketplace.sql</code> y
               recarga.
             </p>
           </div>
           {process.env.NODE_ENV === "development" && (
-            <p className="mt-4 text-[11px] text-gray-400 break-all">{errorInfo.tecnico}</p>
+            <p className="mt-4 text-[11px] text-gray-400 dark:text-gray-500 break-all">{errorInfo.tecnico}</p>
           )}
         </div>
       ) : anunciosFiltrados.length === 0 ? (
         <div className="text-center py-24">
           <p className="text-4xl mb-4">🎸</p>
-          <p className="text-gray-400 text-sm">No hay anuncios con estos filtros.</p>
+          <p className="text-gray-400 dark:text-gray-500 text-sm">No hay anuncios con estos filtros.</p>
           <Link
             href="/instrumentos/nuevo"
             className="inline-block mt-4 text-sm text-emerald-600 hover:underline"

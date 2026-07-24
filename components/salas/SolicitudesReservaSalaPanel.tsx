@@ -17,9 +17,9 @@ type Props = {
 
 const estadoStyles: Record<EstadoSolicitudReserva, string> = {
   pendiente: "bg-amber-50 text-amber-700 border-amber-100",
-  aceptada: "bg-emerald-50 text-emerald-700 border-emerald-100",
+  aceptada: "bg-emerald-50 dark:bg-emerald-950 text-emerald-700 border-emerald-100",
   rechazada: "bg-red-50 text-red-600 border-red-100",
-  cancelada: "bg-gray-50 text-gray-500 border-gray-100",
+  cancelada: "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-800",
 };
 
 export default function SolicitudesReservaSalaPanel({ salaId }: Props) {
@@ -82,13 +82,13 @@ export default function SolicitudesReservaSalaPanel({ salaId }: Props) {
   };
 
   return (
-    <div className="rounded-2xl border border-gray-100 p-6">
+    <div className="rounded-2xl border border-gray-100 dark:border-gray-800 p-6">
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h2 className="text-sm font-medium text-gray-900">
+          <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">
             Solicitudes de ensayo
           </h2>
-          <p className="mt-1 text-xs text-gray-400">
+          <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
             Reservas tentativas recibidas desde la ficha publica.
           </p>
         </div>
@@ -96,7 +96,7 @@ export default function SolicitudesReservaSalaPanel({ salaId }: Props) {
           type="button"
           onClick={cargar}
           disabled={cargando}
-          className="w-fit rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 transition-colors hover:border-gray-300 disabled:opacity-60"
+          className="w-fit rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-xs font-medium text-gray-600 dark:text-gray-300 transition-colors hover:border-gray-300 hover:dark:border-gray-600 disabled:opacity-60"
         >
           Actualizar
         </button>
@@ -109,9 +109,9 @@ export default function SolicitudesReservaSalaPanel({ salaId }: Props) {
       )}
 
       {cargando ? (
-        <p className="text-sm text-gray-400">Cargando solicitudes...</p>
+        <p className="text-sm text-gray-400 dark:text-gray-500">Cargando solicitudes...</p>
       ) : solicitudes.length === 0 ? (
-        <p className="text-sm text-gray-400">Todavia no hay solicitudes.</p>
+        <p className="text-sm text-gray-400 dark:text-gray-500">Todavia no hay solicitudes.</p>
       ) : (
         <div className="space-y-3">
           {solicitudes.map((solicitud) => {
@@ -124,12 +124,12 @@ export default function SolicitudesReservaSalaPanel({ salaId }: Props) {
             return (
               <article
                 key={solicitud.id}
-                className="rounded-xl border border-gray-100 px-4 py-3"
+                className="rounded-xl border border-gray-100 dark:border-gray-800 px-4 py-3"
               >
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-sm font-semibold text-gray-900">
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-50">
                         {solicitud.musico?.nombre ||
                           solicitud.musico?.email ||
                           "Musico"}
@@ -140,27 +140,27 @@ export default function SolicitudesReservaSalaPanel({ salaId }: Props) {
                         {solicitud.estado}
                       </span>
                     </div>
-                    <p className="mt-1 text-xs text-gray-400">
+                    <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
                       {ubicacionMusico}
                     </p>
-                    <p className="mt-2 text-sm text-gray-700">
+                    <p className="mt-2 text-sm text-gray-700 dark:text-gray-200">
                       {formatearFechaReserva(
                         solicitud.fecha,
                         solicitud.hora_inicio
                       )}
-                      <span className="text-gray-400">
+                      <span className="text-gray-400 dark:text-gray-500">
                         {" "}
                         · {solicitud.duracion_horas} h ·{" "}
                         {solicitud.num_musicos} musicos
                       </span>
                     </p>
                     {solicitud.espacio?.nombre && (
-                      <p className="mt-1 text-xs text-gray-500">
+                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                         Sala: {solicitud.espacio.nombre}
                       </p>
                     )}
                     {solicitud.mensaje && (
-                      <p className="mt-3 text-sm leading-relaxed text-gray-500">
+                      <p className="mt-3 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
                         {solicitud.mensaje}
                       </p>
                     )}
@@ -180,7 +180,7 @@ export default function SolicitudesReservaSalaPanel({ salaId }: Props) {
                         type="button"
                         disabled={actualizandoId === solicitud.id}
                         onClick={() => cambiarEstado(solicitud, "rechazada")}
-                        className="rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 transition-colors hover:border-red-200 hover:text-red-600 disabled:opacity-60"
+                        className="rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-xs font-medium text-gray-600 dark:text-gray-300 transition-colors hover:border-red-200 hover:text-red-600 disabled:opacity-60"
                       >
                         Rechazar
                       </button>

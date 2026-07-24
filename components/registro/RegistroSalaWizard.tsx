@@ -195,7 +195,7 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
       <PantallaExito
         email={email}
         extra={
-          <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 px-4 py-3 text-left text-xs text-emerald-700 leading-relaxed">
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 dark:bg-emerald-950/60 px-4 py-3 text-left text-xs text-emerald-700 leading-relaxed">
             Tu sala será visible gratis en el directorio durante 60 días desde
             hoy. Pasado ese plazo, para seguir apareciendo en las búsquedas
             necesitarás una suscripción activa — puedes gestionarla en
@@ -211,11 +211,11 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
 
       {step === 1 && (
         <div>
-          <h1 className="text-xl font-semibold text-gray-900 mb-1">Crea tu cuenta</h1>
-          <p className="text-gray-400 text-sm mb-8">Paso 1 de 4 · Centro multiespacio</p>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-1">Crea tu cuenta</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mb-8">Paso 1 de 4 · Centro multiespacio</p>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
                 Correo electrónico
               </label>
               <input
@@ -224,11 +224,11 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
                 Contraseña
               </label>
               <input
@@ -237,7 +237,7 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             {error && <ErrorBox message={error} />}
@@ -259,8 +259,8 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
 
       {step === 2 && (
         <div>
-          <h1 className="text-xl font-semibold text-gray-900 mb-1">Tu centro</h1>
-          <p className="text-gray-400 text-sm mb-8">Paso 2 de 4 · Datos del complejo</p>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-1">Tu centro</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mb-8">Paso 2 de 4 · Datos del complejo</p>
           <div className="space-y-4">
             <Field
               label="Nombre del centro"
@@ -275,7 +275,7 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
               placeholder="Calle y número"
             />
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
                 Código postal
               </label>
               <input
@@ -288,14 +288,14 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
                   setCodigoPostal(cp);
                   setCiudad(provinciaDesdeCodigoPostal(cp));
                 }}
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
-              <p className="mt-1 text-xs text-gray-400">
+              <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
                 {provincia ? `Zona: ${provincia}` : "Para que te encuentren músicos cercanos"}
               </p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
                 Descripción
               </label>
               <textarea
@@ -304,9 +304,9 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
                 maxLength={800}
                 rows={4}
                 placeholder="Multiespacio para la industria musical: salas, chill out, backline, acceso 24h..."
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
-              <p className="text-xs text-gray-300 text-right mt-1">{bio.length} / 800</p>
+              <p className="text-xs text-gray-300 dark:text-gray-600 text-right mt-1">{bio.length} / 800</p>
             </div>
             {error && <ErrorBox message={error} />}
             <NavButtons
@@ -330,8 +330,8 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
 
       {step === 3 && (
         <div>
-          <h1 className="text-xl font-semibold text-gray-900 mb-1">Servicios y salas</h1>
-          <p className="text-gray-400 text-sm mb-8">Paso 3 de 4 · Espacios, precios y equipamiento</p>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-1">Servicios y salas</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mb-8">Paso 3 de 4 · Espacios, precios y equipamiento</p>
           <div className="space-y-4">
             <SelectorOpciones
               titulo="Espacios y servicios del centro"
@@ -361,10 +361,10 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
             )}
             {modelosAlquiler.some((m) => m.startsWith("Unlocked")) && (
               <div>
-                <p className="text-sm font-medium text-gray-700 mb-2">Packs Unlocked (€/mes)</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Packs Unlocked (€/mes)</p>
                 <div className="grid grid-cols-2 gap-2">
                   {PACKS_HORAS_MES.map((h) => (
-                    <label key={h} className="text-xs text-gray-600">
+                    <label key={h} className="text-xs text-gray-600 dark:text-gray-300">
                       {h} h/mes
                       <input
                         type="number"
@@ -376,7 +376,7 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
                             [String(h)]: e.target.value ? Number(e.target.value) : undefined,
                           }))
                         }
-                        className="mt-1 w-full border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
+                        className="mt-1 w-full border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1.5 text-sm"
                       />
                     </label>
                   ))}
@@ -391,7 +391,7 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
             />
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
                   Precio / hora (€)
                 </label>
                 <input
@@ -401,11 +401,11 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
                   placeholder="15"
                   value={precioHora}
                   onChange={(e) => setPrecioHora(e.target.value)}
-                  className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
                   Capacidad máx.
                 </label>
                 <input
@@ -414,11 +414,11 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
                   placeholder="6"
                   value={capacidadMax}
                   onChange={(e) => setCapacidadMax(e.target.value)}
-                  className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
             </div>
-            <p className="text-sm font-medium text-gray-700">Equipamiento incluido</p>
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-200">Equipamiento incluido</p>
             <div className="flex flex-wrap gap-2">
               {EQUIPAMIENTO_SALA.map((item) => (
                 <button
@@ -427,8 +427,8 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
                   onClick={() => toggleEquipamiento(item)}
                   className={`px-3 py-1.5 rounded-full border text-xs font-medium transition-all ${
                     equipamiento.includes(item)
-                      ? "border-emerald-400 bg-emerald-50 text-emerald-800"
-                      : "border-gray-200 text-gray-500 hover:border-gray-300"
+                      ? "border-emerald-400 bg-emerald-50 dark:bg-emerald-950 text-emerald-800"
+                      : "border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-300 hover:dark:border-gray-600"
                   }`}
                 >
                   {item}
@@ -443,8 +443,8 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
 
       {step === 4 && (
         <div>
-          <h1 className="text-xl font-semibold text-gray-900 mb-1">Contacto</h1>
-          <p className="text-gray-400 text-sm mb-8">Paso 4 de 4 · Horario y teléfono</p>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-1">Contacto</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mb-8">Paso 4 de 4 · Horario y teléfono</p>
           <div className="space-y-4">
             <Field
               label="Teléfono de contacto"
@@ -453,7 +453,7 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
               placeholder="600 000 000"
             />
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
                 Horario de alquiler
               </label>
               <textarea
@@ -461,16 +461,16 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
                 onChange={(e) => setHorario(e.target.value)}
                 rows={3}
                 placeholder="Ej. Lun–Vie 10:00–23:00, Sáb 10:00–02:00"
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             {nombre && (
-              <div className="border border-gray-100 rounded-2xl p-4 bg-gray-50/50">
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
+              <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-4 bg-gray-50/50 dark:bg-gray-800/50">
+                <p className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">
                   Vista previa
                 </p>
-                <p className="text-sm font-medium text-gray-900">{nombre}</p>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-50">{nombre}</p>
+                <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
                   {provincia}
                   {precioHora ? ` · ${precioHora} €/h` : ""}
                 </p>
@@ -479,7 +479,7 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
                     {equipamiento.slice(0, 4).map((e) => (
                       <span
                         key={e}
-                        className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full"
+                        className="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-700 px-2 py-0.5 rounded-full"
                       >
                         {e}
                       </span>
@@ -493,7 +493,7 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
               <button
                 type="button"
                 onClick={() => setStep(3)}
-                className="flex-1 border border-gray-200 text-gray-500 font-medium py-2.5 rounded-xl text-sm"
+                className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-medium py-2.5 rounded-xl text-sm"
               >
                 ← Atrás
               </button>
@@ -526,12 +526,12 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1.5">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">{label}</label>
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
       />
     </div>
   );
@@ -559,7 +559,7 @@ function NavButtons({
       <button
         type="button"
         onClick={onBack}
-        className="flex-1 border border-gray-200 text-gray-500 font-medium py-2.5 rounded-xl text-sm"
+        className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-medium py-2.5 rounded-xl text-sm"
       >
         {backLabel}
       </button>

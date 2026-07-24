@@ -346,15 +346,15 @@ export default function PerfilPage() {
     return (
       <div className="max-w-5xl mx-auto px-4 py-12">
         <div className="mb-10">
-          <div className="h-6 w-24 rounded-lg bg-gray-100 mb-4" />
-          <div className="h-8 w-36 rounded-lg bg-gray-100" />
-          <div className="h-4 w-64 rounded-lg bg-gray-100 mt-3" />
+          <div className="h-6 w-24 rounded-lg bg-gray-100 dark:bg-gray-800 mb-4" />
+          <div className="h-8 w-36 rounded-lg bg-gray-100 dark:bg-gray-800" />
+          <div className="h-4 w-64 rounded-lg bg-gray-100 dark:bg-gray-800 mt-3" />
         </div>
         <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
-          <div className="h-64 rounded-2xl border border-gray-100 bg-gray-50/50" />
+          <div className="h-64 rounded-2xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50" />
           <div className="space-y-3">
-            <div className="h-32 rounded-2xl border border-gray-100 bg-gray-50/50" />
-            <div className="h-24 rounded-2xl border border-gray-100 bg-gray-50/50" />
+            <div className="h-32 rounded-2xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50" />
+            <div className="h-24 rounded-2xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50" />
           </div>
         </div>
       </div>
@@ -398,7 +398,7 @@ export default function PerfilPage() {
     if (!miCentro) {
       return (
         <div className="max-w-5xl mx-auto px-4 py-12">
-          <div className="h-64 rounded-2xl border border-gray-100 bg-gray-50/50" />
+          <div className="h-64 rounded-2xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50" />
         </div>
       );
     }
@@ -414,11 +414,11 @@ export default function PerfilPage() {
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <span className="inline-block text-xs font-medium text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full mb-4">
+          <span className="inline-block text-xs font-medium text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-3 py-1 rounded-full mb-4">
             Mi espacio musical
           </span>
-          <h1 className="text-2xl font-semibold text-gray-900">Mi perfil</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Mi perfil</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
             Datos cargados desde tu cuenta de Supabase
           </p>
         </div>
@@ -426,7 +426,7 @@ export default function PerfilPage() {
         <div className="flex flex-wrap gap-2">
           <Link
             href={`/musicos/${perfil.id}`}
-            className="inline-flex w-fit items-center rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:border-gray-300"
+            className="inline-flex w-fit items-center rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 transition-colors hover:border-gray-300 hover:dark:border-gray-600"
           >
             Ver perfil público
           </Link>
@@ -472,30 +472,30 @@ function VistaPerfil({
 }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
-      <aside className="border border-gray-100 rounded-2xl p-6">
+      <aside className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
         <div className="flex items-start gap-4">
           <Avatar perfil={perfil} fallback={user.email ?? "?"} />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-50">
                 {perfil.nombre || "Sin nombre"}
               </h2>
               {perfil.disponible && (
-                <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
+                <span className="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
                   Disponible
                 </span>
               )}
             </div>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               {perfil.instrumento || "Instrumento sin completar"}
             </p>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
               {perfil.provincia || perfil.ciudad || "Zona sin completar"}
             </p>
           </div>
         </div>
 
-        <div className="mt-6 space-y-3 border-t border-gray-100 pt-6 text-sm">
+        <div className="mt-6 space-y-3 border-t border-gray-100 dark:border-gray-800 pt-6 text-sm">
           <Info label="Email de sesión" value={user.email ?? "Sin email"} />
           <Info
             label="Código postal"
@@ -524,9 +524,9 @@ function VistaPerfil({
       </aside>
 
       <section className="space-y-6">
-        <div className="border border-gray-100 rounded-2xl p-6">
-          <h2 className="text-sm font-medium text-gray-900">Sobre mí</h2>
-          <p className="mt-3 text-sm text-gray-500 leading-relaxed">
+        <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
+          <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Sobre mí</h2>
+          <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
             {perfil.bio || "Todavía no agregaste una bio a tu perfil."}
           </p>
         </div>
@@ -623,9 +623,9 @@ function EditarPerfil({
 
   return (
     <form onSubmit={onSubmit} className="grid gap-6 lg:grid-cols-[320px_1fr]">
-      <aside className="border border-gray-100 rounded-2xl p-6 space-y-4">
+      <aside className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6 space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
             Nombre artístico
           </label>
           <input
@@ -633,13 +633,13 @@ function EditarPerfil({
             onChange={(event) =>
               setForm((current) => ({ ...current, nombre: event.target.value }))
             }
-            className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+            className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
             placeholder="Tu nombre"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
             Código postal
           </label>
           <input
@@ -655,10 +655,10 @@ function EditarPerfil({
                 ciudad: provincia,
               }));
             }}
-            className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+            className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
             placeholder="28001"
           />
-          <p className="mt-1 text-xs text-gray-400">
+          <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
             {form.provincia
               ? `Zona detectada: ${form.provincia}`
               : "Se usará para buscar músicos cercanos."}
@@ -666,7 +666,7 @@ function EditarPerfil({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
             Instrumento
           </label>
           <select
@@ -677,7 +677,7 @@ function EditarPerfil({
                 instrumento: event.target.value,
               }))
             }
-            className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+            className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-gray-50 bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
           >
             <option value="">Selecciona uno</option>
             {INSTRUMENTOS.map((instrumento) => (
@@ -689,10 +689,10 @@ function EditarPerfil({
         </div>
 
         <div>
-          <p className="block text-sm font-medium text-gray-700 mb-2">
+          <p className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
             Disponibilidad
           </p>
-          <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm text-gray-600">
+          <label className="flex items-center justify-between rounded-xl border border-gray-100 dark:border-gray-800 px-3.5 py-2.5 text-sm text-gray-600 dark:text-gray-300">
             Disponible para contactar
             <input
               type="checkbox"
@@ -708,9 +708,9 @@ function EditarPerfil({
           </label>
         </div>
 
-        <div className="space-y-3 rounded-2xl border border-gray-100 p-4">
+        <div className="space-y-3 rounded-2xl border border-gray-100 dark:border-gray-800 p-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
               Telefono de contacto
             </label>
             <input
@@ -722,17 +722,17 @@ function EditarPerfil({
                   telefono: event.target.value,
                 }))
               }
-              className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+              className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
               placeholder="+34 600 000 000"
             />
           </div>
 
           <div>
-            <p className="block text-sm font-medium text-gray-700 mb-2">
+            <p className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
               Vias visibles
             </p>
             <div className="space-y-2">
-              <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm text-gray-600">
+              <label className="flex items-center justify-between rounded-xl border border-gray-100 dark:border-gray-800 px-3.5 py-2.5 text-sm text-gray-600 dark:text-gray-300">
                 Mensaje en la app
                 <input
                   type="checkbox"
@@ -746,7 +746,7 @@ function EditarPerfil({
                   className="h-4 w-4 accent-emerald-600"
                 />
               </label>
-              <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm text-gray-600">
+              <label className="flex items-center justify-between rounded-xl border border-gray-100 dark:border-gray-800 px-3.5 py-2.5 text-sm text-gray-600 dark:text-gray-300">
                 Mostrar email
                 <input
                   type="checkbox"
@@ -760,7 +760,7 @@ function EditarPerfil({
                   className="h-4 w-4 accent-emerald-600"
                 />
               </label>
-              <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm text-gray-600">
+              <label className="flex items-center justify-between rounded-xl border border-gray-100 dark:border-gray-800 px-3.5 py-2.5 text-sm text-gray-600 dark:text-gray-300">
                 Mostrar telefono
                 <input
                   type="checkbox"
@@ -777,7 +777,7 @@ function EditarPerfil({
             </div>
           </div>
 
-          <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm text-gray-600">
+          <label className="flex items-center justify-between rounded-xl border border-gray-100 dark:border-gray-800 px-3.5 py-2.5 text-sm text-gray-600 dark:text-gray-300">
             Avisarme por email si recibo un mensaje
             <input
               type="checkbox"
@@ -797,8 +797,8 @@ function EditarPerfil({
       </aside>
 
       <section className="space-y-6">
-        <div className="border border-gray-100 rounded-2xl p-6">
-          <label className="block text-sm font-medium text-gray-900 mb-3">
+        <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
+          <label className="block text-sm font-medium text-gray-900 dark:text-gray-50 mb-3">
             Sobre mí
           </label>
           <textarea
@@ -808,10 +808,10 @@ function EditarPerfil({
             }
             rows={4}
             maxLength={280}
-            className="w-full resize-none border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+            className="w-full resize-none border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
             placeholder="Cuenta qué tocas, qué buscas y qué tipo de proyectos te interesan..."
           />
-          <p className="mt-2 text-right text-xs text-gray-300">
+          <p className="mt-2 text-right text-xs text-gray-300 dark:text-gray-600">
             {form.bio.length} / 280
           </p>
         </div>
@@ -831,15 +831,15 @@ function EditarPerfil({
           />
         </div>
 
-        <div className="border border-gray-100 rounded-2xl p-6">
+        <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-sm font-medium text-gray-900">Avatar</h2>
-              <p className="mt-1 text-xs text-gray-400">
+              <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Avatar</h2>
+              <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
                 Sube una imagen cuadrada o pega una URL publica.
               </p>
             </div>
-            <label className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:border-gray-300">
+            <label className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 transition-colors hover:border-gray-300 hover:dark:border-gray-600">
               {subiendoAvatar ? "Subiendo..." : "Subir imagen"}
               <input
                 type="file"
@@ -855,11 +855,11 @@ function EditarPerfil({
             {form.avatar_url ? (
               <div
                 aria-label="Vista previa del avatar"
-                className="h-16 w-16 flex-shrink-0 rounded-2xl bg-gray-100 bg-cover bg-center"
+                className="h-16 w-16 flex-shrink-0 rounded-2xl bg-gray-100 dark:bg-gray-800 bg-cover bg-center"
                 style={{ backgroundImage: `url(${form.avatar_url})` }}
               />
             ) : (
-              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-xl font-bold text-emerald-700">
+              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-900 text-xl font-bold text-emerald-700">
                 {(form.nombre || userEmail).charAt(0).toUpperCase()}
               </div>
             )}
@@ -872,7 +872,7 @@ function EditarPerfil({
                   avatar_url: event.target.value,
                 }))
               }
-              className="min-w-0 flex-1 border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+              className="min-w-0 flex-1 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
               placeholder="https://..."
             />
           </div>
@@ -895,7 +895,7 @@ function EditarPerfil({
             type="button"
             onClick={onCancel}
             disabled={guardando}
-            className="rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:border-gray-300 disabled:opacity-60"
+            className="rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 transition-colors hover:border-gray-300 hover:dark:border-gray-600 disabled:opacity-60"
           >
             Cancelar
           </button>
@@ -923,14 +923,14 @@ function Avatar({
     return (
       <div
         aria-label="Avatar del perfil"
-        className="w-16 h-16 rounded-2xl bg-gray-100 bg-cover bg-center flex-shrink-0"
+        className="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-800 bg-cover bg-center flex-shrink-0"
         style={{ backgroundImage: `url(${perfil.avatar_url})` }}
       />
     );
   }
 
   return (
-    <div className="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-xl flex-shrink-0">
+    <div className="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-700 font-bold text-xl flex-shrink-0">
       {(perfil.nombre || fallback).charAt(0).toUpperCase()}
     </div>
   );
@@ -939,19 +939,19 @@ function Avatar({
 function Info({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
+      <p className="text-xs font-medium uppercase tracking-wide text-gray-400 dark:text-gray-500">
         {label}
       </p>
-      <p className="mt-1 text-sm text-gray-700 break-all">{value}</p>
+      <p className="mt-1 text-sm text-gray-700 dark:text-gray-200 break-all">{value}</p>
     </div>
   );
 }
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border border-gray-100 rounded-2xl p-4">
-      <p className="text-2xl font-semibold text-gray-900">{value}</p>
-      <p className="mt-1 text-xs text-gray-400">{label}</p>
+    <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-4">
+      <p className="text-2xl font-semibold text-gray-900 dark:text-gray-50">{value}</p>
+      <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">{label}</p>
     </div>
   );
 }
@@ -966,16 +966,16 @@ function TagPanel({
   empty: string;
 }) {
   return (
-    <div className="border border-gray-100 rounded-2xl p-6">
-      <h2 className="text-sm font-medium text-gray-900">{title}</h2>
+    <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
+      <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">{title}</h2>
       {items.length === 0 ? (
-        <p className="mt-3 text-sm text-gray-400">{empty}</p>
+        <p className="mt-3 text-sm text-gray-400 dark:text-gray-500">{empty}</p>
       ) : (
         <div className="mt-4 flex flex-wrap gap-2">
           {items.map((item) => (
             <span
               key={item}
-              className="text-xs text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full"
+              className="text-xs text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-2.5 py-1 rounded-full"
             >
               {item}
             </span>
@@ -998,8 +998,8 @@ function EditableTagPanel({
   onToggle: (value: string) => void;
 }) {
   return (
-    <div className="border border-gray-100 rounded-2xl p-6">
-      <h2 className="text-sm font-medium text-gray-900">{title}</h2>
+    <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
+      <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">{title}</h2>
       <div className="mt-4 flex flex-wrap gap-2">
         {options.map((option) => {
           const active = selected.includes(option);
@@ -1011,8 +1011,8 @@ function EditableTagPanel({
               onClick={() => onToggle(option)}
               className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
                 active
-                  ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                  : "border-gray-200 text-gray-500 hover:border-gray-300"
+                  ? "border-emerald-200 bg-emerald-50 dark:bg-emerald-950 text-emerald-700"
+                  : "border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-300 hover:dark:border-gray-600"
               }`}
             >
               {option}
@@ -1026,10 +1026,10 @@ function EditableTagPanel({
 
 function PartiturasPanel({ partituras }: { partituras: Partitura[] }) {
   return (
-    <div className="border border-gray-100 rounded-2xl p-6">
-      <h2 className="text-sm font-medium text-gray-900">Partituras subidas</h2>
+    <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
+      <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Partituras subidas</h2>
       {partituras.length === 0 ? (
-        <p className="mt-3 text-sm text-gray-400">
+        <p className="mt-3 text-sm text-gray-400 dark:text-gray-500">
           Todavía no subiste partituras.
         </p>
       ) : (
@@ -1040,9 +1040,9 @@ function PartiturasPanel({ partituras }: { partituras: Partitura[] }) {
               href={partitura.archivo_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-between rounded-xl border border-gray-100 px-4 py-3 text-sm transition-colors hover:border-emerald-200 hover:bg-emerald-50/40"
+              className="flex items-center justify-between rounded-xl border border-gray-100 dark:border-gray-800 px-4 py-3 text-sm transition-colors hover:border-emerald-200 hover:bg-emerald-50/40 hover:dark:bg-emerald-950/40"
             >
-              <span className="font-medium text-gray-800">
+              <span className="font-medium text-gray-800 dark:text-gray-100">
                 {partitura.titulo}
               </span>
               <span className="text-xs text-emerald-600">Ver →</span>
@@ -1067,7 +1067,7 @@ function EstadoVacio({
 }) {
   return (
     <div className="max-w-5xl mx-auto px-4 py-24 text-center">
-      <div className="w-14 h-14 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center mx-auto mb-4">
+      <div className="w-14 h-14 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-800 flex items-center justify-center mx-auto mb-4">
         <svg
           width="24"
           height="24"
@@ -1083,8 +1083,8 @@ function EstadoVacio({
           <circle cx="18" cy="16" r="3" />
         </svg>
       </div>
-      <h1 className="text-xl font-semibold text-gray-900">{title}</h1>
-      <p className="mx-auto mt-2 max-w-md text-sm text-gray-400">{text}</p>
+      <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50">{title}</h1>
+      <p className="mx-auto mt-2 max-w-md text-sm text-gray-400 dark:text-gray-500">{text}</p>
       <Link
         href={actionHref}
         className="mt-6 inline-flex rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-700"

@@ -141,29 +141,29 @@ export default function PanelCentro({ user, centro, onCentroActualizado }: Props
           <span className="inline-block text-xs font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full mb-4">
             Centro multiespacio
           </span>
-          <h1 className="text-2xl font-semibold text-gray-900">
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
             {centro.nombre || "Mi centro"}
           </h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
             Varias salas, servicios comunes y modelos Locked / Unlocked
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Link
             href={`/musicos/${centro.id}`}
-            className="inline-flex rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-600 hover:border-gray-300"
+            className="inline-flex rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:border-gray-300 hover:dark:border-gray-600"
           >
             Ver ficha pública
           </Link>
           <Link
             href="/salas"
-            className="inline-flex rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-600 hover:border-gray-300"
+            className="inline-flex rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:border-gray-300 hover:dark:border-gray-600"
           >
             Ver directorio
           </Link>
           <Link
             href="/mensajes"
-            className="inline-flex rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-sm font-medium text-emerald-700 hover:bg-emerald-100"
+            className="inline-flex rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-950 px-4 py-2.5 text-sm font-medium text-emerald-700 hover:bg-emerald-100 hover:dark:bg-emerald-900"
           >
             Mensajes
           </Link>
@@ -184,24 +184,24 @@ export default function PanelCentro({ user, centro, onCentroActualizado }: Props
 
       {editando ? (
         <form onSubmit={guardar} className="space-y-6 max-w-2xl">
-          <div className="border border-gray-100 rounded-2xl p-6 space-y-4">
-            <label className="block text-sm font-medium text-gray-700">
+          <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6 space-y-4">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Nombre del centro
               <input
                 value={form.nombre}
                 onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-                className="mt-1.5 w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm"
+                className="mt-1.5 w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm"
               />
             </label>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Dirección
               <input
                 value={form.direccion}
                 onChange={(e) => setForm({ ...form, direccion: e.target.value })}
-                className="mt-1.5 w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm"
+                className="mt-1.5 w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm"
               />
             </label>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Código postal
               <input
                 value={form.codigo_postal}
@@ -214,37 +214,37 @@ export default function PanelCentro({ user, centro, onCentroActualizado }: Props
                     provincia: provinciaDesdeCodigoPostal(cp),
                   });
                 }}
-                className="mt-1.5 w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm"
+                className="mt-1.5 w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm"
               />
             </label>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Descripción del centro
               <textarea
                 value={form.bio}
                 onChange={(e) => setForm({ ...form, bio: e.target.value })}
                 rows={4}
                 maxLength={800}
-                className="mt-1.5 w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm resize-none"
+                className="mt-1.5 w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm resize-none"
               />
             </label>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Teléfono
               <input
                 value={form.telefono}
                 onChange={(e) => setForm({ ...form, telefono: e.target.value })}
-                className="mt-1.5 w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm"
+                className="mt-1.5 w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm"
               />
             </label>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Horario
               <textarea
                 value={form.horario}
                 onChange={(e) => setForm({ ...form, horario: e.target.value })}
                 rows={2}
-                className="mt-1.5 w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm resize-none"
+                className="mt-1.5 w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm resize-none"
               />
             </label>
-            <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm">
+            <label className="flex items-center justify-between rounded-xl border border-gray-100 dark:border-gray-800 px-3.5 py-2.5 text-sm">
               Disponible para alquiler
               <input
                 type="checkbox"
@@ -255,7 +255,7 @@ export default function PanelCentro({ user, centro, onCentroActualizado }: Props
                 className="h-4 w-4 accent-emerald-600"
               />
             </label>
-            <label className="flex items-center justify-between rounded-xl border border-gray-100 px-3.5 py-2.5 text-sm">
+            <label className="flex items-center justify-between rounded-xl border border-gray-100 dark:border-gray-800 px-3.5 py-2.5 text-sm">
               Avisarme por email si recibo un mensaje
               <input
                 type="checkbox"
@@ -297,7 +297,7 @@ export default function PanelCentro({ user, centro, onCentroActualizado }: Props
               }
             />
             {form.modelos_alquiler.some((m) => m.startsWith("Locked")) && (
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
                 Precio exclusiva mensual (€)
                 <input
                   type="number"
@@ -306,18 +306,18 @@ export default function PanelCentro({ user, centro, onCentroActualizado }: Props
                   onChange={(e) =>
                     setForm({ ...form, precio_locked_mensual: e.target.value })
                   }
-                  className="mt-1.5 w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm"
+                  className="mt-1.5 w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm"
                 />
               </label>
             )}
             {form.modelos_alquiler.some((m) => m.startsWith("Unlocked")) && (
               <div>
-                <p className="text-sm font-medium text-gray-700 mb-2">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
                   Packs Unlocked (€ / mes)
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   {PACKS_HORAS_MES.map((h) => (
-                    <label key={h} className="text-xs text-gray-600">
+                    <label key={h} className="text-xs text-gray-600 dark:text-gray-300">
                       {h} h/mes
                       <input
                         type="number"
@@ -334,7 +334,7 @@ export default function PanelCentro({ user, centro, onCentroActualizado }: Props
                             },
                           }))
                         }
-                        className="mt-1 w-full border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
+                        className="mt-1 w-full border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1.5 text-sm"
                       />
                     </label>
                   ))}
@@ -352,7 +352,7 @@ export default function PanelCentro({ user, centro, onCentroActualizado }: Props
             <button
               type="button"
               onClick={() => setEditando(false)}
-              className="rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-600"
+              className="rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300"
             >
               Cancelar
             </button>
@@ -367,37 +367,37 @@ export default function PanelCentro({ user, centro, onCentroActualizado }: Props
         </form>
       ) : (
         <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
-          <aside className="border border-gray-100 rounded-2xl p-6">
+          <aside className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
             <div className="w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center text-2xl mb-4">
               🏠
             </div>
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-50">
               {centro.nombre || "Sin nombre"}
             </h2>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               {centro.provincia || centro.ciudad || "Sin ubicación"}
             </p>
             {precioLabel && (
               <p className="mt-3 text-lg font-semibold text-amber-800">
                 {precioLabel}
-                <span className="text-sm font-normal text-gray-400"> / hora</span>
+                <span className="text-sm font-normal text-gray-400 dark:text-gray-500"> / hora</span>
               </p>
             )}
             {centro.disponible && (
-              <span className="inline-block mt-3 text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
+              <span className="inline-block mt-3 text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-700 px-2 py-0.5 rounded-full">
                 Disponible
               </span>
             )}
-            <div className="mt-6 pt-6 border-t border-gray-100 space-y-3 text-sm">
+            <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 space-y-3 text-sm">
               {centro.direccion && (
                 <div>
-                  <p className="text-xs text-gray-400 uppercase">Dirección</p>
-                  <p className="text-gray-700">{centro.direccion}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 uppercase">Dirección</p>
+                  <p className="text-gray-700 dark:text-gray-200">{centro.direccion}</p>
                 </div>
               )}
               {centro.telefono && (
                 <div>
-                  <p className="text-xs text-gray-400 uppercase">Teléfono</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 uppercase">Teléfono</p>
                   <a
                     href={`tel:${centro.telefono}`}
                     className="text-emerald-600 hover:underline"
@@ -408,27 +408,27 @@ export default function PanelCentro({ user, centro, onCentroActualizado }: Props
               )}
               {centro.horario && (
                 <div>
-                  <p className="text-xs text-gray-400 uppercase">Horario</p>
-                  <p className="text-gray-700 whitespace-pre-line">{centro.horario}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 uppercase">Horario</p>
+                  <p className="text-gray-700 dark:text-gray-200 whitespace-pre-line">{centro.horario}</p>
                 </div>
               )}
             </div>
           </aside>
           <section className="space-y-6">
-            <div className="border border-gray-100 rounded-2xl p-6">
-              <h2 className="text-sm font-medium text-gray-900">Descripción</h2>
-              <p className="mt-3 text-sm text-gray-500 leading-relaxed">
+            <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
+              <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Descripción</h2>
+              <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
                 {centro.bio || "Añade una descripción de tu sala."}
               </p>
             </div>
             {centro.servicios && centro.servicios.length > 0 && (
-              <div className="border border-gray-100 rounded-2xl p-6">
-                <h2 className="text-sm font-medium text-gray-900">Servicios</h2>
+              <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
+                <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Servicios</h2>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {centro.servicios.map((item) => (
                     <span
                       key={item}
-                      className="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full"
+                      className="text-xs bg-emerald-50 dark:bg-emerald-950 text-emerald-700 px-2.5 py-1 rounded-full"
                     >
                       {item}
                     </span>

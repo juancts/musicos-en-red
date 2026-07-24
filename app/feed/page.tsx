@@ -94,8 +94,8 @@ export default function FeedPage() {
         <span className="inline-block text-xs font-medium text-sky-700 bg-sky-50 px-3 py-1 rounded-full mb-3">
           Comunidad
         </span>
-        <h1 className="text-2xl font-semibold text-gray-900">Feed</h1>
-        <p className="text-gray-400 text-sm mt-1">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Feed</h1>
+        <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
           Shows, ensayos, búsquedas de banda y lo que quieras compartir
         </p>
       </div>
@@ -105,8 +105,8 @@ export default function FeedPage() {
           <ComponerPublicacion userId={userId} onPublicado={cargar} />
         </div>
       ) : (
-        <div className="mb-6 rounded-2xl border border-dashed border-gray-200 p-5 text-center">
-          <p className="text-sm text-gray-500">
+        <div className="mb-6 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700 p-5 text-center">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             <Link href="/login?redirect=/feed" className="text-emerald-600 font-medium hover:underline">
               Inicia sesión
             </Link>{" "}
@@ -118,24 +118,24 @@ export default function FeedPage() {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="h-28 rounded-2xl bg-gray-50 border border-gray-100" />
+            <div key={n} className="h-28 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-800" />
           ))}
         </div>
       ) : errorInfo ? (
         <div className="text-center py-12 px-4">
           <p className="text-sm font-medium text-red-600">{errorInfo.titulo}</p>
-          <p className="text-sm text-gray-500 mt-2">{errorInfo.detalle}</p>
-          <p className="mt-4 text-xs text-gray-400">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{errorInfo.detalle}</p>
+          <p className="mt-4 text-xs text-gray-400 dark:text-gray-500">
             Archivos: <code>005</code> y <code>006_feed_likes_comentarios.sql</code>
           </p>
           {process.env.NODE_ENV === "development" && (
-            <p className="mt-2 text-[11px] text-gray-400 break-all">{errorInfo.tecnico}</p>
+            <p className="mt-2 text-[11px] text-gray-400 dark:text-gray-500 break-all">{errorInfo.tecnico}</p>
           )}
         </div>
       ) : publicaciones.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-4xl mb-3">🎵</p>
-          <p className="text-sm text-gray-400">El feed está vacío. Sé el primero en publicar.</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500">El feed está vacío. Sé el primero en publicar.</p>
         </div>
       ) : (
         <div className="space-y-3">

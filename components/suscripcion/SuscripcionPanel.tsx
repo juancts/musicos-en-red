@@ -82,8 +82,8 @@ export default function SuscripcionPanel({ userId, createdAt }: Props) {
 
   if (cargando) {
     return (
-      <div className="border border-gray-100 rounded-2xl p-6">
-        <div className="h-5 w-40 rounded bg-gray-100 animate-pulse" />
+      <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
+        <div className="h-5 w-40 rounded bg-gray-100 dark:bg-gray-800 animate-pulse" />
       </div>
     );
   }
@@ -93,11 +93,11 @@ export default function SuscripcionPanel({ userId, createdAt }: Props) {
   const mostrarAvisoGracia = createdAt !== undefined && !activo;
 
   return (
-    <div className="border border-gray-100 rounded-2xl p-6">
+    <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-sm font-medium text-gray-900">Suscripción</h2>
-          <p className="mt-1 text-sm text-gray-500">
+          <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Suscripción</h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             {activo
               ? "Eres suscriptor — perfil destacado, insignia y anuncios ilimitados."
               : "Hazte suscriptor por 2,99€/mes: destacado en búsquedas, insignia y sin límite de anuncios."}

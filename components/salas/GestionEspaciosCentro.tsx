@@ -137,25 +137,25 @@ export default function GestionEspaciosCentro({ centroId }: Props) {
   };
 
   return (
-    <div className="border border-gray-100 rounded-2xl p-6 space-y-4">
+    <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6 space-y-4">
       <div>
-        <h2 className="text-sm font-medium text-gray-900">Salas de ensayo</h2>
-        <p className="text-xs text-gray-400 mt-1">
+        <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Salas de ensayo</h2>
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
           Cada local con su precio y equipamiento. El listado muestra el precio más bajo.
         </p>
       </div>
 
       {cargando ? (
-        <p className="text-sm text-gray-400">Cargando salas...</p>
+        <p className="text-sm text-gray-400 dark:text-gray-500">Cargando salas...</p>
       ) : (
         <ul className="space-y-2">
           {espacios.map((e) => (
             <li
               key={e.id}
-              className="flex items-center justify-between gap-2 rounded-xl border border-gray-100 px-3 py-2 text-sm"
+              className="flex items-center justify-between gap-2 rounded-xl border border-gray-100 dark:border-gray-800 px-3 py-2 text-sm"
             >
-              <span className="font-medium text-gray-800 truncate">{e.nombre}</span>
-              <span className="text-xs text-gray-400 flex-shrink-0">
+              <span className="font-medium text-gray-800 dark:text-gray-100 truncate">{e.nombre}</span>
+              <span className="text-xs text-gray-400 dark:text-gray-500 flex-shrink-0">
                 {e.precio_hora != null ? `${e.precio_hora} €/h` : "—"}
               </span>
               <div className="flex gap-1 flex-shrink-0">
@@ -177,27 +177,27 @@ export default function GestionEspaciosCentro({ centroId }: Props) {
             </li>
           ))}
           {espacios.length === 0 && (
-            <p className="text-sm text-gray-400">Aún no hay salas. Añade la primera abajo.</p>
+            <p className="text-sm text-gray-400 dark:text-gray-500">Aún no hay salas. Añade la primera abajo.</p>
           )}
         </ul>
       )}
 
-      <div className="border-t border-gray-100 pt-4 space-y-3">
-        <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+      <div className="border-t border-gray-100 dark:border-gray-800 pt-4 space-y-3">
+        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
           {editandoId ? "Editar sala" : "Nueva sala"}
         </p>
         <input
           value={form.nombre}
           onChange={(e) => setForm({ ...form, nombre: e.target.value })}
           placeholder="Ej. Sala A — 25 m²"
-          className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm"
+          className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm"
         />
         <textarea
           value={form.descripcion}
           onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
           placeholder="Descripción breve"
           rows={2}
-          className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm resize-none"
+          className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm resize-none"
         />
         <div className="grid grid-cols-3 gap-2">
           <input
@@ -206,7 +206,7 @@ export default function GestionEspaciosCentro({ centroId }: Props) {
             value={form.precio_hora}
             onChange={(e) => setForm({ ...form, precio_hora: e.target.value })}
             placeholder="€/h"
-            className="border border-gray-200 rounded-xl px-3 py-2 text-sm"
+            className="border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-sm"
           />
           <input
             type="number"
@@ -214,7 +214,7 @@ export default function GestionEspaciosCentro({ centroId }: Props) {
             value={form.capacidad_max}
             onChange={(e) => setForm({ ...form, capacidad_max: e.target.value })}
             placeholder="Capacidad"
-            className="border border-gray-200 rounded-xl px-3 py-2 text-sm"
+            className="border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-sm"
           />
           <input
             type="number"
@@ -222,7 +222,7 @@ export default function GestionEspaciosCentro({ centroId }: Props) {
             value={form.metros_cuadrados}
             onChange={(e) => setForm({ ...form, metros_cuadrados: e.target.value })}
             placeholder="m²"
-            className="border border-gray-200 rounded-xl px-3 py-2 text-sm"
+            className="border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-sm"
           />
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -233,8 +233,8 @@ export default function GestionEspaciosCentro({ centroId }: Props) {
               onClick={() => toggleEquipamiento(item)}
               className={`rounded-full border px-2 py-0.5 text-[10px] ${
                 form.equipamiento.includes(item)
-                  ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                  : "border-gray-200 text-gray-400"
+                  ? "border-emerald-200 bg-emerald-50 dark:bg-emerald-950 text-emerald-700"
+                  : "border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-500"
               }`}
             >
               {item}
@@ -247,7 +247,7 @@ export default function GestionEspaciosCentro({ centroId }: Props) {
             <button
               type="button"
               onClick={resetForm}
-              className="rounded-xl border border-gray-200 px-3 py-2 text-sm text-gray-600"
+              className="rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm text-gray-600 dark:text-gray-300"
             >
               Cancelar
             </button>

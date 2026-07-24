@@ -114,7 +114,7 @@ export default function ContactarSalaButton({ salaId, salaNombre, ownerId }: Pro
           {error}
         </p>
       )}
-      <p className="mt-2 text-xs text-gray-400">
+      <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">
         Coordina horarios, grupo y equipamiento sin salir de la app.
       </p>
     </div>

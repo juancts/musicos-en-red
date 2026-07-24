@@ -268,8 +268,8 @@ export default function MensajesInbox() {
   if (estado === "cargando") {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="h-8 w-40 rounded-lg bg-gray-100 mb-6" />
-        <div className="h-96 rounded-2xl border border-gray-100 bg-gray-50/50" />
+        <div className="h-8 w-40 rounded-lg bg-gray-100 dark:bg-gray-800 mb-6" />
+        <div className="h-96 rounded-2xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50" />
       </div>
     );
   }
@@ -277,8 +277,8 @@ export default function MensajesInbox() {
   if (estado === "sin-sesion") {
     return (
       <div className="max-w-2xl mx-auto px-4 py-24 text-center">
-        <h1 className="text-xl font-semibold text-gray-900">Mensajes</h1>
-        <p className="mt-2 text-sm text-gray-400">
+        <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50">Mensajes</h1>
+        <p className="mt-2 text-sm text-gray-400 dark:text-gray-500">
           Inicia sesion para hablar con otros contactos.
         </p>
         <Link
@@ -296,8 +296,8 @@ export default function MensajesInbox() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900">Mensajes</h1>
-        <p className="text-sm text-gray-400 mt-1">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Mensajes</h1>
+        <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
           Conversaciones con musicos y salas
         </p>
       </div>
@@ -308,21 +308,21 @@ export default function MensajesInbox() {
         </div>
       )}
 
-      <div className="flex h-[min(70vh,640px)] rounded-2xl border border-gray-100 overflow-hidden bg-white shadow-sm">
+      <div className="flex h-[min(70vh,640px)] rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-900 shadow-sm">
         <aside
-          className={`w-full sm:w-72 sm:flex-shrink-0 border-r border-gray-100 flex flex-col ${
+          className={`w-full sm:w-72 sm:flex-shrink-0 border-r border-gray-100 dark:border-gray-800 flex flex-col ${
             mostrarChatEnMovil ? "hidden sm:flex" : "flex"
           }`}
         >
-          <div className="px-4 py-3 border-b border-gray-100">
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">
+          <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800">
+            <p className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">
               Conversaciones
             </p>
           </div>
 
           <div className="flex-1 overflow-y-auto">
             {conversaciones.length === 0 ? (
-              <p className="px-4 py-8 text-sm text-gray-400 text-center">
+              <p className="px-4 py-8 text-sm text-gray-400 dark:text-gray-500 text-center">
                 Aún no tienes mensajes.
                 <br />
                 <Link href="/explorar" className="text-emerald-600 hover:underline mt-2 inline-block">
@@ -343,16 +343,16 @@ export default function MensajesInbox() {
                   <Link
                     key={conv.id}
                     href={`/mensajes?c=${conv.id}`}
-                    className={`block px-4 py-3 border-b border-gray-50 transition-colors hover:bg-gray-50 ${
-                      activa ? "bg-emerald-50/60" : ""
+                    className={`block px-4 py-3 border-b border-gray-50 dark:border-gray-800 transition-colors hover:bg-gray-50 hover:dark:bg-gray-800 ${
+                      activa ? "bg-emerald-50/60 dark:bg-emerald-950/60" : ""
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-50 truncate">
                         {userId ? nombreContraparte(conv, userId) : "—"}
                       </p>
                       {ultimo && (
-                        <span className="text-[10px] text-gray-400 flex-shrink-0">
+                        <span className="text-[10px] text-gray-400 dark:text-gray-500 flex-shrink-0">
                           {formatearFecha(ultimo.created_at)}
                         </span>
                       )}
@@ -360,7 +360,7 @@ export default function MensajesInbox() {
                     {ultimo && (
                       <p
                         className={`text-xs mt-0.5 truncate ${
-                          noLeidos ? "text-gray-900 font-medium" : "text-gray-400"
+                          noLeidos ? "text-gray-900 dark:text-gray-50 font-medium" : "text-gray-400 dark:text-gray-500"
                         }`}
                       >
                         {ultimo.remitente_id === userId ? "Tú: " : ""}
@@ -381,21 +381,21 @@ export default function MensajesInbox() {
         >
           {!conversacionActiva ? (
             <div className="flex-1 flex items-center justify-center p-8 text-center">
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-400 dark:text-gray-500">
                 Elige una conversacion o contacta a alguien desde su perfil.
               </p>
             </div>
           ) : (
             <>
-              <div className="px-4 py-3 border-b border-gray-100 flex items-center gap-3">
+              <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800 flex items-center gap-3">
                 <Link
                   href="/mensajes"
-                  className="sm:hidden text-sm text-gray-400 hover:text-gray-700"
+                  className="sm:hidden text-sm text-gray-400 dark:text-gray-500 hover:text-gray-700 hover:dark:text-gray-200"
                 >
                   ←
                 </Link>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-gray-900 truncate">
+                  <p className="text-sm font-medium text-gray-900 dark:text-gray-50 truncate">
                     {userId && conversacionSeleccionada
                       ? nombreContraparte(conversacionSeleccionada, userId)
                       : "Conversación"}
@@ -419,11 +419,11 @@ export default function MensajesInbox() {
                 </div>
               </div>
 
-              <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-gray-50/40">
+              <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-gray-50/40 dark:bg-gray-800/40">
                 {cargandoChat ? (
-                  <p className="text-sm text-gray-400 text-center py-8">Cargando...</p>
+                  <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-8">Cargando...</p>
                 ) : mensajes.length === 0 ? (
-                  <p className="text-sm text-gray-400 text-center py-8">
+                  <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-8">
                     Escribe el primer mensaje.
                   </p>
                 ) : (
@@ -438,13 +438,13 @@ export default function MensajesInbox() {
                           className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
                             propio
                               ? "bg-emerald-600 text-white rounded-br-md"
-                              : "bg-white border border-gray-100 text-gray-800 rounded-bl-md"
+                              : "bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-gray-800 dark:text-gray-100 rounded-bl-md"
                           }`}
                         >
                           <p className="whitespace-pre-wrap break-words">{msg.cuerpo}</p>
                           <p
                             className={`text-[10px] mt-1 ${
-                              propio ? "text-emerald-100" : "text-gray-400"
+                              propio ? "text-emerald-100" : "text-gray-400 dark:text-gray-500"
                             }`}
                           >
                             {formatearFecha(msg.created_at)}
@@ -459,7 +459,7 @@ export default function MensajesInbox() {
 
               <form
                 onSubmit={enviar}
-                className="p-3 border-t border-gray-100 flex gap-2 bg-white"
+                className="p-3 border-t border-gray-100 dark:border-gray-800 flex gap-2 bg-white dark:bg-gray-900"
               >
                 <input
                   type="text"
@@ -467,7 +467,7 @@ export default function MensajesInbox() {
                   onChange={(e) => setTexto(e.target.value)}
                   maxLength={2000}
                   placeholder="Escribe un mensaje..."
-                  className="flex-1 border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="flex-1 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
                 <button
                   type="submit"

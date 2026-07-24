@@ -127,8 +127,8 @@ export default function SalasPage() {
           <span className="inline-block text-xs font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full mb-4">
             Alquiler de espacios
           </span>
-          <h1 className="text-2xl font-semibold text-gray-900">Centros de ensayo</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Centros de ensayo</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
             {miProvincia
               ? `Multiespacios en ${miProvincia}`
               : "Locales con varias salas, servicios y zonas comunes"}
@@ -143,14 +143,14 @@ export default function SalasPage() {
             className={`inline-flex w-fit items-center rounded-xl px-4 py-2.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
               soloCerca
                 ? "bg-emerald-600 text-white hover:bg-emerald-700"
-                : "border border-gray-200 text-gray-600 hover:border-gray-300"
+                : "border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-gray-300 hover:dark:border-gray-600"
             }`}
           >
             Solo cerca de mí
           </button>
           <Link
             href="/registro"
-            className="inline-flex w-fit items-center rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-600 hover:border-gray-300"
+            className="inline-flex w-fit items-center rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:border-gray-300 hover:dark:border-gray-600"
           >
             Publicar mi sala
           </Link>
@@ -162,33 +162,33 @@ export default function SalasPage() {
           {[1, 2, 3].map((item) => (
             <div
               key={item}
-              className="h-44 rounded-2xl border border-gray-100 bg-gray-50/50"
+              className="h-44 rounded-2xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50"
             />
           ))}
         </div>
       ) : errorInfo ? (
         <div className="max-w-lg mx-auto text-center py-16 px-4">
           <p className="text-sm font-medium text-red-600 mb-2">{errorInfo.titulo}</p>
-          <p className="text-sm text-gray-500 mb-4">{errorInfo.detalle}</p>
-          <div className="rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-left text-xs text-gray-500">
-            <p className="font-medium text-gray-600 mb-1">Pasos en Supabase</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{errorInfo.detalle}</p>
+          <div className="rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 px-4 py-3 text-left text-xs text-gray-500 dark:text-gray-400">
+            <p className="font-medium text-gray-600 dark:text-gray-300 mb-1">Pasos en Supabase</p>
             <ol className="list-decimal list-inside space-y-1">
               <li>Proyecto → SQL Editor → New query</li>
               <li>
                 Pega el contenido de{" "}
-                <code className="text-gray-700">014_centros.sql</code>
+                <code className="text-gray-700 dark:text-gray-200">014_centros.sql</code>
               </li>
               <li>Pulsa Run y recarga esta página</li>
             </ol>
           </div>
           {process.env.NODE_ENV === "development" && (
-            <p className="mt-4 text-[11px] text-gray-400 break-all">{errorInfo.tecnico}</p>
+            <p className="mt-4 text-[11px] text-gray-400 dark:text-gray-500 break-all">{errorInfo.tecnico}</p>
           )}
         </div>
       ) : salasOrdenadas.length === 0 ? (
         <div className="text-center py-24">
           <p className="text-4xl mb-4">🏠</p>
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 dark:text-gray-500 text-sm">
             {salas.length > 0
               ? "No hay salas activas publicadas ahora mismo."
               : "Aún no hay salas publicadas."}

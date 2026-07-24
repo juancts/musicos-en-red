@@ -75,38 +75,38 @@ export default function LoginForm() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <span className="text-4xl">🎸</span>
-          <h1 className="text-2xl font-semibold mt-3 text-gray-900">Bienvenido de nuevo</h1>
-          <p className="text-gray-500 text-sm mt-1">Inicia sesión en Músicos en Red</p>
+          <h1 className="text-2xl font-semibold mt-3 text-gray-900 dark:text-gray-50">Bienvenido de nuevo</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Inicia sesión en Músicos en Red</p>
         </div>
 
         <button
           type="button"
           onClick={handleGoogleLogin}
           disabled={googleLoading || loading}
-          className="mb-4 flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:border-gray-300 hover:bg-gray-50 disabled:opacity-60"
+          className="mb-4 flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors hover:border-gray-300 hover:dark:border-gray-600 hover:bg-gray-50 hover:dark:bg-gray-800 disabled:opacity-60"
         >
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-sm font-semibold text-blue-600">
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white dark:bg-gray-900 text-sm font-semibold text-blue-600">
             G
           </span>
           {googleLoading ? "Conectando..." : "Entrar con Google"}
         </button>
 
         <div className="mb-4 flex items-center gap-3">
-          <div className="h-px flex-1 bg-gray-100" />
-          <span className="text-xs text-gray-400">o con email</span>
-          <div className="h-px flex-1 bg-gray-100" />
+          <div className="h-px flex-1 bg-gray-100 dark:bg-gray-800" />
+          <span className="text-xs text-gray-400 dark:text-gray-500">o con email</span>
+          <div className="h-px flex-1 bg-gray-100 dark:bg-gray-800" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
               Correo electrónico
             </label>
             <input
               type="email"
               placeholder="tu@email.com"
               required
-              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+              className="w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -114,7 +114,7 @@ export default function LoginForm() {
 
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
                 Contraseña
               </label>
               <Link href="/recuperar-password" className="text-xs text-emerald-600 hover:underline">
@@ -125,7 +125,7 @@ export default function LoginForm() {
               type="password"
               placeholder="••••••••"
               required
-              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+              className="w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -146,7 +146,7 @@ export default function LoginForm() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           ¿No tienes cuenta?{" "}
           <Link href="/registro" className="text-emerald-600 hover:underline font-medium">
             Regístrate gratis

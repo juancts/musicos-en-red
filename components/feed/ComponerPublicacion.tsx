@@ -78,17 +78,17 @@ export default function ComponerPublicacion({ userId, onPublicado }: Props) {
   };
 
   return (
-    <div className="border border-gray-100 rounded-2xl p-4 sm:p-5 bg-white shadow-sm">
+    <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-4 sm:p-5 bg-white dark:bg-gray-900 shadow-sm">
       <textarea
         value={contenido}
         onChange={(e) => setContenido(e.target.value)}
         maxLength={500}
         rows={3}
         placeholder="¿Qué estás tocando? Anuncia un show, busca banda o comparte una idea..."
-        className="w-full resize-none border-0 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0"
+        className="w-full resize-none border-0 text-sm text-gray-900 dark:text-gray-50 placeholder:text-gray-400 placeholder:dark:text-gray-500 focus:outline-none focus:ring-0"
       />
 
-      <label className="mt-3 flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+      <label className="mt-3 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 cursor-pointer">
         <input
           type="checkbox"
           checked={esShow}
@@ -101,29 +101,29 @@ export default function ComponerPublicacion({ userId, onPublicado }: Props) {
       {esShow && (
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <div>
-            <label className="block text-xs text-gray-400 mb-1">Fecha y hora</label>
+            <label className="block text-xs text-gray-400 dark:text-gray-500 mb-1">Fecha y hora</label>
             <input
               type="datetime-local"
               value={fechaEvento}
               onChange={(e) => setFechaEvento(e.target.value)}
-              className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm"
+              className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-sm"
             />
           </div>
           <div>
-            <label className="block text-xs text-gray-400 mb-1">Lugar</label>
+            <label className="block text-xs text-gray-400 dark:text-gray-500 mb-1">Lugar</label>
             <input
               value={lugar}
               onChange={(e) => setLugar(e.target.value)}
               maxLength={120}
               placeholder="Sala, bar, ciudad..."
-              className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm"
+              className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-sm"
             />
           </div>
         </div>
       )}
 
-      <div className="mt-4 flex items-center justify-between border-t border-gray-50 pt-3">
-        <span className="text-xs text-gray-300">{contenido.length}/500</span>
+      <div className="mt-4 flex items-center justify-between border-t border-gray-50 dark:border-gray-800 pt-3">
+        <span className="text-xs text-gray-300 dark:text-gray-600">{contenido.length}/500</span>
         <button
           type="button"
           onClick={publicar}

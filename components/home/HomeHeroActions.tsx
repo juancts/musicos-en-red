@@ -28,8 +28,8 @@ export default function HomeHeroActions() {
   if (loading) {
     return (
       <div className="flex items-center justify-center gap-3 flex-wrap">
-        <div className="h-11 w-32 rounded-xl bg-gray-100" />
-        <div className="h-11 w-36 rounded-xl border border-gray-100" />
+        <div className="h-11 w-32 rounded-xl bg-gray-100 dark:bg-gray-800" />
+        <div className="h-11 w-36 rounded-xl border border-gray-100 dark:border-gray-800" />
       </div>
     );
   }
@@ -46,30 +46,30 @@ export default function HomeHeroActions() {
           </Link>
           <Link
             href="/perfil"
-            className="px-6 py-3 border border-gray-200 hover:border-gray-300 text-gray-600 text-sm rounded-xl transition-colors"
+            className="px-6 py-3 border border-gray-200 dark:border-gray-700 hover:border-gray-300 hover:dark:border-gray-600 text-gray-600 dark:text-gray-300 text-sm rounded-xl transition-colors"
           >
             Mi perfil
           </Link>
           <Link
             href="/explorar"
-            className="px-6 py-3 border border-gray-200 hover:border-gray-300 text-gray-600 text-sm rounded-xl transition-colors"
+            className="px-6 py-3 border border-gray-200 dark:border-gray-700 hover:border-gray-300 hover:dark:border-gray-600 text-gray-600 dark:text-gray-300 text-sm rounded-xl transition-colors"
           >
             Explorar músicos →
           </Link>
           <Link
             href="/salas"
-            className="px-6 py-3 border border-gray-200 hover:border-gray-300 text-gray-600 text-sm rounded-xl transition-colors"
+            className="px-6 py-3 border border-gray-200 dark:border-gray-700 hover:border-gray-300 hover:dark:border-gray-600 text-gray-600 dark:text-gray-300 text-sm rounded-xl transition-colors"
           >
             Ver salas →
           </Link>
           <Link
             href="/instrumentos"
-            className="px-6 py-3 border border-gray-200 hover:border-gray-300 text-gray-600 text-sm rounded-xl transition-colors"
+            className="px-6 py-3 border border-gray-200 dark:border-gray-700 hover:border-gray-300 hover:dark:border-gray-600 text-gray-600 dark:text-gray-300 text-sm rounded-xl transition-colors"
           >
             Instrumentos →
           </Link>
         </div>
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-gray-400 dark:text-gray-500">
           Sesión iniciada como {user.email}
         </p>
       </div>
@@ -86,25 +86,25 @@ export default function HomeHeroActions() {
       </Link>
       <Link
         href="/registro"
-        className="px-6 py-3 border border-gray-200 hover:border-gray-300 text-gray-600 text-sm rounded-xl transition-colors"
+        className="px-6 py-3 border border-gray-200 dark:border-gray-700 hover:border-gray-300 hover:dark:border-gray-600 text-gray-600 dark:text-gray-300 text-sm rounded-xl transition-colors"
       >
         Crear cuenta
       </Link>
       <Link
         href="/explorar"
-        className="px-6 py-3 border border-gray-200 hover:border-gray-300 text-gray-600 text-sm rounded-xl transition-colors"
+        className="px-6 py-3 border border-gray-200 dark:border-gray-700 hover:border-gray-300 hover:dark:border-gray-600 text-gray-600 dark:text-gray-300 text-sm rounded-xl transition-colors"
       >
         Explorar músicos →
       </Link>
       <Link
         href="/salas"
-        className="px-6 py-3 border border-gray-200 hover:border-gray-300 text-gray-600 text-sm rounded-xl transition-colors"
+        className="px-6 py-3 border border-gray-200 dark:border-gray-700 hover:border-gray-300 hover:dark:border-gray-600 text-gray-600 dark:text-gray-300 text-sm rounded-xl transition-colors"
       >
         Ver salas →
       </Link>
       <Link
         href="/instrumentos"
-        className="px-6 py-3 border border-gray-200 hover:border-gray-300 text-gray-600 text-sm rounded-xl transition-colors"
+        className="px-6 py-3 border border-gray-200 dark:border-gray-700 hover:border-gray-300 hover:dark:border-gray-600 text-gray-600 dark:text-gray-300 text-sm rounded-xl transition-colors"
       >
         Instrumentos →
       </Link>

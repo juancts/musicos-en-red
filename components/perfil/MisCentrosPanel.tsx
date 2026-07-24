@@ -116,7 +116,7 @@ export default function MisCentrosPanel({ user }: Props) {
         <button
           type="button"
           onClick={() => setCentroActivoId(null)}
-          className="mb-6 text-sm text-gray-400 hover:text-gray-700"
+          className="mb-6 text-sm text-gray-400 dark:text-gray-500 hover:text-gray-700 hover:dark:text-gray-200"
         >
           ← Mis salas
         </button>
@@ -134,9 +134,9 @@ export default function MisCentrosPanel({ user }: Props) {
   }
 
   return (
-    <div className="border border-gray-100 rounded-2xl p-6">
+    <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-medium text-gray-900">Mis salas</h2>
+        <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Mis salas</h2>
         {!creando &&
           (esSuscriptor || centros.length < LIMITE_CENTROS_GRATIS ? (
             <button
@@ -147,16 +147,16 @@ export default function MisCentrosPanel({ user }: Props) {
               + Añadir sala
             </button>
           ) : (
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-gray-400 dark:text-gray-500">
               Límite del plan gratis — suscríbete para añadir más
             </span>
           ))}
       </div>
 
       {cargando ? (
-        <div className="h-16 rounded-xl bg-gray-50 animate-pulse" />
+        <div className="h-16 rounded-xl bg-gray-50 dark:bg-gray-800 animate-pulse" />
       ) : centros.length === 0 && !creando ? (
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-400 dark:text-gray-500">
           Si además de músico gestionas un espacio de ensayo o grabación, puedes
           darlo de alta aquí sin perder tu perfil de músico.
         </p>
@@ -165,20 +165,20 @@ export default function MisCentrosPanel({ user }: Props) {
           {centros.map((c) => (
             <li
               key={c.id}
-              className="flex items-center justify-between gap-2 rounded-xl border border-gray-100 px-4 py-3 text-sm"
+              className="flex items-center justify-between gap-2 rounded-xl border border-gray-100 dark:border-gray-800 px-4 py-3 text-sm"
             >
               <div className="min-w-0">
-                <p className="font-medium text-gray-800 truncate">
+                <p className="font-medium text-gray-800 dark:text-gray-100 truncate">
                   {c.nombre || "Sin nombre"}
                 </p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 dark:text-gray-500">
                   {c.provincia || c.ciudad || "Sin ubicación"}
                 </p>
               </div>
               <div className="flex flex-shrink-0 gap-3">
                 <Link
                   href={`/musicos/${c.id}`}
-                  className="text-xs text-gray-500 hover:underline"
+                  className="text-xs text-gray-500 dark:text-gray-400 hover:underline"
                 >
                   Ver ficha
                 </Link>
@@ -196,12 +196,12 @@ export default function MisCentrosPanel({ user }: Props) {
       )}
 
       {creando && (
-        <form onSubmit={crearCentro} className="mt-4 space-y-3 border-t border-gray-100 pt-4">
+        <form onSubmit={crearCentro} className="mt-4 space-y-3 border-t border-gray-100 dark:border-gray-800 pt-4">
           <input
             value={form.nombre}
             onChange={(e) => setForm({ ...form, nombre: e.target.value })}
             placeholder="Nombre de la sala"
-            className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm"
+            className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm"
           />
           <input
             value={form.codigo_postal}
@@ -210,14 +210,14 @@ export default function MisCentrosPanel({ user }: Props) {
               setForm({ ...form, codigo_postal: normalizarCodigoPostal(e.target.value) })
             }
             placeholder="Código postal"
-            className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm"
+            className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm"
           />
           <textarea
             value={form.bio}
             onChange={(e) => setForm({ ...form, bio: e.target.value })}
             placeholder="Breve descripción"
             rows={2}
-            className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm resize-none"
+            className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm resize-none"
           />
           {errorNuevo && <p className="text-sm text-red-600">{errorNuevo}</p>}
           <div className="flex gap-2">
@@ -228,7 +228,7 @@ export default function MisCentrosPanel({ user }: Props) {
                 setForm(formVacio());
                 setErrorNuevo(null);
               }}
-              className="rounded-xl border border-gray-200 px-3 py-2 text-sm text-gray-600"
+              className="rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm text-gray-600 dark:text-gray-300"
             >
               Cancelar
             </button>

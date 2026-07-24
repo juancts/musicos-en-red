@@ -251,13 +251,13 @@ export default function ExplorarPage() {
     <div className="mx-auto max-w-5xl px-4 py-12">
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <span className="mb-4 inline-block rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
+          <span className="mb-4 inline-block rounded-full bg-emerald-50 dark:bg-emerald-950 px-3 py-1 text-xs font-medium text-emerald-600">
             Comunidad musical
           </span>
-          <h1 className="text-2xl font-semibold text-gray-900">
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
             Explorar musicos
           </h1>
-          <p className="mt-1 text-sm text-gray-400">
+          <p className="mt-1 text-sm text-gray-400 dark:text-gray-500">
             {tieneUbicacion
               ? `Primero mostramos perfiles cerca de ${miUbicacion?.provincia || miUbicacion?.codigo_postal}.`
               : "Completa tu codigo postal para priorizar perfiles cercanos."}
@@ -272,9 +272,9 @@ export default function ExplorarPage() {
         </Link>
       </div>
 
-      <div className="mb-8 rounded-2xl border border-gray-100 p-4">
+      <div className="mb-8 rounded-2xl border border-gray-100 dark:border-gray-800 p-4">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-          <div className="flex rounded-xl border border-gray-200 p-1">
+          <div className="flex rounded-xl border border-gray-200 dark:border-gray-700 p-1">
             <button
               type="button"
               disabled={!tieneUbicacion}
@@ -282,7 +282,7 @@ export default function ExplorarPage() {
               className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
                 alcance === "cerca"
                   ? "bg-emerald-600 text-white"
-                  : "text-gray-500 hover:bg-gray-50"
+                  : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 hover:dark:bg-gray-800"
               }`}
             >
               Cerca
@@ -293,7 +293,7 @@ export default function ExplorarPage() {
               className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                 alcance === "todos"
                   ? "bg-emerald-600 text-white"
-                  : "text-gray-500 hover:bg-gray-50"
+                  : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 hover:dark:bg-gray-800"
               }`}
             >
               Todos
@@ -304,7 +304,7 @@ export default function ExplorarPage() {
             value={busqueda}
             onChange={(event) => setBusqueda(event.target.value)}
             placeholder="Buscar por nombre, instrumento, genero o zona"
-            className="min-w-0 flex-1 rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm text-gray-900 outline-none transition focus:border-emerald-300 focus:ring-2 focus:ring-emerald-100"
+            className="min-w-0 flex-1 rounded-xl border border-gray-200 dark:border-gray-700 px-3.5 py-2.5 text-sm text-gray-900 dark:text-gray-50 outline-none transition focus:border-emerald-300 focus:ring-2 focus:ring-emerald-100"
           />
         </div>
 
@@ -312,7 +312,7 @@ export default function ExplorarPage() {
           <select
             value={provincia}
             onChange={(event) => setProvincia(event.target.value)}
-            className="rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700"
+            className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 text-sm text-gray-700 dark:text-gray-200"
           >
             <option value="">Todas las provincias</option>
             {provincias.map((item) => (
@@ -325,7 +325,7 @@ export default function ExplorarPage() {
           <select
             value={instrumento}
             onChange={(event) => setInstrumento(event.target.value)}
-            className="rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700"
+            className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 text-sm text-gray-700 dark:text-gray-200"
           >
             <option value="">Todos los instrumentos</option>
             {instrumentos.map((item) => (
@@ -338,7 +338,7 @@ export default function ExplorarPage() {
           <select
             value={genero}
             onChange={(event) => setGenero(event.target.value)}
-            className="rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700"
+            className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 text-sm text-gray-700 dark:text-gray-200"
           >
             <option value="">Todos los generos</option>
             {generos.map((item) => (
@@ -348,7 +348,7 @@ export default function ExplorarPage() {
             ))}
           </select>
 
-          <label className="flex items-center justify-between rounded-xl border border-gray-200 px-3 py-2.5 text-sm text-gray-600">
+          <label className="flex items-center justify-between rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2.5 text-sm text-gray-600 dark:text-gray-300">
             Disponibles
             <input
               type="checkbox"
@@ -360,13 +360,13 @@ export default function ExplorarPage() {
         </div>
 
         <div className="mt-3 flex items-center justify-between gap-3">
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
             {loading ? "Buscando perfiles..." : `${musicosOrdenados.length} resultados`}
           </p>
           <button
             type="button"
             onClick={limpiarFiltros}
-            className="text-xs font-medium text-gray-400 transition-colors hover:text-gray-700"
+            className="text-xs font-medium text-gray-400 dark:text-gray-500 transition-colors hover:text-gray-700 hover:dark:text-gray-200"
           >
             Limpiar filtros
           </button>
@@ -378,7 +378,7 @@ export default function ExplorarPage() {
           {[1, 2, 3].map((item) => (
             <div
               key={item}
-              className="h-44 rounded-2xl border border-gray-100 bg-gray-50/50"
+              className="h-44 rounded-2xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50"
             />
           ))}
         </div>
@@ -390,7 +390,7 @@ export default function ExplorarPage() {
         </div>
       ) : musicosOrdenados.length === 0 ? (
         <div className="py-24 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-gray-100 bg-gray-50">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800">
             <svg
               width="24"
               height="24"
@@ -406,7 +406,7 @@ export default function ExplorarPage() {
               <circle cx="18" cy="16" r="3" />
             </svg>
           </div>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-400 dark:text-gray-500">
             No hay musicos para mostrar con esos filtros.
           </p>
         </div>
@@ -419,32 +419,32 @@ export default function ExplorarPage() {
               <Link
                 key={musico.id}
                 href={`/musicos/${musico.id}`}
-                className="group block rounded-2xl border border-gray-100 p-4 transition-all hover:border-emerald-200 hover:bg-emerald-50/40"
+                className="group block rounded-2xl border border-gray-100 dark:border-gray-800 p-4 transition-all hover:border-emerald-200 hover:bg-emerald-50/40 hover:dark:bg-emerald-950/40"
               >
                 <div className="mb-3 flex items-center gap-3">
                   {musico.avatar_url ? (
                     <div
                       aria-label="Avatar del perfil"
-                      className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-100 bg-cover bg-center"
+                      className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-100 dark:bg-gray-800 bg-cover bg-center"
                       style={{ backgroundImage: `url(${musico.avatar_url})` }}
                     />
                   ) : (
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 text-sm font-semibold text-emerald-700">
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900 text-sm font-semibold text-emerald-700">
                       {musico.nombre?.charAt(0).toUpperCase() ?? "?"}
                     </div>
                   )}
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-gray-900 transition-colors group-hover:text-emerald-700">
+                    <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-50 transition-colors group-hover:text-emerald-700">
                       {musico.nombre || "Musico sin nombre"}
                     </p>
-                    <p className="truncate text-xs text-gray-400">
+                    <p className="truncate text-xs text-gray-400 dark:text-gray-500">
                       {musico.provincia || musico.ciudad || "Sin ubicacion"}
                       {musico.codigo_postal ? ` · ${musico.codigo_postal}` : ""}
                     </p>
                   </div>
                   {suscriptores.has(musico.id) && <BadgeSuscriptor />}
                   {cercania && (
-                    <span className="flex-shrink-0 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700">
+                    <span className="flex-shrink-0 rounded-full bg-emerald-100 dark:bg-emerald-900 px-2 py-0.5 text-xs font-medium text-emerald-700">
                       {cercania}
                     </span>
                   )}
@@ -452,24 +452,24 @@ export default function ExplorarPage() {
 
                 <div className="mb-2 flex flex-wrap gap-1.5">
                   {musico.instrumento && (
-                    <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs text-emerald-600">
+                    <span className="rounded-full bg-emerald-50 dark:bg-emerald-950 px-2.5 py-0.5 text-xs text-emerald-600">
                       {musico.instrumento}
                     </span>
                   )}
                   {musico.disponible && (
-                    <span className="rounded-full bg-gray-50 px-2.5 py-0.5 text-xs text-gray-500">
+                    <span className="rounded-full bg-gray-50 dark:bg-gray-800 px-2.5 py-0.5 text-xs text-gray-500 dark:text-gray-400">
                       Disponible
                     </span>
                   )}
                 </div>
 
                 {musico.generos && musico.generos.length > 0 && (
-                  <p className="mb-2 truncate text-xs text-gray-400">
+                  <p className="mb-2 truncate text-xs text-gray-400 dark:text-gray-500">
                     {musico.generos.slice(0, 3).join(" · ")}
                   </p>
                 )}
 
-                <p className="line-clamp-2 text-xs leading-relaxed text-gray-400">
+                <p className="line-clamp-2 text-xs leading-relaxed text-gray-400 dark:text-gray-500">
                   {musico.bio || "Perfil musical sin bio todavia."}
                 </p>
               </Link>

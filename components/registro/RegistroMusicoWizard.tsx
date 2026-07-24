@@ -67,7 +67,7 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
     return 3;
   };
   const strength = getPasswordStrength(password);
-  const strengthColors = ["bg-gray-200", "bg-red-400", "bg-amber-400", "bg-emerald-400", "bg-emerald-600"];
+  const strengthColors = ["bg-gray-200 dark:bg-gray-700", "bg-red-400", "bg-amber-400", "bg-emerald-400", "bg-emerald-600"];
   const strengthLabels = ["", "Débil", "Regular", "Buena", "Fuerte"];
   const provincia = provinciaDesdeCodigoPostal(codigoPostal);
 
@@ -138,29 +138,29 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
 
       {step === 1 && (
         <div>
-          <h1 className="text-xl font-semibold text-gray-900 mb-1">Crea tu cuenta</h1>
-          <p className="text-gray-400 text-sm mb-8">Paso 1 de 4 · Músico</p>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-1">Crea tu cuenta</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mb-8">Paso 1 de 4 · Músico</p>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Correo electrónico</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">Correo electrónico</label>
               <input
                 type="email"
                 placeholder="tu@email.com"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Contraseña</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">Contraseña</label>
               <input
                 type="password"
                 placeholder="Mínimo 8 caracteres"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
               {password.length > 0 && (
                 <div className="mt-2 space-y-1">
@@ -168,7 +168,7 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
                     {[1, 2, 3, 4].map((i) => (
                       <div
                         key={i}
-                        className={`h-1 flex-1 rounded-full ${strength >= i ? strengthColors[strength] : "bg-gray-200"}`}
+                        className={`h-1 flex-1 rounded-full ${strength >= i ? strengthColors[strength] : "bg-gray-200 dark:bg-gray-700"}`}
                       />
                     ))}
                   </div>
@@ -187,7 +187,7 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
               <button
                 type="button"
                 onClick={onChangeTipo}
-                className="flex-1 border border-gray-200 text-gray-500 font-medium py-2.5 rounded-xl text-sm"
+                className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-medium py-2.5 rounded-xl text-sm"
               >
                 ← Cambiar tipo
               </button>
@@ -207,7 +207,7 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
               </button>
             </div>
           </div>
-          <p className="text-center text-sm text-gray-400 mt-4">
+          <p className="text-center text-sm text-gray-400 dark:text-gray-500 mt-4">
             ¿Ya tienes cuenta?{" "}
             <Link href="/login" className="text-emerald-600 hover:underline font-medium">
               Inicia sesión
@@ -218,21 +218,21 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
 
       {step === 2 && (
         <div>
-          <h1 className="text-xl font-semibold text-gray-900 mb-1">Tu perfil</h1>
-          <p className="text-gray-400 text-sm mb-8">Paso 2 de 4 · Cuéntanos sobre ti</p>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-1">Tu perfil</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mb-8">Paso 2 de 4 · Cuéntanos sobre ti</p>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Nombre artístico</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">Nombre artístico</label>
               <input
                 type="text"
                 placeholder="¿Cómo te conocen?"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Código postal</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">Código postal</label>
               <input
                 type="text"
                 inputMode="numeric"
@@ -243,26 +243,26 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
                   setCodigoPostal(next);
                   setCiudad(provinciaDesdeCodigoPostal(next));
                 }}
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
-              <p className="mt-1 text-xs text-gray-400">
+              <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
                 {provincia ? `Zona detectada: ${provincia}` : "Para encontrar músicos cerca de ti."}
               </p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Bio breve</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">Bio breve</label>
               <textarea
                 placeholder="Qué tocas, qué buscas..."
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 maxLength={200}
                 rows={3}
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
-              <p className="text-xs text-gray-300 text-right mt-1">{bio.length} / 200</p>
+              <p className="text-xs text-gray-300 dark:text-gray-600 text-right mt-1">{bio.length} / 200</p>
             </div>
             <div className="flex gap-3 pt-2">
-              <button type="button" onClick={() => setStep(1)} className="flex-1 border border-gray-200 text-gray-500 font-medium py-2.5 rounded-xl text-sm">
+              <button type="button" onClick={() => setStep(1)} className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-medium py-2.5 rounded-xl text-sm">
                 ← Atrás
               </button>
               <button
@@ -286,8 +286,8 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
 
       {step === 3 && (
         <div>
-          <h1 className="text-xl font-semibold text-gray-900 mb-1">¿Qué tocas?</h1>
-          <p className="text-gray-400 text-sm mb-8">Paso 3 de 4 · Instrumento y objetivo</p>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-1">¿Qué tocas?</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mb-8">Paso 3 de 4 · Instrumento y objetivo</p>
           <div className="grid grid-cols-3 gap-2 mb-6">
             {INSTRUMENTOS.map((inst) => (
               <button
@@ -296,8 +296,8 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
                 onClick={() => setInstrumento(inst.label)}
                 className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border text-sm ${
                   instrumento === inst.label
-                    ? "border-emerald-400 bg-emerald-50 text-emerald-800"
-                    : "border-gray-100 text-gray-500"
+                    ? "border-emerald-400 bg-emerald-50 dark:bg-emerald-950 text-emerald-800"
+                    : "border-gray-100 dark:border-gray-800 text-gray-500 dark:text-gray-400"
                 }`}
               >
                 <span className="text-xl">{inst.icon}</span>
@@ -305,7 +305,7 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
               </button>
             ))}
           </div>
-          <p className="text-sm font-medium text-gray-700 mb-3">¿Qué buscas?</p>
+          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">¿Qué buscas?</p>
           <div className="flex flex-wrap gap-2 mb-6">
             {BUSCA.map((b) => (
               <button
@@ -314,8 +314,8 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
                 onClick={() => toggleBusca(b.label)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
                   busca.includes(b.label)
-                    ? "border-emerald-400 bg-emerald-50 text-emerald-800"
-                    : "border-gray-200 text-gray-500"
+                    ? "border-emerald-400 bg-emerald-50 dark:bg-emerald-950 text-emerald-800"
+                    : "border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400"
                 }`}
               >
                 {b.icon} {b.label}
@@ -323,7 +323,7 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
             ))}
           </div>
           <div className="flex gap-3">
-            <button type="button" onClick={() => setStep(2)} className="flex-1 border border-gray-200 text-gray-500 font-medium py-2.5 rounded-xl text-sm">
+            <button type="button" onClick={() => setStep(2)} className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-medium py-2.5 rounded-xl text-sm">
               ← Atrás
             </button>
             <button type="button" onClick={() => setStep(4)} className="flex-1 bg-emerald-600 text-white font-medium py-2.5 rounded-xl text-sm">
@@ -335,8 +335,8 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
 
       {step === 4 && (
         <div>
-          <h1 className="text-xl font-semibold text-gray-900 mb-1">Tus géneros</h1>
-          <p className="text-gray-400 text-sm mb-8">Paso 4 de 4 · Elige hasta 5</p>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-1">Tus géneros</h1>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mb-8">Paso 4 de 4 · Elige hasta 5</p>
           <div className="flex flex-wrap gap-2 mb-6">
             {GENEROS.map((g) => (
               <button
@@ -345,8 +345,8 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
                 onClick={() => toggleGenero(g)}
                 className={`px-3.5 py-1.5 rounded-full border text-xs font-medium ${
                   generos.includes(g)
-                    ? "border-emerald-400 bg-emerald-50 text-emerald-800"
-                    : "border-gray-200 text-gray-500"
+                    ? "border-emerald-400 bg-emerald-50 dark:bg-emerald-950 text-emerald-800"
+                    : "border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400"
                 }`}
               >
                 {g}
@@ -359,7 +359,7 @@ export default function RegistroMusicoWizard({ onChangeTipo }: Props) {
             </div>
           )}
           <div className="flex gap-3">
-            <button type="button" onClick={() => setStep(3)} className="flex-1 border border-gray-200 text-gray-500 font-medium py-2.5 rounded-xl text-sm">
+            <button type="button" onClick={() => setStep(3)} className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-medium py-2.5 rounded-xl text-sm">
               ← Atrás
             </button>
             <button

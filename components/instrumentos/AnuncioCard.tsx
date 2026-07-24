@@ -21,9 +21,9 @@ export default function AnuncioCard({ anuncio, cerca, esSuscriptor }: Props) {
   return (
     <Link
       href={`/instrumentos/${anuncio.id}`}
-      className="group block border border-gray-100 rounded-2xl overflow-hidden transition-all hover:border-emerald-200 hover:bg-emerald-50/40"
+      className="group block border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden transition-all hover:border-emerald-200 hover:bg-emerald-50/40 hover:dark:bg-emerald-950/40"
     >
-      <div className="aspect-[4/3] bg-gray-50 relative">
+      <div className="aspect-[4/3] bg-gray-50 dark:bg-gray-800 relative">
         <AnuncioFoto src={foto} emoji={emojiCategoria(anuncio.categoria)} />
         {esSuscriptor && (
           <span className="absolute top-2 left-2">
@@ -38,13 +38,13 @@ export default function AnuncioCard({ anuncio, cerca, esSuscriptor }: Props) {
       </div>
 
       <div className="p-4">
-        <p className="text-lg font-semibold text-gray-900 group-hover:text-emerald-700">
+        <p className="text-lg font-semibold text-gray-900 dark:text-gray-50 group-hover:text-emerald-700">
           {formatearPrecioAnuncio(Number(anuncio.precio))}
         </p>
-        <p className="font-medium text-gray-900 text-sm mt-1 line-clamp-2">
+        <p className="font-medium text-gray-900 dark:text-gray-50 text-sm mt-1 line-clamp-2">
           {anuncio.titulo}
         </p>
-        <p className="text-xs text-gray-400 mt-1 truncate">
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1 truncate">
           {etiquetaCategoria(anuncio.categoria)}
           {" · "}
           {etiquetaCondicion(anuncio.condicion)}

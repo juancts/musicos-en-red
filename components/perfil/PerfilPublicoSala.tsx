@@ -26,7 +26,7 @@ export default function PerfilPublicoSala({ sala, espacios, esSuscriptor }: Prop
     <div className="max-w-2xl mx-auto px-4 py-12">
       <Link
         href="/salas"
-        className="text-sm text-gray-400 hover:text-gray-700 inline-flex items-center gap-1 mb-10"
+        className="text-sm text-gray-400 dark:text-gray-500 hover:text-gray-700 hover:dark:text-gray-200 inline-flex items-center gap-1 mb-10"
       >
         ← Centros de ensayo
       </Link>
@@ -40,27 +40,27 @@ export default function PerfilPublicoSala({ sala, espacios, esSuscriptor }: Prop
             Centro multiespacio
           </span>
           <div className="flex items-center gap-2 flex-wrap mt-1">
-            <h1 className="text-xl font-semibold text-gray-900">{sala.nombre}</h1>
+            <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50">{sala.nombre}</h1>
             {esSuscriptor && <BadgeSuscriptor />}
             {sala.disponible && (
-              <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
+              <span className="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
                 Disponible
               </span>
             )}
           </div>
-          <p className="text-sm text-gray-400 mt-0.5">
+          <p className="text-sm text-gray-400 dark:text-gray-500 mt-0.5">
             {sala.provincia || sala.ciudad}
             {sala.codigo_postal ? ` · ${sala.codigo_postal}` : ""}
           </p>
           {numSalas > 0 && (
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               {numSalas} {numSalas === 1 ? "sala de ensayo" : "salas de ensayo"}
             </p>
           )}
           {precio && (
             <p className="mt-2 text-lg font-semibold text-amber-800">
               Desde {precio}
-              <span className="text-sm font-normal text-gray-400"> / hora</span>
+              <span className="text-sm font-normal text-gray-400 dark:text-gray-500"> / hora</span>
             </p>
           )}
           <div className="mt-3">
@@ -71,19 +71,19 @@ export default function PerfilPublicoSala({ sala, espacios, esSuscriptor }: Prop
 
       {sala.direccion && (
         <div className="mb-8">
-          <h2 className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
+          <h2 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">
             Ubicación
           </h2>
-          <p className="text-sm text-gray-600">{sala.direccion}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-300">{sala.direccion}</p>
         </div>
       )}
 
       {sala.bio && (
         <div className="mb-8">
-          <h2 className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">
+          <h2 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">
             Sobre el centro
           </h2>
-          <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
+          <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed whitespace-pre-line">
             {sala.bio}
           </p>
         </div>
@@ -100,18 +100,18 @@ export default function PerfilPublicoSala({ sala, espacios, esSuscriptor }: Prop
 
       {sala.horario && (
         <div className="mb-8">
-          <h2 className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">
+          <h2 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">
             Horario
           </h2>
-          <p className="text-sm text-gray-600 whitespace-pre-line">{sala.horario}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-300 whitespace-pre-line">{sala.horario}</p>
         </div>
       )}
 
       <ContactarSalaButton salaId={sala.id} salaNombre={sala.nombre} ownerId={sala.owner_id} />
 
       {sala.telefono && (
-        <div className="border border-gray-100 rounded-2xl p-5 mt-6">
-          <h2 className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
+        <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-5 mt-6">
+          <h2 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">
             Teléfono
           </h2>
           <a

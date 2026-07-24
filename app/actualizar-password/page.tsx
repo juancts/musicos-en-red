@@ -78,8 +78,8 @@ export default function ActualizarPasswordPage() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <span className="text-4xl">🔑</span>
-          <h1 className="text-2xl font-semibold mt-3 text-gray-900">Nueva contraseña</h1>
-          <p className="text-gray-500 text-sm mt-1">Elige una nueva contraseña para tu cuenta</p>
+          <h1 className="text-2xl font-semibold mt-3 text-gray-900 dark:text-gray-50">Nueva contraseña</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Elige una nueva contraseña para tu cuenta</p>
         </div>
 
         {enlaceInvalido && !listo ? (
@@ -91,7 +91,7 @@ export default function ActualizarPasswordPage() {
             .
           </div>
         ) : actualizado ? (
-          <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm px-3 py-3 rounded-lg text-center">
+          <div className="bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 text-emerald-800 text-sm px-3 py-3 rounded-lg text-center">
             Tu contraseña se actualizó correctamente.{" "}
             <Link href="/login" className="underline font-medium">
               Inicia sesión
@@ -101,7 +101,7 @@ export default function ActualizarPasswordPage() {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Nueva contraseña
               </label>
               <input
@@ -109,14 +109,14 @@ export default function ActualizarPasswordPage() {
                 placeholder="••••••••"
                 required
                 disabled={!listo}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition disabled:bg-gray-50"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition disabled:bg-gray-50 disabled:dark:bg-gray-800"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Confirmar contraseña
               </label>
               <input
@@ -124,7 +124,7 @@ export default function ActualizarPasswordPage() {
                 placeholder="••••••••"
                 required
                 disabled={!listo}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition disabled:bg-gray-50"
+                className="w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition disabled:bg-gray-50 disabled:dark:bg-gray-800"
                 value={confirmar}
                 onChange={(e) => setConfirmar(e.target.value)}
               />

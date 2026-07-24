@@ -78,14 +78,14 @@ export default function MisAnunciosPanel({ userId }: Props) {
 
   if (loading) {
     return (
-      <div className="h-24 rounded-2xl border border-gray-100 bg-gray-50/50 animate-pulse" />
+      <div className="h-24 rounded-2xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 animate-pulse" />
     );
   }
 
   return (
-    <div className="border border-gray-100 rounded-2xl p-6">
+    <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-        <h2 className="text-sm font-medium text-gray-900">Mis anuncios de instrumentos</h2>
+        <h2 className="text-sm font-medium text-gray-900 dark:text-gray-50">Mis anuncios de instrumentos</h2>
         <Link
           href="/instrumentos/nuevo"
           className="text-xs font-medium text-emerald-600 hover:underline"
@@ -101,7 +101,7 @@ export default function MisAnunciosPanel({ userId }: Props) {
       )}
 
       {anuncios.length === 0 ? (
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-400 dark:text-gray-500">
           Aún no tienes anuncios.{" "}
           <Link href="/instrumentos/nuevo" className="text-emerald-600 hover:underline">
             Publica el primero
@@ -112,16 +112,16 @@ export default function MisAnunciosPanel({ userId }: Props) {
           {anuncios.map((a) => (
             <li
               key={a.id}
-              className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-gray-100 px-4 py-3"
+              className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-gray-100 dark:border-gray-800 px-4 py-3"
             >
               <div className="min-w-0">
                 <Link
                   href={`/instrumentos/${a.id}`}
-                  className="text-sm font-medium text-gray-900 hover:text-emerald-700 truncate block"
+                  className="text-sm font-medium text-gray-900 dark:text-gray-50 hover:text-emerald-700 truncate block"
                 >
                   {a.titulo}
                 </Link>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 dark:text-gray-500">
                   {formatearPrecioAnuncio(Number(a.precio))} · {etiquetaEstado(a.estado)}
                 </p>
               </div>
@@ -130,7 +130,7 @@ export default function MisAnunciosPanel({ userId }: Props) {
                   <button
                     type="button"
                     onClick={() => cambiarEstado(a.id, "activo")}
-                    className="text-xs rounded-lg border border-gray-200 px-2.5 py-1 text-gray-600 hover:border-gray-300"
+                    className="text-xs rounded-lg border border-gray-200 dark:border-gray-700 px-2.5 py-1 text-gray-600 dark:text-gray-300 hover:border-gray-300 hover:dark:border-gray-600"
                   >
                     Republicar
                   </button>
@@ -140,14 +140,14 @@ export default function MisAnunciosPanel({ userId }: Props) {
                     <button
                       type="button"
                       onClick={() => cambiarEstado(a.id, "pausado")}
-                      className="text-xs rounded-lg border border-gray-200 px-2.5 py-1 text-gray-600 hover:border-gray-300"
+                      className="text-xs rounded-lg border border-gray-200 dark:border-gray-700 px-2.5 py-1 text-gray-600 dark:text-gray-300 hover:border-gray-300 hover:dark:border-gray-600"
                     >
                       Pausar
                     </button>
                     <button
                       type="button"
                       onClick={() => cambiarEstado(a.id, "vendido")}
-                      className="text-xs rounded-lg bg-emerald-50 px-2.5 py-1 text-emerald-700 hover:bg-emerald-100"
+                      className="text-xs rounded-lg bg-emerald-50 dark:bg-emerald-950 px-2.5 py-1 text-emerald-700 hover:bg-emerald-100 hover:dark:bg-emerald-900"
                     >
                       Marcar vendido
                     </button>

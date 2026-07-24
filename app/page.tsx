@@ -6,13 +6,13 @@ export default function Home() {
     <div>
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-4 py-24 text-center">
-        <span className="inline-block text-xs font-medium text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full mb-6">
+        <span className="inline-block text-xs font-medium text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-3 py-1 rounded-full mb-6">
           La red social para músicos
         </span>
-        <h1 className="text-4xl sm:text-5xl font-semibold text-gray-900 leading-tight mb-5">
+        <h1 className="text-4xl sm:text-5xl font-semibold text-gray-900 dark:text-gray-50 leading-tight mb-5">
           Conecta con músicos<br className="hidden sm:block" /> como tú
         </h1>
-        <p className="text-gray-400 text-lg max-w-md mx-auto mb-10 leading-relaxed">
+        <p className="text-gray-400 dark:text-gray-500 text-lg max-w-md mx-auto mb-10 leading-relaxed">
           Encuentra músicos, forma bandas, comparte partituras y colabora en proyectos musicales.
         </p>
         <HomeHeroActions />
@@ -107,15 +107,15 @@ export default function Home() {
             <Link
               key={f.title}
               href={f.href}
-              className="group block border border-gray-100 rounded-2xl p-6 hover:border-emerald-100 hover:bg-emerald-50/30 transition-all"
+              className="group block border border-gray-100 dark:border-gray-800 rounded-2xl p-6 hover:border-emerald-100 hover:bg-emerald-50/30 hover:dark:bg-emerald-950/30 transition-all"
             >
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-4">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950 flex items-center justify-center mb-4">
                 {f.icon}
               </div>
-              <h3 className="font-medium text-gray-900 text-sm mb-2 group-hover:text-emerald-700 transition-colors">
+              <h3 className="font-medium text-gray-900 dark:text-gray-50 text-sm mb-2 group-hover:text-emerald-700 transition-colors">
                 {f.title}
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
+              <p className="text-gray-400 dark:text-gray-500 text-sm leading-relaxed">{f.desc}</p>
             </Link>
           ))}
         </div>

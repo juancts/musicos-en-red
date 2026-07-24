@@ -31,14 +31,14 @@ function AvatarMini({
   if (avatarUrl) {
     return (
       <div
-        className="w-8 h-8 rounded-full bg-gray-100 bg-cover bg-center flex-shrink-0"
+        className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 bg-cover bg-center flex-shrink-0"
         style={{ backgroundImage: `url(${avatarUrl})` }}
         aria-hidden
       />
     );
   }
   return (
-    <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-semibold text-emerald-700 flex-shrink-0">
+    <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-xs font-semibold text-emerald-700 flex-shrink-0">
       {(nombre ?? "?").charAt(0).toUpperCase()}
     </div>
   );
@@ -142,11 +142,11 @@ export default function HiloComentarios({
   };
 
   return (
-    <div className="mt-3 border-t border-gray-100 pt-3">
+    <div className="mt-3 border-t border-gray-100 dark:border-gray-800 pt-3">
       {cargando ? (
-        <p className="text-xs text-gray-400 py-2">Cargando respuestas...</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500 py-2">Cargando respuestas...</p>
       ) : comentarios.length === 0 ? (
-        <p className="text-xs text-gray-400 py-2">Sé el primero en responder.</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500 py-2">Sé el primero en responder.</p>
       ) : (
         <ul className="space-y-3 mb-3">
           {comentarios.map((c) => {
@@ -167,22 +167,22 @@ export default function HiloComentarios({
                   <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
                     <Link
                       href={`/musicos/${c.autor_id}`}
-                      className="text-xs font-medium text-gray-900 hover:text-emerald-700"
+                      className="text-xs font-medium text-gray-900 dark:text-gray-50 hover:text-emerald-700"
                     >
                       {c.autor?.nombre ?? "Usuario"}
                     </Link>
-                    <span className="text-xs text-gray-300">·</span>
-                    <time className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-300 dark:text-gray-600">·</span>
+                    <time className="text-xs text-gray-400 dark:text-gray-500">
                       {formatearFechaRelativa(c.created_at)}
                     </time>
                   </div>
                   {padre && (
-                    <p className="text-[11px] text-gray-400 mt-0.5">
+                    <p className="text-[11px] text-gray-400 dark:text-gray-500 mt-0.5">
                       Respondiendo a{" "}
                       <span className="text-emerald-600">@{padre.autor?.nombre ?? "usuario"}</span>
                     </p>
                   )}
-                  <p className="text-sm text-gray-700 mt-0.5 whitespace-pre-wrap break-words">
+                  <p className="text-sm text-gray-700 dark:text-gray-200 mt-0.5 whitespace-pre-wrap break-words">
                     {c.contenido}
                   </p>
                   <div className="mt-1 flex gap-3">
@@ -193,7 +193,7 @@ export default function HiloComentarios({
                           setRespondiendoA(c);
                           setTexto(`@${c.autor?.nombre ?? "usuario"} `);
                         }}
-                        className="text-xs text-gray-400 hover:text-emerald-600"
+                        className="text-xs text-gray-400 dark:text-gray-500 hover:text-emerald-600"
                       >
                         Responder
                       </button>
@@ -202,7 +202,7 @@ export default function HiloComentarios({
                       <button
                         type="button"
                         onClick={() => borrar(c)}
-                        className="text-xs text-gray-400 hover:text-red-600"
+                        className="text-xs text-gray-400 dark:text-gray-500 hover:text-red-600"
                       >
                         Eliminar
                       </button>
@@ -224,7 +224,7 @@ export default function HiloComentarios({
               setRespondiendoA(null);
               setTexto("");
             }}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 dark:text-gray-500 hover:text-gray-600 hover:dark:text-gray-300"
           >
             Cancelar
           </button>
@@ -246,7 +246,7 @@ export default function HiloComentarios({
               if (texto.trim()) enviar();
             }
           }}
-          className="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:bg-gray-50"
+          className="flex-1 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:bg-gray-50 disabled:dark:bg-gray-800"
         />
         <button
           type="button"

@@ -19,7 +19,7 @@ export function RegistroLogo() {
           <circle cx="18" cy="16" r="3" />
         </svg>
       </div>
-      <span className="font-semibold text-gray-900 text-sm">Músicos en Red</span>
+      <span className="font-semibold text-gray-900 dark:text-gray-50 text-sm">Músicos en Red</span>
     </div>
   );
 }
@@ -31,7 +31,7 @@ export function ProgressBar({ step, total }: { step: number; total: number }) {
         <div
           key={s}
           className={`h-1 flex-1 rounded-full transition-all duration-300 ${
-            s <= step ? "bg-emerald-600" : "bg-gray-100"
+            s <= step ? "bg-emerald-600" : "bg-gray-100 dark:bg-gray-800"
           }`}
         />
       ))}
@@ -49,7 +49,7 @@ export function PantallaExito({
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="w-full max-w-sm text-center">
-        <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-950 border border-emerald-100 flex items-center justify-center mx-auto mb-6">
           <svg
             width="28"
             height="28"
@@ -63,10 +63,10 @@ export function PantallaExito({
             <path d="M20 6 9 17l-5-5" />
           </svg>
         </div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">¡Ya casi estás!</h2>
-        <p className="text-gray-400 text-sm leading-relaxed">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-50 mb-2">¡Ya casi estás!</h2>
+        <p className="text-gray-400 dark:text-gray-500 text-sm leading-relaxed">
           Hemos enviado un enlace de confirmación a{" "}
-          <span className="text-gray-700 font-medium">{email}</span>. Confírmalo
+          <span className="text-gray-700 dark:text-gray-200 font-medium">{email}</span>. Confírmalo
           para activar tu cuenta.
         </p>
         {extra && <div className="mt-6">{extra}</div>}

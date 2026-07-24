@@ -7,12 +7,12 @@ export const metadata = {
 export default function PrivacidadPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-16">
-      <h1 className="text-3xl font-semibold text-gray-900 mb-2">Política de privacidad</h1>
-      <p className="text-sm text-gray-400 mb-10">Última actualización: 17 de julio de 2026</p>
+      <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-50 mb-2">Política de privacidad</h1>
+      <p className="text-sm text-gray-400 dark:text-gray-500 mb-10">Última actualización: 17 de julio de 2026</p>
 
-      <div className="space-y-8 text-sm text-gray-600 leading-relaxed">
+      <div className="space-y-8 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">1. Responsable del tratamiento</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2">1. Responsable del tratamiento</h2>
           <p>
             {DATOS_LEGALES.nombreResponsable}
             {DATOS_LEGALES.nif ? `, NIF ${DATOS_LEGALES.nif}` : ""}
@@ -27,7 +27,7 @@ export default function PrivacidadPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">2. Qué datos recopilamos</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2">2. Qué datos recopilamos</h2>
           <ul className="list-disc pl-5 space-y-1">
             <li>
               <strong>Cuenta:</strong> email y contraseña, o email, nombre y foto si te registras
@@ -58,7 +58,7 @@ export default function PrivacidadPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">3. Para qué usamos tus datos</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2">3. Para qué usamos tus datos</h2>
           <ul className="list-disc pl-5 space-y-1">
             <li>Crear y gestionar tu cuenta y tu perfil público.</li>
             <li>Mostrar tu perfil a otros usuarios cuando buscan músicos, salas o instrumentos.</li>
@@ -69,7 +69,7 @@ export default function PrivacidadPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">4. Base legal</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2">4. Base legal</h2>
           <p>
             Tratamos tus datos en base a la ejecución del contrato de uso del servicio (los
             términos que aceptas al registrarte) y, en el caso de los datos de contacto que
@@ -78,7 +78,7 @@ export default function PrivacidadPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">5. Con quién compartimos tus datos</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2">5. Con quién compartimos tus datos</h2>
           <p className="mb-2">
             No vendemos tus datos. Los compartimos únicamente con los proveedores necesarios para
             operar la plataforma, que actúan como encargados del tratamiento:
@@ -102,7 +102,7 @@ export default function PrivacidadPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">6. Conservación</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2">6. Conservación</h2>
           <p>
             Conservamos tus datos mientras tu cuenta esté activa. Si la eliminas, borraremos o
             anonimizaremos tus datos personales, salvo que debamos conservar algún dato por
@@ -111,7 +111,7 @@ export default function PrivacidadPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">7. Tus derechos</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2">7. Tus derechos</h2>
           <p>
             Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición,
             limitación y portabilidad escribiendo a{" "}
@@ -125,7 +125,7 @@ export default function PrivacidadPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">8. Seguridad</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2">8. Seguridad</h2>
           <p>
             Aplicamos medidas técnicas razonables para proteger tus datos, incluyendo control de
             acceso a nivel de base de datos. Ningún sistema es 100% seguro, por lo que no podemos
@@ -134,7 +134,7 @@ export default function PrivacidadPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">9. Menores de edad</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2">9. Menores de edad</h2>
           <p>
             La plataforma no está dirigida a menores de 16 años. Si detectamos una cuenta de un
             menor de esa edad, procederemos a eliminarla.
@@ -142,7 +142,7 @@ export default function PrivacidadPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">10. Cambios en esta política</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-2">10. Cambios en esta política</h2>
           <p>
             Podemos actualizar esta política para reflejar cambios en el servicio o en la
             normativa aplicable. Publicaremos la fecha de la última actualización al inicio de

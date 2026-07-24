@@ -87,7 +87,7 @@ export default function ReportarButton({
       <button
         type="button"
         onClick={abrir}
-        className={`text-xs text-gray-400 hover:text-red-600 transition-colors ${className ?? ""}`}
+        className={`text-xs text-gray-400 dark:text-gray-500 hover:text-red-600 transition-colors ${className ?? ""}`}
       >
         Reportar
       </button>
@@ -95,12 +95,12 @@ export default function ReportarButton({
   }
 
   return (
-    <div className={`text-left border border-gray-100 rounded-xl p-3 ${className ?? ""}`}>
-      <p className="text-xs font-medium text-gray-700 mb-2">¿Por qué reportas esto?</p>
+    <div className={`text-left border border-gray-100 dark:border-gray-800 rounded-xl p-3 ${className ?? ""}`}>
+      <p className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-2">¿Por qué reportas esto?</p>
       <select
         value={motivo}
         onChange={(e) => setMotivo(e.target.value)}
-        className="w-full border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-2"
+        className="w-full border border-gray-200 dark:border-gray-700 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-2"
       >
         {MOTIVOS_REPORTE.map((m) => (
           <option key={m} value={m}>
@@ -114,7 +114,7 @@ export default function ReportarButton({
         maxLength={500}
         rows={2}
         placeholder="Detalles adicionales (opcional)"
-        className="w-full border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-2 resize-none"
+        className="w-full border border-gray-200 dark:border-gray-700 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-2 resize-none"
       />
       {error && <p className="text-xs text-red-600 mb-2">{error}</p>}
       <div className="flex gap-2">
@@ -129,7 +129,7 @@ export default function ReportarButton({
         <button
           type="button"
           onClick={() => setAbierto(false)}
-          className="text-xs text-gray-400 hover:text-gray-600"
+          className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 hover:dark:text-gray-300"
         >
           Cancelar
         </button>

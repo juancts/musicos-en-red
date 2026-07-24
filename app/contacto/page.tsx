@@ -8,8 +8,8 @@ export default function ContactoPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-16 text-center">
       <span className="text-4xl">✉️</span>
-      <h1 className="text-3xl font-semibold text-gray-900 mt-3 mb-2">Contacto</h1>
-      <p className="text-gray-500 text-sm max-w-md mx-auto mb-8">
+      <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-50 mt-3 mb-2">Contacto</h1>
+      <p className="text-gray-500 dark:text-gray-400 text-sm max-w-md mx-auto mb-8">
         ¿Dudas, problemas con tu cuenta o quieres reportar algo? Escríbenos y te responderemos lo
         antes posible.
       </p>
