@@ -15,6 +15,7 @@ type MusicoExplorar = {
   codigo_postal: string | null;
   provincia: string | null;
   bio: string | null;
+  avatar_url: string | null;
   instrumento: string | null;
   generos: string[] | null;
   busca: string[] | null;
@@ -141,7 +142,7 @@ export default function ExplorarPage() {
       const { data, error } = await supabase
         .from("usuarios")
         .select(
-          "id, tipo, nombre, ciudad, codigo_postal, provincia, bio, instrumento, generos, busca, disponible, created_at"
+          "id, tipo, nombre, ciudad, codigo_postal, provincia, bio, avatar_url, instrumento, generos, busca, disponible, created_at"
         )
         .order("created_at", { ascending: false });
 
@@ -421,9 +422,17 @@ export default function ExplorarPage() {
                 className="group block rounded-2xl border border-gray-100 p-4 transition-all hover:border-emerald-200 hover:bg-emerald-50/40"
               >
                 <div className="mb-3 flex items-center gap-3">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 text-sm font-semibold text-emerald-700">
-                    {musico.nombre?.charAt(0).toUpperCase() ?? "?"}
-                  </div>
+                  {musico.avatar_url ? (
+                    <div
+                      aria-label="Avatar del perfil"
+                      className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-100 bg-cover bg-center"
+                      style={{ backgroundImage: `url(${musico.avatar_url})` }}
+                    />
+                  ) : (
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 text-sm font-semibold text-emerald-700">
+                      {musico.nombre?.charAt(0).toUpperCase() ?? "?"}
+                    </div>
+                  )}
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium text-gray-900 transition-colors group-hover:text-emerald-700">
                       {musico.nombre || "Musico sin nombre"}
