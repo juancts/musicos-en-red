@@ -3,6 +3,7 @@ import "@/app/globals.css"
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
 import PlausibleAnalytics from "@/components/analytics/PlausibleAnalytics"
+import MetaPixel from "@/components/analytics/MetaPixel"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://musicosenred.com"),
@@ -59,6 +60,7 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <MetaPixel />
       </head>
       <body className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors">
         <PlausibleAnalytics />
