@@ -390,7 +390,8 @@ export default function MensajesInbox() {
               <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800 flex items-center gap-3">
                 <Link
                   href="/mensajes"
-                  className="sm:hidden text-sm text-gray-400 dark:text-gray-500 hover:text-gray-700 hover:dark:text-gray-200"
+                  className="sm:hidden -m-2 p-2 text-base text-gray-400 dark:text-gray-500 hover:text-gray-700 hover:dark:text-gray-200"
+                  aria-label="Volver a conversaciones"
                 >
                   ←
                 </Link>

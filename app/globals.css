@@ -24,3 +24,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* iOS Safari hace zoom automático al enfocar un input/textarea/select con
+   font-size menor a 16px. La mayoría de los formularios usan text-sm (14px)
+   por diseño, así que forzamos 16px solo en mobile en vez de tocar cada
+   componente. */
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}

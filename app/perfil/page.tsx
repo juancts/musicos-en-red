@@ -15,6 +15,7 @@ import { esSala, perfilSelect, TIPO_MUSICO } from "@/lib/usuario";
 import { centroSelect, type CentroMusical } from "@/lib/centro";
 import PanelCentro from "@/components/perfil/PanelCentro";
 import MisCentrosPanel from "@/components/perfil/MisCentrosPanel";
+import EliminarCuentaSeccion from "@/components/perfil/EliminarCuentaSeccion";
 import MisAnunciosPanel from "@/components/instrumentos/MisAnunciosPanel";
 import SuscripcionPanel from "@/components/suscripcion/SuscripcionPanel";
 
@@ -410,6 +411,7 @@ export default function PerfilPage() {
     return (
       <div className="max-w-5xl mx-auto px-4 py-12">
         <PanelCentro user={user} centro={miCentro} onCentroActualizado={setMiCentro} />
+        <EliminarCuentaSeccion />
       </div>
     );
   }
@@ -461,6 +463,8 @@ export default function PerfilPage() {
       ) : (
         <VistaPerfil user={user} perfil={perfil} partituras={partituras} />
       )}
+
+      <EliminarCuentaSeccion />
     </div>
   );
 }
