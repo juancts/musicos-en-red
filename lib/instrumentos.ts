@@ -131,17 +131,16 @@ export function mensajeErrorEsquemaInstrumentos(error: PostgrestError | null) {
 
   if (faltaTabla) {
     return {
-      titulo: "Falta la migración de instrumentos",
-      detalle: "Ejecuta 004_instrumentos_marketplace.sql en Supabase → SQL Editor.",
+      titulo: "No pudimos cargar los anuncios",
+      detalle: "Inténtalo de nuevo en unos segundos.",
       tecnico: error.message,
     };
   }
 
   if (msg.includes("bucket") || msg.includes("storage")) {
     return {
-      titulo: "Falta el bucket de fotos",
-      detalle:
-        "Ejecuta 004_instrumentos_marketplace.sql (crea el bucket anuncios-instrumentos) o créalo en Storage.",
+      titulo: "No pudimos cargar las fotos",
+      detalle: "Inténtalo de nuevo en unos segundos.",
       tecnico: error.message,
     };
   }

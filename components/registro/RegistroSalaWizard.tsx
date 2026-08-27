@@ -133,12 +133,7 @@ export default function RegistroSalaWizard({ onChangeTipo }: Props) {
         });
 
         if (insertError) {
-          setError(
-            insertError.message.includes("tipo") ||
-              insertError.message.includes("servicios")
-              ? "Falta configurar la base de datos. Ejecuta las migraciones 001 y 003 en Supabase."
-              : "No pudimos guardar tu centro. Inténtalo de nuevo."
-          );
+          setError("No pudimos guardar tu centro. Inténtalo de nuevo.");
           return;
         }
 

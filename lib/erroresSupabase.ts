@@ -15,9 +15,8 @@ export function mensajeErrorEsquemaSalas(error: PostgrestError | null) {
 
   if (faltaColumna) {
     return {
-      titulo: "Falta la migración de salas en Supabase",
-      detalle:
-        "Ejecuta 001_salas_ensayo.sql y 003_centro_multiespacio.sql en el SQL Editor (Run).",
+      titulo: "No pudimos cargar las salas",
+      detalle: "Inténtalo de nuevo en unos segundos.",
       tecnico: error.message,
     };
   }
@@ -25,15 +24,14 @@ export function mensajeErrorEsquemaSalas(error: PostgrestError | null) {
   if (error.code === "42501" || msg.includes("permission denied") || msg.includes("rls")) {
     return {
       titulo: "Sin permiso para leer salas",
-      detalle:
-        "Vuelve a ejecutar 001_salas_ensayo.sql: incluye las políticas RLS de lectura pública.",
+      detalle: "Inténtalo de nuevo en unos segundos.",
       tecnico: error.message,
     };
   }
 
   return {
     titulo: "Error al cargar salas",
-    detalle: "Revisa la consola de Supabase o ejecuta las migraciones del proyecto.",
+    detalle: "Inténtalo de nuevo en unos segundos.",
     tecnico: error.message,
   };
 }

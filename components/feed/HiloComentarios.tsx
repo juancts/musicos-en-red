@@ -120,11 +120,7 @@ export default function HiloComentarios({
     setEnviando(false);
 
     if (insertError || !data) {
-      setError(
-        insertError?.message.includes("publicacion_comentarios")
-          ? "Ejecuta 006_feed_likes_comentarios.sql en Supabase."
-          : insertError?.message || "No se pudo publicar el comentario."
-      );
+      setError("No se pudo publicar el comentario. Inténtalo de nuevo.");
       return;
     }
 

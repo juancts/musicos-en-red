@@ -22,7 +22,7 @@ export default function TipoCuentaSelector({ onSelect }: Props) {
       if (error) {
         setError(
           error.message.includes("Unsupported provider")
-            ? "Google todavia no esta habilitado en Supabase Auth."
+            ? "El inicio de sesión con Google no está disponible en este momento."
             : error.message
         );
         setGoogleLoading(false);

@@ -11,7 +11,7 @@ function mensajeErrorLogin(errorMessage: string) {
   }
 
   if (errorMessage.includes("Unsupported provider")) {
-    return "Google todavia no esta habilitado en Supabase Auth.";
+    return "El inicio de sesión con Google no está disponible en este momento.";
   }
 
   return errorMessage;

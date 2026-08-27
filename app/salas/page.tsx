@@ -170,17 +170,6 @@ export default function SalasPage() {
         <div className="max-w-lg mx-auto text-center py-16 px-4">
           <p className="text-sm font-medium text-red-600 mb-2">{errorInfo.titulo}</p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{errorInfo.detalle}</p>
-          <div className="rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 px-4 py-3 text-left text-xs text-gray-500 dark:text-gray-400">
-            <p className="font-medium text-gray-600 dark:text-gray-300 mb-1">Pasos en Supabase</p>
-            <ol className="list-decimal list-inside space-y-1">
-              <li>Proyecto → SQL Editor → New query</li>
-              <li>
-                Pega el contenido de{" "}
-                <code className="text-gray-700 dark:text-gray-200">014_centros.sql</code>
-              </li>
-              <li>Pulsa Run y recarga esta página</li>
-            </ol>
-          </div>
           {process.env.NODE_ENV === "development" && (
             <p className="mt-4 text-[11px] text-gray-400 dark:text-gray-500 break-all">{errorInfo.tecnico}</p>
           )}

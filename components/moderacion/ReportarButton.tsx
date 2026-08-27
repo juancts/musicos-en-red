@@ -63,11 +63,7 @@ export default function ReportarButton({
     setEnviando(false);
 
     if (insertError) {
-      setError(
-        insertError.message.includes("reportes")
-          ? "Ejecuta supabase/migrations/011_moderacion.sql en Supabase."
-          : "No se pudo enviar el reporte."
-      );
+      setError("No se pudo enviar el reporte.");
       return;
     }
 

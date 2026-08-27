@@ -195,14 +195,17 @@ export default function PerfilPage() {
           user.user_metadata?.avatar_url ?? user.user_metadata?.picture ?? null;
         const { data: nuevoPerfil, error: insertError } = await supabase
           .from("usuarios")
-          .insert({
-            id: user.id,
-            tipo: TIPO_MUSICO,
-            nombre: nombreFallback,
-            email: user.email,
-            avatar_url: avatarFallback,
-            disponible: true,
-          })
+          .upsert(
+            {
+              id: user.id,
+              tipo: TIPO_MUSICO,
+              nombre: nombreFallback,
+              email: user.email,
+              avatar_url: avatarFallback,
+              disponible: true,
+            },
+            { onConflict: "id" }
+          )
           .select(perfilSelect)
           .single();
 
@@ -365,7 +368,7 @@ export default function PerfilPage() {
     return (
       <EstadoVacio
         title="Inicia sesión para ver tu perfil"
-        text="Tu perfil se carga con los datos asociados a tu cuenta de Supabase."
+        text="Tu perfil se carga con los datos asociados a tu cuenta."
         actionHref="/login"
         actionText="Entrar"
       />
@@ -387,7 +390,7 @@ export default function PerfilPage() {
     return (
       <EstadoVacio
         title="No pudimos cargar tu perfil"
-        text="Revisa la conexión con Supabase o inténtalo de nuevo en unos segundos."
+        text="Revisa tu conexión o inténtalo de nuevo en unos segundos."
         actionHref="/"
         actionText="Volver al inicio"
       />
@@ -419,7 +422,7 @@ export default function PerfilPage() {
           </span>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Mi perfil</h1>
           <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
-            Datos cargados desde tu cuenta de Supabase
+            Datos cargados desde tu cuenta
           </p>
         </div>
 

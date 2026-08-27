@@ -66,9 +66,7 @@ export default function ContactarVendedorButton({
 
     if (convError || !conversacionId) {
       setCargando(false);
-      setError(
-        "No pudimos abrir el chat. ¿Ejecutaste la migración de mensajes (002) en Supabase?"
-      );
+      setError("No pudimos abrir el chat. Inténtalo de nuevo.");
       return;
     }
 

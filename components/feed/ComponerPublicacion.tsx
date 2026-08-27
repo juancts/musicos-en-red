@@ -62,11 +62,7 @@ export default function ComponerPublicacion({ userId, onPublicado }: Props) {
     setEnviando(false);
 
     if (insertError) {
-      setError(
-        insertError.message.includes("publicaciones")
-          ? "Ejecuta 005_feed_publicaciones.sql en Supabase."
-          : insertError.message || "No se pudo publicar."
-      );
+      setError("No se pudo publicar. Inténtalo de nuevo.");
       return;
     }
 

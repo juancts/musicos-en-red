@@ -73,9 +73,7 @@ export default function ContactarSalaButton({ salaId, salaNombre, ownerId }: Pro
     setCargando(false);
 
     if (convError || !conversacionId) {
-      setError(
-        "No pudimos abrir la conversación. ¿Ejecutaste la migración de mensajes en Supabase?"
-      );
+      setError("No pudimos abrir la conversación. Inténtalo de nuevo.");
       return;
     }
 

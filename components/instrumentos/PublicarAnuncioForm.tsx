@@ -93,10 +93,7 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
       const { urls, error: fotoError } = await subirFotosAnuncio(userId, fotos);
       if (fotoError || !urls) {
         setGuardando(false);
-        setError(
-          fotoError?.message ??
-            "No se pudieron subir las fotos. Ejecuta 004_instrumentos_marketplace.sql en Supabase."
-        );
+        setError(fotoError?.message ?? "No se pudieron subir las fotos. Inténtalo de nuevo.");
         return;
       }
       fotoUrls = urls;
@@ -128,9 +125,7 @@ export default function PublicarAnuncioForm({ userId, ubicacionInicial }: Props)
       setError(
         insertError?.message.includes("limite_anuncios_activos")
           ? `El plan gratuito permite hasta ${LIMITE_ANUNCIOS_GRATIS} anuncios activos. Suscríbete desde tu perfil para publicar sin límite.`
-          : insertError?.message.includes("anuncios_instrumentos")
-            ? "Ejecuta la migración 004_instrumentos_marketplace.sql en Supabase."
-            : "No pudimos publicar el anuncio. Inténtalo de nuevo."
+          : "No pudimos publicar el anuncio. Inténtalo de nuevo."
       );
       return;
     }

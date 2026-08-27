@@ -53,11 +53,7 @@ export default function BloquearUsuarioButton({ usuarioId, redirectLogin, classN
     setCargando(false);
 
     if (opError) {
-      setError(
-        opError.message.includes("bloqueos")
-          ? "Ejecuta supabase/migrations/011_moderacion.sql en Supabase."
-          : "No se pudo completar la acción."
-      );
+      setError("No se pudo completar la acción.");
       return;
     }
 
