@@ -378,10 +378,11 @@ export default function PerfilPage() {
   if (estado === "sin-perfil") {
     return (
       <EstadoVacio
-        title="No encontramos tu perfil musical"
-        text="Hay una sesión activa, pero todavía no existe una fila asociada en la tabla usuarios."
+        title="No pudimos terminar de crear tu perfil"
+        text="Puede que la conexión se haya cortado a mitad de camino. Vuelve a intentarlo — no hace falta que te registres de nuevo."
         actionHref="/registro"
-        actionText="Completar registro"
+        actionText="Reintentar"
+        onAction={() => window.location.reload()}
       />
     );
   }
@@ -1062,11 +1063,13 @@ function EstadoVacio({
   text,
   actionHref,
   actionText,
+  onAction,
 }: {
   title: string;
   text: string;
   actionHref: string;
   actionText: string;
+  onAction?: () => void;
 }) {
   return (
     <div className="max-w-5xl mx-auto px-4 py-24 text-center">
@@ -1088,12 +1091,22 @@ function EstadoVacio({
       </div>
       <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-50">{title}</h1>
       <p className="mx-auto mt-2 max-w-md text-sm text-gray-400 dark:text-gray-500">{text}</p>
-      <Link
-        href={actionHref}
-        className="mt-6 inline-flex rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
-      >
-        {actionText}
-      </Link>
+      {onAction ? (
+        <button
+          type="button"
+          onClick={onAction}
+          className="mt-6 inline-flex rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
+        >
+          {actionText}
+        </button>
+      ) : (
+        <Link
+          href={actionHref}
+          className="mt-6 inline-flex rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
+        >
+          {actionText}
+        </Link>
+      )}
     </div>
   );
 }
